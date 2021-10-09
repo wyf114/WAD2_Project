@@ -1,0 +1,326 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+body{
+    overflow-x: hidden;
+    background: white;
+    min-height: 100vh;
+}
+.sea{
+    background: url("./img/sea2.jpg");
+    position: relative;
+    padding: 100px;
+    height: 550px;
+    animation: backgroundMove 20s linear infinite;
+}
+
+section{
+    position: relative;
+    width:100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section #text
+{
+    position: absolute;
+    color: cadetblue;
+    font-size: 100px;
+    text-align: center;
+    line-height: 0.55em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+section img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+section::before
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background:linear-gradient(to bottom,transparent, #8ed5e7 );
+    z-index: 5;
+
+}
+#treeLeft{
+    width: 350px;
+    height: 500px;
+    top:50px;
+
+} 
+#treeRight{
+    width: 350px;
+    height: 500px;
+    top:50px;
+    left:70%;
+
+} 
+#sun{
+    height: 100px;
+    width: 100px;
+    left: 92%;
+}
+#btn{
+    text-decoration: none;
+    display:inline-block;
+    padding: 8px 30px;
+    background: blanchedalmond;
+    color:darkblue;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    transform: translateY(100px);
+
+    
+}
+
+.bottle{
+    position:absolute;
+    animation: bottleMove 15s linear infinite;
+}
+#bottle1:hover, #bottle2:hover, #bottle3:hover, #bottle4:hover, #bottle5:hover, #bottle6:hover{
+    width: 200px;
+
+}
+#bottle1{
+    top:50%;
+    width: 100px;
+    animation-delay: -3s;
+}
+#bottle2{
+    top:50%;
+    width: 100px;
+    animation-delay: -7s;
+}
+#bottle3{
+    top:50%;
+    width: 100px;
+    animation-delay: -10s;
+}
+#bottle4{
+    top:20%;
+    width: 100px;
+    animation-delay: -8s;
+}
+#bottle5{
+    top:20%;
+    width: 100px;
+    animation-delay: -4s;
+}
+#bottle6{
+    top:20%;
+    width: 100px;
+}
+
+@keyframes bottleMove{
+    0%{
+       left:0%;
+    }
+    10%{
+       transform: rotate(-20deg);
+    }
+    20%{
+        transform: rotate(20deg);
+    }
+    30%{
+        transform: rotate(-20deg);
+    }
+    40%{
+        transform: rotate(20deg);
+    }
+    50%{
+        transform: rotate(-20deg);
+    }
+    60%{
+        transform: rotate(20deg);
+    }
+    70%{
+        transform: rotate(-20deg);
+    }
+    80%{
+        transform: rotate(20deg);
+    }
+    90%{
+        transform: rotate(-20deg);
+    }
+    100%{
+        left:100%;
+        transform: rotate(20deg);
+    }
+}
+
+
+
+/* try waves */
+
+
+#wave1
+{
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    bottom: 0;
+    left: 0;
+    opacity: 0.7;
+    background: url("./img/wave.png");
+    animation: waveMove 10s linear infinite;
+}
+
+#wave1:before 
+{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 200px;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    background: url("./img/wave.png");
+    animation: waveMove-reverse 10s linear infinite;
+}
+
+#wave1:after 
+{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 200px;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    background: url("./img/wave.png");
+    animation-delay: -5s;
+    animation: waveMove 20s linear infinite;
+}
+
+/* try second group of waves */
+#wave2 
+{
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+    background: url("./img/wave.png");
+    animation: waveMove 3s linear infinite;
+}
+
+#wave2:before 
+{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 200px;
+    top: 0px;
+    left: 0;
+    opacity: 0.2;
+    background: url("./img/wave.png");
+    animation: waveMove-reverse 3s linear infinite;
+}
+
+#wave2:after 
+{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 200px;
+    top: 0px;
+    left: 0;
+    opacity: 0.4;
+    background: url("./img/wave.png");
+    animation-delay: -2s;
+    animation: waveMove 5s linear infinite;
+}
+
+
+
+
+@keyframes waveMove
+{
+0% {
+    background-position: 0;
+}
+100% {
+    background-position: 1902px;
+}
+}
+
+@keyframes waveMove-reverse 
+{
+0% {
+    background-position: 1902px;
+}
+100% {
+    background-position: 0;
+}
+}
+
+@keyframes backgroundMove
+{
+0% {
+    background-position: 0;
+}
+100% {
+    background-position: 1360px;
+}
+}
+
+/* @keyframes backGroundMove-reverse 
+{
+0% {
+    background-position: 1360px;
+}
+100% {
+    background-position: 0;
+}
+} */
+
+
+
+/* #dogPic, #catPic {
+    width: 56px;
+    height: 100px;
+    position: absolute;
+    bottom: 200px;
+    left: 50px;
+    z-index: 10;
+  }
+   */
+  #glove {
+    /* background: blue; */
+    /* top: 50px;*/
+    width: 56px;
+    height: 100px;
+    position: absolute;
+    left: 700px; 
+    z-index: 10;
+    bottom: 50px;
+  }
+  #fishingNet{
+    width: 203px;
+    height: 100px;
+    position: absolute;
+    left: 800px; 
+    z-index: 10;
+    bottom: 50px;
+  }

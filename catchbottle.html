@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./catchbottle.css">
+    <title>Animated CSS Background</title>
+</head>
+
+<body>
+    <!-- <section>
+        <div class="wave"></div>
+        <div class="wave2"></div>
+       
+    </section> -->
+
+    <section>
+        <h2 id="text">Hello World</h2>
+        <img src="./img/birdLeft.png" id="birdLeft">
+        <img src="./img/birdRight.png" id="birdRight">
+        <img src="./img/sun.png" id="sun">
+        <img src="./img/treeLeft.png" id="treeLeft">
+        <img src="./img/treeRight.png" id="treeRight">
+
+        <a href="#jumpToSea" id="btn">Start</a>
+        <img src="./img/sand.png" id="sand">
+        <div id="glove">
+            <img src="./img/glove.png">
+        </div>
+        <div id="fishingNet">
+            <img src="./img/fishingNet.png">
+        </div>
+
+
+    </section>
+    <!-- <div id="dogPic"></div>
+        <div id="catPic"></div> -->
+    <div class="sea" id="jumpToSea">
+        <!-- <p>smth</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati veniam beatae rerum natus quidem, laboriosam ducimus impedit reprehenderit repudiandae officia dolores labore perferendis non voluptates similique cum enim, corporis doloremque consectetur at iste facere numquam inventore? Nostrum delectus iusto, excepturi!Lorem ipsum dolor sit amet, consectetur adipisicing elit. At id eaque quis illum molestias sit vitae, placeat optio! Beatae consectetur laudantium totam. Alias, voluptatem quaerat, distinctio ipsam amet iusto beatae eligendi commodi vitae et repudiandae dolores blanditiis assumenda ab, iste. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus alias quae sapiente ex, nostrum consectetur. Id quidem architecto, enim beatae error unde harum non quas quia consequuntur tempora nesciunt quos saepe dolorem placeat accusamus rerum nemo voluptatum, repellat eum laudantium dicta debitis repudiandae. Ut a maxime dolore fugiat hic consequuntur culpa aperiam explicabo, at, itaque odio mollitia tempora officia officiis dolor animi molestias enim sed doloremque eveniet nobis repellat.</p>
+     -->
+
+        <img src="./img/bottle.png" class="bottle" id="bottle1">
+        <img src="./img/bottle.png" class="bottle" id="bottle2">
+        <img src="./img/bottle.png" class="bottle" id="bottle3">
+        <img src="./img/bottle.png" class="bottle" id="bottle4">
+        <img src="./img/bottle.png" class="bottle" id="bottle5">
+        <img src="./img/bottle.png" class="bottle" id="bottle6">
+
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+        <!-- <div id="dogPic"></div>
+        <div id="catPic"></div> -->
+    </div>
+    <script>
+
+
+
+        let text = document.getElementById("text");
+        let birdLeft = document.getElementById("birdLeft");
+        let birdRight = document.getElementById("birdRight");
+        let btn = document.getElementById("btn");
+        let treeLeft = document.getElementById("treeLeft");
+        let treeRight = document.getElementById("treeRight");
+        let sand = document.getElementById("sand");
+
+        window.addEventListener("scroll", function () {
+            let value = window.scrollY;
+
+            text.style.top = 50 + value * -0.3 + '%';
+            birdRight.style.top = value * -1.5 + 'px';
+            birdRight.style.left = value * 2 + 'px';
+            birdLeft.style.top = value * -1.5 + 'px';
+            birdLeft.style.left = value * -5 + 'px';
+            btn.style.marginTop = value * 1.5 + 'px';
+            // sand.style.top=value*-0.12+'px';
+            treeLeft.style.top = value * 0.25 + 'px';
+            treeRight.style.top = value * 0.25 + 'px';
+            sun.style.top = value * -1.5 + 'px';
+
+        })
+
+        // catch bottle
+        var glove = document.getElementById("glove");
+        var fishingNet = document.getElementById("fishingNet");
+        var moving = false;
+        var bottle1=document.getElementById("bottle1");
+
+        glove.addEventListener("mousedown", initialClick, false);
+        fishingNet.addEventListener("mousedown", initialClick, false);
+
+
+        function move(e) {
+
+            var newX = e.pageX - 20;
+            var newY = e.pageY - 50;
+
+            image.style.left = newX + "px";
+            image.style.top = newY + "px";
+        
+                // console.log(bottle1.x);
+                // console.log(newX);
+                if (bottle1.x < newX +36 &&
+                    bottle1.x +36 > newX &&
+                    bottle1.y < newY + 50 &&
+                    bottle1.y + 50 > newY) {
+                    prompt("open this letter!");
+                }
+
+            
+
+        }
+
+        function initialClick(e) {
+
+            if (moving) {
+                document.removeEventListener("mousemove", move);
+                moving = !moving;
+                return;
+            }
+
+            moving = !moving;
+            image = this;
+
+            document.addEventListener("mousemove", move, false);
+
+        }
+
+        var bottles = document.getElementsByClassName('bottle');
+        
+        // for (bottle of bottles) {
+        //     console.log(bottle);
+        //     console.log(bottle.x);
+        //     console.log(glove.x);
+        //     if (bottle.x < glove.x + glove.width &&
+        //         bottle.x + bottle.width > glove.x &&
+        //         bottle.y < glove.y + glove.height &&
+        //         bottle.y + bottle.height > glove.y) {
+        //         console.log("touched!");
+        //     }
+
+        // }
+
+
+
+        // let isColliding = function (bottle1, glove) {
+
+        //     let d1Offset = bottle1.offset();
+        //     let d1Height = bottle1.outerHeight(true);
+        //     let d1Width = bottle1.outerWidth(true);
+        //     let d1Top = d1Offset.top + d1Height;
+        //     let d1Left = d1Offset.left + d1Width;
+
+        //     let d2Offset = glove.offset();
+        //     let d2Height = glove.outerHeight(true);
+        //     let d2Width = glove.outerWidth(true);
+        //     let d2Top = d2Offset.top + d2Height;
+        //     let d2Left = d2Offset.left + d2Width;
+
+        //     return !(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left);
+        //     console.log("hi");
+        // };
+        // isColliding();
+
+    </script>
+</body>
+
+</html>
