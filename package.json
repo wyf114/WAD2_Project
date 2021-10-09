@@ -1,0 +1,20 @@
+{
+  "name": "WAD2_Project",
+  "version": "1.0.0",
+  "description": "<br/> <img src=\"https://cdn.discordapp.com/attachments/818102115058450474/887315665273368596/pipbw.gif\" />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weiyifan114/WAD2_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weiyifan114/WAD2_Project/issues"
+  },
+  "homepage": "https://github.com/weiyifan114/WAD2_Project#readme"
+}
