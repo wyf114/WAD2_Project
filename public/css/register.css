@@ -1,0 +1,45 @@
+h3{
+    text-align: center;
+}
+
+.container-float {
+    width: 30%;
+    margin: auto;
+    /* margin-top: 10%; */
+    padding-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.774);
+    background-color:rgb(117, 143, 192);
+    color: white;
+    vertical-align: middle;
+    border-radius: 2%;
+    z-index: 1;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+  
+}
+
+input[type=text],input[type=password], select {
+    width: 90%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#form {
+    font-size: 14;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;    
+}
+
+.btn-primary {
+    margin-top: 8px;
+    justify-content: center;
+}
+
+img {
+    width: 100%;
+    /* background-size: cover; */
+    background-size: 100%;
+}
+

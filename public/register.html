@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration Page</title>
+
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+    <img src="../public/img/sea_register.jpeg" alt="">
+    <div class="container-float">
+        <h3>User Registration</h3>
+            <form action="#" id="form" class="justify-content-center-sm9">    
+                Username: <input type="text" name="username" id="username">
+                Password: <input type="password" name="password" id="password">
+                Verify Password: <input type="password" name="verify" id="verify">
+                Telegram ID: <input type="text" name="tele" id="tele">
+                Gender: <select name="gender" id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                Country: <select name="country" id="country">
+                    <option value="selectCy">Select a country</option>
+                <!-- <p id="axios"></p>   -->
+                </select> 
+    
+                <!-- <script>
+                    var select = document.getElementById("country");
+                    axios.get('https://countriesnow.space/api/v0.1/countries')
+                    .then( response =>  {
+                        console.log(response.data.data[0])
+                        var countries = response.data.data;
+                        for (var i = 0; i<=5; i++){
+                            var country = countries[i]['country'];
+                            // document.write("<option value='" + i + "'>" + country + "</option>");
+                            var option = document.createElement("option");
+                            option.setAttribute("value", i);
+                            var text = document.createTextNode(country);
+                            option.appendChild(text);
+                            select.appendChild(option);
+                            };
+                        console.log("finish");
+                        document.write("City: <select name='city' id='city'>")
+                        document.write("<option value='selectCt' >Select a ciy</option>")
+                        var getCountry = document.getElementById('country').value;
+                        var cities = countries[getCountry]['cities'];
+                        cities.forEach(element => {
+                            document.write("<option value='" + element + "'>" + element + "</option>");
+                        }
+                    )})
+                    .catch(error => {
+                        console.log(error.message)
+                        // document.getElementById("axios").innerText = error.message;
+                    });  
+                </script> -->
+                <input class="btn btn-primary" type="submit" value="Register" onclick=register()>
+
+            </form>
+    </div>
+</div>
+    <p id="status"></p>  
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script> 
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+            // write data to database
+            function register() {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                var verify = document.getElementById("verify").value;
+                var tele = document.getElementById("tele").value;
+                var gender = document.getElementById("gender").value;
+                var country = document.getElementById("country").value;
+                var city = document.getElementById("city").value;
+                checkIfUserExists(username)
+            }
+            //The following writes the data
+            function writeUserData(username) {
+                firebase.database().ref('username/' + username).set({
+                    username: username,
+                }).then(function() {
+                    document.getElementById("status").innerText = "Register succeeded.";
+                })
+                .catch(function(error) {
+                    document.getElementById("status").innerText = "Register Failed.";
+                });
+            }
+            function checkIfUserExists(username) {
+                var user = firebase.database().ref('username/' + username);
+                user.once('value').then((snapshot) => {
+                    if(snapshot.exists()) {
+                    document.getElementById("status").innerText = "Username has already been taken.";
+                    }
+                    else {
+                        writeUserData(username);
+                    }
+                });
+            }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    
+</body>
+</html>
