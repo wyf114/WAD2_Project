@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous">
+
+    <style>
+        textarea {
+            margin: 0px;
+        }
+
+        .nav-link {
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        .form-group {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+    
+    <title>Profile Creation</title>
+</head>
+
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light bg-dark">
+        <!--group and hide navbar contents by a parent breakpoint-->
+        <div class="navbar">
+            <nav class="nav">
+                <a class="nav-link active text-white" href="catchbottle.html">Home</a>
+            </nav>
+        </div>
+        <div class="navbar center">
+            <nav class="nav">
+                <a class="nav-link active text-white" href="#">LOGO</a>
+            </nav>
+        </div>
+        <div class="navbar justify-content-end">
+            <nav class="nav">
+                <a class="nav-link active text-white" href="#">Profile</a>
+            </nav>   
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-7">
+                <div style="background-color: lightyellow; height: 500px;">character creation idk</div>
+            </div>
+
+            <div class="col">
+                <form action="">
+                    <div class="container">
+
+                        <!-- self intro -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="description">Self Introduction</label><br>
+                                <textarea class="form-control" name="description" id="description" placeholder="Introduce Yourself"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Youtube Account -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="youtube_username">Youtube Username</label>
+                                <input class="form-control" type="text" name="youtube_username" id="youtube_username">
+                            </div>
+                        </div>
+
+                        <!-- Instagram Account -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="instagram_username">Instagram Username</label>
+                                <input class="form-control" type="text" name="instagram_username" id="instagram_username">
+                            </div>
+                        </div>
+
+                        <!-- Spotify Account -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="spotify_username">Spotify Username</label>
+                                <input class="form-control" type="text" name="spotify_username" id="spotify_username">
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Bundled Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+</html>
