@@ -32,7 +32,7 @@ input[type=text],input[type=password], select {
     text-align: center;    
 }
 
-.btn-primary {
+.btn {
     margin-top: 8px;
     justify-content: center;
 }
