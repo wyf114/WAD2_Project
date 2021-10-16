@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration Page</title>
+
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <img src="../public/img/sea_register.jpeg" alt="">
+        <div class="container-float">
+            <h3>User Registration</h3>
+            <form action="#" id="form" class="justify-content-center-sm9">
+                Username: <input type="text" name="username" id="username">
+                Password: <input type="password" name="password" id="password" minlength="8">
+                Verify Password: <input type="password" name="verify" id="verify">
+                Telegram ID: <input type="text" name="tele" id="tele">
+                Gender: <select name="gender" id="gender" onclick="listCountry()">
+                    <option value="gender" selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                Country: <select name="country" id="country" onchange="listCity()">
+                    <option value="choose">Please select your country</option>
+                    <script>
+                        // generate country dropdown list 
+                        function listCountry() {
+                            var selectList = document.getElementById("country");
+                            axios.get('https://countriesnow.space/api/v0.1/countries')
+                                .then(response => {
+                                    console.log(response.data.data[0])
+                                    var countries = response.data.data;
+                                    for (var i = 0; i <= countries.length; i++) {
+                                        var country = countries[i]['country'];
+                                        var option = document.createElement("option");
+                                        option.value = i;
+                                        option.text = country;
+                                        selectList.appendChild(option);
+                                    };
+                                })
+                                .catch(error => {
+                                    console.log(error.message)
+                                    // document.getElementById("axios").innerText = error.message;
+                                });
+                        }
+                    </script>
+                </select>
+
+                City: <select name="city" id="city">
+                    <option value="choose">Please select your city</option>
+                    <script>
+                        // generate city dropdown list
+                        function listCity() {
+                            var countryID = document.getElementById("country").value;
+                            var selectList1 = document.getElementById("city");
+                            axios.get('https://countriesnow.space/api/v0.1/countries')
+                                .then(response => {
+                                    var countries = response.data.data;
+                                    var cities = countries[countryID]['cities'];
+                                    cities.forEach(element => {
+                                        var option1 = document.createElement("option");
+                                        option1.value = element;
+                                        option1.text = element;
+                                        selectList1.appendChild(option1);
+                                        // document.write("<option value='" + element + "'>" + element + "</option>");
+                                    })
+                                })
+                        }
+                    </script>
+                </select>
+
+                <input class="btn btn-primary" type="submit" value="Register"
+                    onclick="checkIfUserExists(document.getElementById('username').value)">
+                <input class="btn btn-success" type="submit" value="Update"
+                    onclick="updateUser(document.getElementById('username').value)">
+
+                <p id='status'></p>
+
+
+            </form>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+        // Config and Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // check user status 
+        console.log("before checking user");
+
+        function checkIfUserExists(username) {
+            console.log("start checking user");
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    document.getElementById("status").innerText = "Username has already been taken.";
+                    console.log("taken");
+                } else {
+                    var password = document.getElementById("password").value;
+                    var verify = document.getElementById("verify").value;
+                    checkPassword(password, verify);
+                }
+            });
+        }
+
+        // check password
+        function checkPassword(password, verify) {
+            if (password != verify) {
+                document.getElementById("status").innerText = "Passwords are not matched";
+            } else {
+                var username = document.getElementById("username").value;
+                // var gender = document.getElementById("gender").value;
+                // var tele = document.getElementById("tele").value;
+                // var country = document.getElementById("country").value;
+                // var city = document.getElementById("city").value;
+                writeUserData(username, password);
+            }
+        }
+
+        // writes the data to db
+        function writeUserData(username, password) {
+            firebase.database().ref('users/' + username).set({
+                    password: password,
+                    // telegram_id: tele
+                    // gender: gender
+                    // country: country,
+                    // city: city,
+                }).then(function () {
+                    document.getElementById("status").innerText = "Register succeeded.";
+                })
+                .catch(function (error) {
+                    document.getElementById("status").innerText = "Register Failed.";
+                });
+        }
+
+        // update user data
+        function updateUser(username) {
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    var username = document.getElementById("username").value;
+                    var tele = document.getElementById("tele").value;
+                    var password = document.getElementById("password").value;
+                    var updates = {};
+                    updates['/users/' + username + "/" + 'telegram_id'] = tele;
+                    updates['/users/' + username + "/" + 'password'] = password;
+                    firebase.database().ref().update(updates);
+                    document.getElementById("status").innerText = "User has been updated.";
+                } else {
+                    document.getElementById("status").innerText = "User does not exist.";
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+
+</body>
+
+</html>
