@@ -39,7 +39,6 @@ input[type=text],input[type=password], select {
 
 img {
     width: 100%;
-    /* background-size: cover; */
-    background-size: 100%;
+    background-size: cover;
+    height: auto;
 }
-

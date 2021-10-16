@@ -25,6 +25,11 @@
             margin-top: 15px;
             margin-bottom: 15px;
         }
+
+        .btn {
+            margin-left: 40%;
+        } 
+        
     </style>
     
     <title>Profile Creation</title>
@@ -61,6 +66,12 @@
             <div class="col">
                 <form action="">
                     <div class="container">
+                        <div class="row">
+                            <div class="form-group">
+                                <textarea class="form-control" name="username" id="username" value='wyf' hidden></textarea>
+                            </div>
+                        </div>
+
 
                         <!-- self intro -->
                         <div class="row">
@@ -94,13 +105,59 @@
                             </div>
                         </div>
 
-                    </div>
+                        <input class="btn btn-primary" type="submit" value="Update"
+                        onclick="updateUser(document.getElementById('username').value)">
+    
+                    </div>    
                 </form>
+
+                <p id="status"></p>
             </div>
         </div>
-
-
     </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    
+    <script>
+        // Config and Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // update user data
+        function updateUser(username) {
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    var spotify_username = document.getElementById("spotify_username");
+                    var instagram_username = document.getElementById("instagram_username");
+                    var youtube_username = document.getElementById("youtube_username");
+                    var description = document.getElementById("description");
+                    var updates = {};
+                    updates['/users/' + username + "/" + 'telegram_id'] = instagram_username;
+                    updates['/users/' + username + "/" + 'spotify_username'] = spotify_username;
+                    updates['/users/' + username + "/" + 'youtube_username'] = youtube_username;
+                    updates['/users/' + username + "/" + 'description'] = description;
+
+                    firebase.database().ref().update(updates);
+                    document.getElementById("status").innerText = "User has been updated.";
+                } else {
+                    document.getElementById("status").innerText = "User does not exist.";
+                }
+            });
+        }
+
+    </script>
 
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
