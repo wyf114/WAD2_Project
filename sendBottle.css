@@ -1,0 +1,19 @@
+
+#text{
+      background: url(./img/letterBackground.png);
+      width: 600px;
+      height: 527px;
+      /* width: 80%; */
+      
+      
+  }
+  p{
+    margin: auto;
+    padding: 50px;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+  }
+.row{
+      display: flex;
+  }
