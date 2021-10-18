@@ -4,6 +4,7 @@
       width: 600px;
       height: 527px;
       /* width: 80%; */
+      word-wrap: break-word;
       
       
   }
