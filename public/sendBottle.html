@@ -25,6 +25,8 @@
                     <form>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Type your message</label>
+                            <div id="speechbutton" class="btn btn-success">speech recognition</div>
+                            <div id="output"></div>
                             <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
                                 maxlength="500"></textarea>
                         </div>
@@ -46,7 +48,7 @@
     </div>
 
 
-
+    
 
     <script>
 
@@ -56,6 +58,8 @@
         })
         
     </script>
+
+    <script src="js/speechRecognition/speech.js"></script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
