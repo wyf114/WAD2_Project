@@ -11,7 +11,19 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
     crossorigin="anonymous">
 
+    <!-- using CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
     <style>
+        body {
+            background-image: url("img/sea2.jpg");
+        }
+
+        .div {
+            margin: 0px;
+            padding: 0px;
+        }
+
         textarea {
             margin: 0px;
         }
@@ -29,7 +41,11 @@
         .btn {
             margin-left: 40%;
         } 
-        
+
+        .ch-part {
+            display: flex;
+            justify-content: center;
+        }
     </style>
     
     <title>Profile Creation</title>
@@ -57,13 +73,68 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid pt-3">
         <div class="row">
-            <div class="col-7">
-                <div style="background-color: lightyellow; height: 500px;">character creation idk</div>
+            <div class="col-lg-7 col-12">
+                <div class="container align-items-center">
+                    <!-- HEAD -->
+                    <div class="row" id="head">
+                        <!-- previous arrow-->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow_previous.png" alt="" :style="{'width': width, 'height': height}" @click="previous" style="cursor: pointer">
+                        </div>
+
+                        <!-- character part -->
+                        <div class="col-md-4 col-6">
+                            <img :src="head" :style="{'width': width, 'height': height}" alt="">
+                        </div>
+
+                        <!-- next arrow -->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow.png" alt="" :style="{'width': width, 'height': height}" @click="next" style="cursor: pointer">
+                        </div>
+                    </div>
+                    
+                    <!-- BODY -->
+                    <div class="row" id="body">
+                        <!-- previous arrow-->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow_previous.png" alt="" :style="{'width': width, 'height': height}" @click="previous" style="cursor: pointer">
+                        </div>
+
+                        <!-- character part -->
+                        <div class="col-md-4 col-6">
+                            <img :src="body" :style="{'width': width, 'height': height}" alt="">
+                        </div>
+
+                        <!-- next arrow -->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow.png" alt="" :style="{'width': width, 'height': height}" @click="next" style="cursor: pointer">
+                        </div>
+                    </div>
+
+
+                    <!-- LEG -->
+                    <div class="row" id="leg">
+                        <!-- previous arrow-->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow_previous.png" alt="" :style="{'width': width, 'height': height}" @click="previous" style="cursor: pointer">
+                        </div>
+
+                        <!-- character part -->
+                        <div class="col-md-4 col-6">
+                            <img :src="leg" :style="{'width': width, 'height': height}" alt="">
+                        </div>
+
+                        <!-- next arrow -->
+                        <div class="col-md-4 col-3 mt-5 mt-md-0">
+                                <img class="arrow" src="img/arrow.png" alt="" :style="{'width': width, 'height': height}" @click="next" style="cursor: pointer">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="col">
+            <div class="col-lg-5 col-12">
                 <form action="">
                     <div class="container">
                         <div class="row">
@@ -105,15 +176,7 @@
                             </div>
                         </div>
 
-                        <!-- Telegram Account -->
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="telegram_info">Telegram chat_id</label>
-                                <input class="form-control" type="text" name="telegram_info" id="telegram_info">
-                            </div>
-                        </div>
-
-                        <input class="btn btn-primary" type="button" value="Update"
+                        <input class="btn btn-primary" type="submit" value="Update"
                         onclick="updateUser(document.getElementById('username').value)">
     
                     </div>    
@@ -130,13 +193,126 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
     
     <script>
-        var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info", "description"]
+        // character script
+    
+        // Character's Head
+        Vue.createApp({ 
+            data() {
+                return {
+                    idx: 0,
+                    width: '100%',
+                    height: 'auto',
+                    heads: [
+                        'img/character_head1.png',
+                        'img/character_head2.png'
+                    ]
+                }
+            },
+            methods: {
+                next() {
+                    if(this.idx >= this.heads.length-1) {
+                        return this.idx = 0
+                    } else {
+                        return this.idx += 1
+                    }
+                    console.log("home")
+                },
+                previous() {
+                    if(this.idx <= 0) {
+                        return this.idx = this.heads.length-1
+                    } else {
+                        return this.idx -= 1
+                    }
+                }
+            },
+            computed: {
+                head(){
+                    return this.heads[this.idx]
+                }
+            },
+            
+        }).mount('#head')
 
-        
-        username = localStorage.username;
-        console.log(username);
-        document.getElementById("username").value= username;
 
+        // Character's Body
+        Vue.createApp({ 
+            data() {
+                return {
+                    idx: 0,
+                    width: '100%',
+                    height: 'auto',
+                    bodies: [
+                        'img/character_body1.png',
+                        'img/character_body2.png'
+                    ]
+                }
+            },
+            methods: {
+                next() {
+                    if(this.idx >= this.bodies.length-1) {
+                        return this.idx = 0
+                    } else {
+                        return this.idx += 1
+                    }
+                },
+                previous() {
+                    if(this.idx <= 0) {
+                        return this.idx = this.bodies.length-1
+                    } else {
+                        return this.idx -= 1
+                    }
+                }
+            },
+            computed: {
+                body(){
+                    return this.bodies[this.idx]
+                }
+            },
+            
+        }).mount('#body')
+
+
+        // Character's Legs
+        Vue.createApp({ 
+            data() {
+                return {
+                    idx: 0,
+                    width: '100%',
+                    height: 'auto',
+                    legs: [
+                        'img/character_leg1.png',
+                        'img/character_leg2.png'
+                    ]
+                }
+            },
+            methods: {
+                next() {
+                    if(this.idx >= this.legs.length-1) {
+                        return this.idx = 0
+                    } else {
+                        return this.idx += 1
+                    }
+                },
+                previous() {
+                    if(this.idx <= 0) {
+                        return this.idx = this.legs.length-1
+                    } else {
+                        return this.idx -= 1
+                    }
+                }
+            },
+            computed: {
+                leg(){
+                    return this.legs[this.idx]
+                }
+            },
+            
+        }).mount('#leg')
+
+    </script>
+
+
+    <script>
         // Config and Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
@@ -149,43 +325,19 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-
-
-        function updateProfilePage(username) {
-            console.log(username + " updating profile")
-            var user = firebase.database().ref('users/' + username);
-            user.once('value').then((snapshot) => {
-                var user = snapshot.val();
-                for (profileInfo of PROFILEINFOS){
-                    console.log(profileInfo);
-                    let profileElement = document.getElementById(profileInfo);
-                    profileElement.value = user[profileInfo];
-                }
-
-        })
-    }
-    updateProfilePage(username);
-    
-
-
-
-
         // update user data
         function updateUser(username) {
-            console.log("updating" + username);
             var user = firebase.database().ref('users/' + username);
             user.once('value').then((snapshot) => {
                 if (snapshot.exists()) {
-                    var spotify_username = document.getElementById("spotify_username").value;
-                    var instagram_username = document.getElementById("instagram_username").value;
-                    var youtube_username = document.getElementById("youtube_username").value;
-                    var telegram_info = document.getElementById("telegram_info").value;
-                    var description = document.getElementById("description").value;
+                    var spotify_username = document.getElementById("spotify_username");
+                    var instagram_username = document.getElementById("instagram_username");
+                    var youtube_username = document.getElementById("youtube_username");
+                    var description = document.getElementById("description");
                     var updates = {};
-                    updates['/users/' + username + "/" + 'instagram_username'] = instagram_username;
+                    updates['/users/' + username + "/" + 'telegram_id'] = instagram_username;
                     updates['/users/' + username + "/" + 'spotify_username'] = spotify_username;
                     updates['/users/' + username + "/" + 'youtube_username'] = youtube_username;
-                    updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
                     updates['/users/' + username + "/" + 'description'] = description;
 
                     firebase.database().ref().update(updates);
