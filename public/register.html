@@ -82,10 +82,10 @@
                     </script>
                 </select>
 
-                <input class="btn btn-primary" type="submit" value="Register" onclick="checkPassword()">
+                <input class="btn btn-primary" type="button" value="Register" onclick="checkPassword()">
                 <!-- <input class="btn btn-primary" type="submit" value="Register"
                     onclick="register()"> -->
-                <input class="btn btn-success" type="submit" value="Update"
+                <input class="btn btn-success" type="button" value="Update"
                     onclick="updateUser(document.getElementById('username').value)">
 
                 <p id='status'></p>
@@ -161,7 +161,12 @@
                     password: password,
                     gender: gender,
                     country: country,
-                    city: city
+                    city: city,
+                    instagram_username: "",
+                    spotify_username: "",
+                    youtube_username: "",
+                    telegram_info: "",
+                    description: ""
                 }).then(function () {
                     document.getElementById("status").innerText = "Register succeeded.";
                 })

@@ -105,7 +105,15 @@
                             </div>
                         </div>
 
-                        <input class="btn btn-primary" type="submit" value="Update"
+                        <!-- Telegram Account -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="telegram_info">Telegram chat_id</label>
+                                <input class="form-control" type="text" name="telegram_info" id="telegram_info">
+                            </div>
+                        </div>
+
+                        <input class="btn btn-primary" type="button" value="Update"
                         onclick="updateUser(document.getElementById('username').value)">
     
                     </div>    
@@ -122,6 +130,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
     
     <script>
+        var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info", "description"]
+
+        
+        username = localStorage.username;
+        console.log(username);
+        document.getElementById("username").value= username;
+
         // Config and Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
@@ -134,19 +149,43 @@
         };
         firebase.initializeApp(firebaseConfig);
 
+
+
+        function updateProfilePage(username) {
+            console.log(username + " updating profile")
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                var user = snapshot.val();
+                for (profileInfo of PROFILEINFOS){
+                    console.log(profileInfo);
+                    let profileElement = document.getElementById(profileInfo);
+                    profileElement.value = user[profileInfo];
+                }
+
+        })
+    }
+    updateProfilePage(username);
+    
+
+
+
+
         // update user data
         function updateUser(username) {
+            console.log("updating" + username);
             var user = firebase.database().ref('users/' + username);
             user.once('value').then((snapshot) => {
                 if (snapshot.exists()) {
-                    var spotify_username = document.getElementById("spotify_username");
-                    var instagram_username = document.getElementById("instagram_username");
-                    var youtube_username = document.getElementById("youtube_username");
-                    var description = document.getElementById("description");
+                    var spotify_username = document.getElementById("spotify_username").value;
+                    var instagram_username = document.getElementById("instagram_username").value;
+                    var youtube_username = document.getElementById("youtube_username").value;
+                    var telegram_info = document.getElementById("telegram_info").value;
+                    var description = document.getElementById("description").value;
                     var updates = {};
-                    updates['/users/' + username + "/" + 'telegram_id'] = instagram_username;
+                    updates['/users/' + username + "/" + 'instagram_username'] = instagram_username;
                     updates['/users/' + username + "/" + 'spotify_username'] = spotify_username;
                     updates['/users/' + username + "/" + 'youtube_username'] = youtube_username;
+                    updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
                     updates['/users/' + username + "/" + 'description'] = description;
 
                     firebase.database().ref().update(updates);
