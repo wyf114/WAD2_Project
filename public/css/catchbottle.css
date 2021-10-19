@@ -13,12 +13,12 @@ body{
     min-height: 100vh;
 }
 .sea{
-    background: url("./img/sea2.jpg");
+    background: url("../img/sea2.jpg");
     position: relative;
     padding: 100px;
     height: 550px;
     animation: backgroundMove 20s linear infinite;
-    cursor : url("./img/fishingNet.png"), default;
+    cursor : url("../img/fishingNet.png"), default;
 }
 
 section{
@@ -192,7 +192,7 @@ section::before
     bottom: 0;
     left: 0;
     opacity: 0.7;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation: waveMove 10s linear infinite;
 }
 
@@ -205,7 +205,7 @@ section::before
     top: 0;
     left: 0;
     opacity: 0.3;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation: waveMove-reverse 10s linear infinite;
 }
 
@@ -218,7 +218,7 @@ section::before
     top: 0;
     left: 0;
     opacity: 0.5;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation-delay: -5s;
     animation: waveMove 20s linear infinite;
 }
@@ -232,7 +232,7 @@ section::before
     bottom: 0;
     left: 0;
     opacity: 0.6;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation: waveMove 3s linear infinite;
 }
 
@@ -245,7 +245,7 @@ section::before
     top: 0px;
     left: 0;
     opacity: 0.2;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation: waveMove-reverse 3s linear infinite;
 }
 
@@ -258,7 +258,7 @@ section::before
     top: 0px;
     left: 0;
     opacity: 0.4;
-    background: url("./img/wave.png");
+    background: url("../img/wave.png");
     animation-delay: -2s;
     animation: waveMove 5s linear infinite;
 }
@@ -319,7 +319,7 @@ section::before
   }
 
   #catched{
-    background: url(./img/letterBackground.png);
+    background: url("../img/letterBackground.jpg");
     width: 600px;
     height: 527px;
     margin: auto;
