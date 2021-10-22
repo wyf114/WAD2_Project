@@ -35,12 +35,13 @@
                             <input type="file" class="form-control-file" id="exampleFormControlFile1">
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary mb-2" onclick="generate(document.getElementById('exampleFormControlTextarea1'))">Confirm</button>
+                            <button type="button" class="btn btn-primary mb-2" onclick="generate(document.getElementById('exampleFormControlTextarea1').value)">Confirm</button>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-6" id="text">
                     <p>{{message}}</p>
+                    <p id="status"></p>
                 </div>
             </div>
         </div>
@@ -80,18 +81,29 @@
         firebase.initializeApp(firebaseConfig);
 
         // writes the data to db
-        function generate(message) {
-            var username = localStorage.username;
-            console.log(username);
-            firebase.database().ref('users/' + username).set({
-                    message:message
-                }).then(function () {
-                    document.getElementById("status").innerText = "Message sent.";
-                })
-                .catch(function (error) {
-                    document.getElementById("status").innerText = "Fail to send message.";
+        if (localStorage.username != null){
+            function generate(message) {
+                var username = localStorage.username;
+                console.log("updating" + username);
+                var user = firebase.database().ref('users/' + username);
+                user.once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+                        console.log("msg:" + message);
+                        var updates = {};
+                        updates['/users/' + username + "/" + 'bottle_message'] = message;
+                        firebase.database().ref().update(updates);
+                        document.getElementById("status").innerText = "User has been updated.";
+                    } else {
+                        document.getElementById("status").innerText = "User does not exist.";
+                    }
                 });
+            }
         }
+        else {
+            window.location.href = 'login.html';
+            alert("please login first!!");
+        }
+
 
     </script>
     

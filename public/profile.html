@@ -221,7 +221,7 @@
                         </div>
 
                         <input class="btn btn-primary" type="button" value="Update"
-                        onclick="updateUser(document.getElementById('username').value)">
+                        onclick="updateUser(localStorage.username)">
     
                     </div>    
                 </form>
@@ -327,9 +327,9 @@
         var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info", "description"]
 
 
-        username = localStorage.username;
-        console.log(username);
-        document.getElementById("username").value= username;
+        // username = localStorage.username;
+        // console.log(username);
+        // document.getElementById("username").value= username;
 
         // Config and Initialize Firebase
         const firebaseConfig = {
@@ -343,20 +343,20 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-            function updateProfilePage(username) {
-                console.log(username + " updating profile")
-                var user = firebase.database().ref('users/' + username);
-                user.once('value').then((snapshot) => {
-                    var user = snapshot.val();
-                    for (profileInfo of PROFILEINFOS){
-                        console.log(profileInfo);
-                        let profileElement = document.getElementById(profileInfo);
-                        profileElement.value = user[profileInfo];
-                    }
+        //     function updateProfilePage(username) {
+        //         console.log(username + " updating profile")
+        //         var user = firebase.database().ref('users/' + username);
+        //         user.once('value').then((snapshot) => {
+        //             var user = snapshot.val();
+        //             for (profileInfo of PROFILEINFOS){
+        //                 console.log(profileInfo);
+        //                 let profileElement = document.getElementById(profileInfo);
+        //                 profileElement.value = user[profileInfo];
+        //             }
 
-            })
-        }
-        updateProfilePage(username);
+        //     })
+        // }
+        // updateProfilePage(username);
 
         // update user data
         function updateUser(username) {
