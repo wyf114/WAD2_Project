@@ -115,6 +115,8 @@ section::before
 #bottle1{
     top:50%;
     width: 100px;
+    position:absolute;
+    animation: bottleMove 15s linear infinite;
     animation-delay: -3s;
 }
 #bottle2{
