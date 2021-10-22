@@ -20,9 +20,7 @@
             <h3>User Registration</h3>
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
                 Username: <input type="text" name="username" id="username" required>
-                <input class="btn btn-primary" type="submit" value="Check"
-                    onclick="checkIfUserExists(document.getElementById('username').value)">
-                <p>Your username cannot be changed once registered</p>
+                <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once registered</p>
 
                 Password: <input type="password" name="password" id="password" minlength="8" required>
                 Verify Password: <input type="password" name="verify" id="verify" required>
@@ -82,9 +80,7 @@
                     </script>
                 </select>
 
-                <input class="btn btn-primary" type="button" value="Register" onclick="checkPassword()">
-                <!-- <input class="btn btn-primary" type="submit" value="Register"
-                    onclick="register()"> -->
+                <input class="btn btn-primary" type="button" value="Register" onclick="checkIfUserExists(document.getElementById('username').value)">
                 <input class="btn btn-success" type="button" value="Update"
                     onclick="updateUser(document.getElementById('username').value)">
 
@@ -113,18 +109,18 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        var users = firebase.database().ref('users');
-        users.on('child_added', (snapshot) => {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-            var hour = today.getHours();
-            var minute = today.getMinutes();
-            var second = today.getSeconds();
-            today = hour + ':' + minute + ':' + second + ' ' + mm + '/' + dd + '/' + yyyy;
-            document.getElementById("latest").innerText = "Last user registered at " + today;
-        });
+        // var users = firebase.database().ref('users');
+        // users.on('child_added', (snapshot) => {
+        //     var today = new Date();
+        //     var dd = String(today.getDate()).padStart(2, '0');
+        //     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        //     var yyyy = today.getFullYear();
+        //     var hour = today.getHours();
+        //     var minute = today.getMinutes();
+        //     var second = today.getSeconds();
+        //     today = hour + ':' + minute + ':' + second + ' ' + mm + '/' + dd + '/' + yyyy;
+        //     document.getElementById("latest").innerText = "Last user registered at " + today;
+        // });
 
         // check user status 
         function checkIfUserExists(username) {
@@ -133,7 +129,7 @@
                 if (snapshot.exists()) {
                     document.getElementById("status").innerText = "User ID has already been taken.";
                 } else {
-                    document.getElementById("status").innerText = "User ID is available.";
+                    checkPassword();
                 }
             });
         }
@@ -169,6 +165,7 @@
                     description: ""
                 }).then(function () {
                     document.getElementById("status").innerText = "Register succeeded.";
+                    window.location.href = 'login.html';
                 })
                 .catch(function (error) {
                     document.getElementById("status").innerText = "Register Failed.";

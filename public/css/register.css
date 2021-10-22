@@ -42,3 +42,8 @@ img {
     background-size: cover;
     height: auto;
 }
+
+.link {
+    color: blanchedalmond;
+    text-decoration: underline;
+}

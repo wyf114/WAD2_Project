@@ -343,21 +343,6 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        //     function updateProfilePage(username) {
-        //         console.log(username + " updating profile")
-        //         var user = firebase.database().ref('users/' + username);
-        //         user.once('value').then((snapshot) => {
-        //             var user = snapshot.val();
-        //             for (profileInfo of PROFILEINFOS){
-        //                 console.log(profileInfo);
-        //                 let profileElement = document.getElementById(profileInfo);
-        //                 profileElement.value = user[profileInfo];
-        //             }
-
-        //     })
-        // }
-        // updateProfilePage(username);
-
         // update user data
         function updateUser(username) {
             console.log("updating" + username);
