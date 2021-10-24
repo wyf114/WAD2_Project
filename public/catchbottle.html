@@ -28,18 +28,51 @@
 
     </section>
 
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div id="catched">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h3>Laura NIELSEN</h3>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    
+    <script>
+        // Config and Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat illo necessitatibus aperiam vero,
-                inventore modi architecto ex facilis error in distinctio quia repellendus maiores perferendis quae
-                temporibus minima dignissimos! Eligendi?</p>
-        </div>
+        function MessageList() {
+            var msg = {};
+            var user = firebase.database().ref('users/');
+            user.once('value').then((snapshot) => {
+                var user = snapshot.val();
+                console.log(user)
+                for ( i in user) {
+                    console.log(user[i]['bottle_message'])
+                }
+
+            })
+        }
+        MessageList();
+
+
+    </script>
+    
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+       <div id="catched">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+           <h3>Laura NIELSEN</h3>
+           
+           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat illo necessitatibus aperiam vero, inventore modi architecto ex facilis error in distinctio quia repellendus maiores perferendis quae temporibus minima dignissimos! Eligendi?</p>
+       </div>
     </div>
 
     <div class="sea" id="jumpToSea">
