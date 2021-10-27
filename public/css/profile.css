@@ -1,0 +1,98 @@
+body {
+    background-image: url("../img/sea2.jpg");
+}
+
+.div {
+    margin: 0px;
+    padding: 0px;
+}
+
+textarea {
+    margin: 0px;
+}
+
+.nav-link {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.form-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    margin-left: 40%;
+}
+
+.ch-part {
+    display: flex;
+    justify-content: center;
+}
+
+.arrow {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.arrow_previous {
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+}
+
+.arrow_next {
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+}
+
+.parts {
+    width: 300px;
+    /* Can be in percentage also. */
+    height: 600px;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    position: relative;
+}
+
+#head {
+    position: absolute;
+}
+
+#body {
+    position: absolute;
+    top: 230px;
+    z-index: -1;
+}
+
+#leg {
+    position: absolute;
+    top: 475px;
+    z-index: -2;
+}
+
+@media screen and (max-width: 600px) {
+    .parts {
+        width: 150px;
+        /* Can be in percentage also. */
+        height: 300px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+    }
+
+    #body {
+        position: absolute;
+        top: 120px;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        top: 245px;
+        z-index: -2;
+    }
+}

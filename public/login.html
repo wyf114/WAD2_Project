@@ -21,11 +21,12 @@
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
                 Username: <input type="text" name="username" id="username" required>
                 Password: <input type="password" name="password" id="password" required>
-                
+
                 <p>Haven't owned an account? <br>
                     <a class="link" href="register.html">click here to register</a></p>
 
-                <input class="btn btn-primary" type="button" value="Login" onclick="checkIfUserExists(document.getElementById('username').value)">
+                <input class="btn btn-primary" type="button" value="Login"
+                    onclick="checkIfUserExists(document.getElementById('username').value)">
                 <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
 
                 <p id='status'></p>
@@ -41,11 +42,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
     <script>
-
-
-        var username = document.getElementById("username");
-
-
         // Config and Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
@@ -87,6 +83,12 @@
                     username = document.getElementById("username").value;
                     localStorage.username = username;
                     window.location.href = 'profile.html';
+                    if (typeof (Storage) !== "undefined") {
+                        // Store
+                        sessionStorage.setItem("login_status", username);
+                    }
+
+                    var username = document.getElementById("username");
                 }
             });
         }
