@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Page</title>
+
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <img src="../public/img/sea_register.jpeg" alt="">
+        <div class="container-float">
+            <h3>Update Particular</h3>
+            <form action="#" id="form" class="justify-content-center-sm9" method="POST">
+                Password: <input type="password" name="password" id="password" minlength="8" required>
+                Verify Password: <input type="password" name="verify" id="verify" required>
+                Gender: <select name="gender" id="gender">
+                    <option value="gender" selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+
+                
+                <input class="btn btn-primary" type="button" value="Login" onclick="updateUser(localStorage.username)">
+                <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
+
+                <p id='status'></p>
+                <p id="latest"></p>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+        // Config and Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // update user data
+        function updateUser(username) {
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    // var username = document.getElementById("username").value;
+                    var password = document.getElementById("password").value;
+                    var gender = document.getElementById("gender").value;
+                    var country = document.getElementById("country").value;
+                    var city = document.getElementById("city").value;
+                    console.log(username, password, gender, country, city)
+
+                    var updates = {};
+                    // updates['/users/' + username + "/" + 'username'] = username;
+                    updates['/users/' + username + "/" + 'password'] = password;
+                    updates['/users/' + username + "/" + 'gender'] = gender;
+                    updates['/users/' + username + "/" + 'country'] = country;
+                    updates['/users/' + username + "/" + 'city'] = city;
+
+                    firebase.database().ref().update(updates);
+                    document.getElementById("status").innerText = "User has been updated.";
+                } else {
+                    document.getElementById("status").innerText = "User does not exist.";
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+
+</body>
+
+</html>

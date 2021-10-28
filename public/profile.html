@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/profile.css">
-
+    <link rel="stylesheet" href="css/general.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,26 +22,54 @@
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-light bg-dark">
-        <!--group and hide navbar contents by a parent breakpoint-->
-        <div class="navbar">
-            <nav class="nav">
-                <a class="nav-link active text-white" href="catchbottle.html">Home</a>
-            </nav>
-        </div>
-        <div class="navbar center">
-            <nav class="nav">
-                <a class="nav-link active text-white" href="#">LOGO</a>
-            </nav>
-        </div>
-        <div class="navbar justify-content-end">
-            <nav class="nav">
-                <a class="nav-link active text-white" href="#">Profile</a>
-            </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbar" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown">
+                            <div class="card" style="width: 15rem;">
+                                <img src="img/test_profile.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text" style="font-weight:bold;">
+                                        wyf
+                                        <script>
+                                            localStorage.username
+                                        </script>
+                                    </p>
+                                </div>
+                            </div>
+                            <li><a class="dropdown-item" href="updateUser.html">Update User Info</a></li>
+                            <li><a class="dropdown-item" href="#">Map Feature</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="#">About Us</a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <div class="container-fluid pt-3">
+    <div class="bg-image"></div>
+
+    <div class="container-fluid pt-3" id="container">
         <div class="row">
             <div class="col-lg-7 col-12">
                 <div class="row align-items-center" id="app">
@@ -249,12 +277,8 @@
 
     <script>
         var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info",
-            "description"]
-
-
-        // username = localStorage.username;
-        // console.log(username);
-        // document.getElementById("username").value= username;
+            "description"
+        ]
 
         // Config and Initialize Firebase
         const firebaseConfig = {
