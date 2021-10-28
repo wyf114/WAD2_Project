@@ -98,17 +98,31 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        // writes the data to db
+        // update the data in db
         if (localStorage.username != null) {
             function generate(message) {
                 var username = localStorage.username;
                 console.log("updating" + username);
-                var user = firebase.database().ref('users/' + username);
-                user.once('value').then((snapshot) => {
+                var users = firebase.database().ref('users/' + username);
+                users.once('value').then((snapshot) => {
                     if (snapshot.exists()) {
                         console.log("msg:" + message);
+
+                        // count number of bottles
+                        var users = snapshot.val();
+                        var count_msg = 0
+                        for (user in users) {
+                            // console.log(user)
+                            if (user.includes('bottle_message')){
+                                count_msg++
+                            }
+                        }
+                        console.log(count_msg)
+
+                        //update data with new bottle name
                         var updates = {};
-                        updates['/users/' + username + "/" + 'bottle_message'] = message;
+                        var bottle_name = "bottle_message"+count_msg
+                        updates['/users/' + username + "/" + bottle_name] = message;
                         firebase.database().ref().update(updates);
                         document.getElementById("status").innerText = "Message Sent.";
                     } else {
