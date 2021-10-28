@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 
 <body>
@@ -20,67 +21,154 @@
             <h3>User Registration</h3>
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
                 Username: <input type="text" name="username" id="username" required>
-                <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once registered</p>
+                <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once
+                    registered</p>
 
                 Password: <input type="password" name="password" id="password" minlength="8" required>
                 Verify Password: <input type="password" name="verify" id="verify" required>
-                Gender: <select name="gender" id="gender" onclick="listCountry()">
+                Gender: <select name="gender" id="gender">
                     <option value="gender" selected>Select your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
 
-                Country: <select name="country" id="country" onchange="listCity()">
-                    <option value="choose" selected>Please select your country</option>
-                    <script>
-                        // generate country dropdown list 
-                        function listCountry() {
-                            var selectList = document.getElementById("country");
-                            axios.get('https://countriesnow.space/api/v0.1/countries')
-                                .then(response => {
-                                    console.log(response.data.data[0])
-                                    var countries = response.data.data;
-                                    for (var i = 0; i <= countries.length; i++) {
-                                        var country = countries[i]['country'];
-                                        var option = document.createElement("option");
-                                        option.value = i;
-                                        option.text = country;
-                                        selectList.appendChild(option);
+
+                <div id="dropdown">
+                    Country: <select name="country" id="country" v-model="selected_country">
+                        <option value="choose" selected>Please select your country</option>
+                        <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
+                        </option>
+                    </select>
+
+                    State: <select name="state" id="state" v-model="selected_state">
+                        <option value="choose" selected>Please select your city</option>
+                        <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}</option>
+                    </select>
+
+                    City: <select name="city" id="city" v-model="selected_city">
+                        <option value="choose" selected>Please select your city</option>
+                        <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
+                    </select>
+
+                    <p>{{ selected_country }}</p>
+                    <p>{{ state_url }}</p>
+                    <p>{{ city_url }}</p>
+
+                </div>
+                <script>
+                    Vue.createApp({
+                        data() {
+                            return {
+                                country_list: [], // array of post objects
+                                state_list: [],
+                                city_list: [],
+                                selected_country: 'CN',
+                                selected_state: 'AH',
+                                selected_city: ''
+                            }
+                        },
+                        created() { // created is a hook that executes as soon as Vue instance is created
+                            axios.get('https://api.countrystatecity.in/v1/countries', {
+                                    headers: {
+                                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                                    }
+                                }).then(response => {
+                                    var countries = response.data;
+                                    for (i of countries) {
+                                        // console.log(i)
+                                        var country_iso2 = i['iso2']
+                                        var country_name = i['name']
+                                        // var country = {iso2:iso2, name:name};
+                                        this.country_list.push({
+                                            country_iso2: country_iso2,
+                                            country_name: country_name
+                                        });
                                     };
+                                    // console.log(this.country_list)
                                 })
                                 .catch(error => {
                                     console.log(error.message)
-                                    // document.getElementById("axios").innerText = error.message;
                                 });
-                        }
-                    </script>
-                </select>
-
-                City: <select name="city" id="city">
-                    <option value="choose" selected>Please select your city</option>
-                    <script>
-                        // generate city dropdown list
-                        function listCity() {
-                            var countryID = document.getElementById("country").value;
-                            var selectList1 = document.getElementById("city");
-                            axios.get('https://countriesnow.space/api/v0.1/countries')
-                                .then(response => {
-                                    var countries = response.data.data;
-                                    var cities = countries[countryID]['cities'];
-                                    cities.forEach(element => {
-                                        var option1 = document.createElement("option");
-                                        option1.value = element;
-                                        option1.text = element;
-                                        selectList1.appendChild(option1);
-                                        // document.write("<option value='" + element + "'>" + element + "</option>");
+                        },
+                        computed: {
+                            state_url() {
+                                // this creates the city list
+                                this.state_list = []
+                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
+                                    .selected_country + "/states";
+                                // return state_url
+                                axios.get(state_url, {
+                                        headers: {
+                                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                                        }
+                                    }).then(response => {
+                                        console.log(state_url)
+                                        var states = response.data;
+                                        if (states.length !== 0) {
+                                            for (i of states) {
+                                                var state_code = i['state_code']
+                                                var state_name = i['name']
+                                                console.log({
+                                                    state_code: state_code,
+                                                    state_name: state_name
+                                                })
+                                                this.state_list.push({
+                                                    state_code: state_code,
+                                                    state_name: state_name
+                                                });
+                                            };
+                                        } else {
+                                            // this.state_list.push(this.country_list)
+                                            alert("no state")
+                                        }
                                     })
-                                })
-                        }
-                    </script>
-                </select>
+                                    .catch(error => {
+                                        console.log(error.message)
+                                    });
 
-                <input class="btn btn-primary" type="button" value="Register" onclick="checkIfUserExists(document.getElementById('username').value)">
+                            },
+                            city_url() {
+                                // this creates the city list
+                                // this.city_list = []
+                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
+                                    .selected_country + "/states/" + this.selected_state + "/cities";
+                                axios.get(city_url, {
+                                        headers: {
+                                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                                        }
+                                    }).then(response => {
+                                        console.log(city_url)
+                                        var cities = response.data;
+                                        console.log(cities)
+                                        // if (cities.length !== 0) {
+                                        //     for (i of states) {
+                                        //         var state_id = i['id']
+                                        //         var state_name = i['name']
+                                        //         console.log({
+                                        //             state_id: state_id,
+                                        //             state_name: state_name
+                                        //         })
+                                        //         this.state_list.push({
+                                        //             state_id: state_id,
+                                        //             state_name: state_name
+                                        //         });
+                                        //     };
+                                        // } else {
+                                        //     this.state_list.push(this.state_list)
+                                        // }
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message)
+                                    });
+                                return city_url
+                            }
+                        }
+                    }).mount('#dropdown')
+                </script>
+
+                <input class="btn btn-primary" type="button" value="Register"
+                    onclick="checkIfUserExists(document.getElementById('username').value)">
                 <input class="btn btn-success" type="button" value="Update"
                     onclick="updateUser(document.getElementById('username').value)">
 
@@ -108,19 +196,6 @@
             appId: "1:431393859582:web:ccc0434dd68846b15b82af"
         };
         firebase.initializeApp(firebaseConfig);
-
-        // var users = firebase.database().ref('users');
-        // users.on('child_added', (snapshot) => {
-        //     var today = new Date();
-        //     var dd = String(today.getDate()).padStart(2, '0');
-        //     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        //     var yyyy = today.getFullYear();
-        //     var hour = today.getHours();
-        //     var minute = today.getMinutes();
-        //     var second = today.getSeconds();
-        //     today = hour + ':' + minute + ':' + second + ' ' + mm + '/' + dd + '/' + yyyy;
-        //     document.getElementById("latest").innerText = "Last user registered at " + today;
-        // });
 
         // check user status 
         function checkIfUserExists(username) {
@@ -162,7 +237,8 @@
                     spotify_username: "",
                     youtube_username: "",
                     telegram_info: "",
-                    description: ""
+                    description: "",
+                    bottle_message: ""
                 }).then(function () {
                     document.getElementById("status").innerText = "Register succeeded.";
                     window.location.href = 'login.html';
@@ -170,33 +246,6 @@
                 .catch(function (error) {
                     document.getElementById("status").innerText = "Register Failed.";
                 });
-        }
-
-        // update user data
-        function updateUser(username) {
-            var user = firebase.database().ref('users/' + username);
-            user.once('value').then((snapshot) => {
-                if (snapshot.exists()) {
-                    // var username = document.getElementById("username").value;
-                    var password = document.getElementById("password").value;
-                    var gender = document.getElementById("gender").value;
-                    var country = document.getElementById("country").value;
-                    var city = document.getElementById("city").value;
-                    console.log(username, password, gender, country, city)
-
-                    var updates = {};
-                    // updates['/users/' + username + "/" + 'username'] = username;
-                    updates['/users/' + username + "/" + 'password'] = password;
-                    updates['/users/' + username + "/" + 'gender'] = gender;
-                    updates['/users/' + username + "/" + 'country'] = country;
-                    updates['/users/' + username + "/" + 'city'] = city;
-
-                    firebase.database().ref().update(updates);
-                    document.getElementById("status").innerText = "User has been updated.";
-                } else {
-                    document.getElementById("status").innerText = "User does not exist.";
-                }
-            });
         }
     </script>
 
