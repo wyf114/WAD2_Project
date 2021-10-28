@@ -41,12 +41,12 @@
                         </option>
                     </select>
 
-                    State: <select name="state" id="state" v-model="selected_state">
+                    State: <select name="state" id="state" v-model="selected_state" :disabled="stateSelectDisabled">
                         <option value="choose" selected>Please select your city</option>
                         <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}</option>
                     </select>
 
-                    City: <select name="city" id="city" v-model="selected_city">
+                    City: <select name="city" id="city" v-model="selected_city" :disabled="citySelectDisabled">
                         <option value="choose" selected>Please select your city</option>
                         <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
                     </select>
@@ -63,9 +63,9 @@
                                 country_list: [], // array of post objects
                                 state_list: [],
                                 city_list: [],
-                                selected_country: 'CN',
-                                selected_state: 'AH',
-                                selected_city: ''
+                                selected_country: 'choose',
+                                selected_state: 'choose',
+                                selected_city: 'choose'
                             }
                         },
                         created() { // created is a hook that executes as soon as Vue instance is created
@@ -79,13 +79,8 @@
                                         // console.log(i)
                                         var country_iso2 = i['iso2']
                                         var country_name = i['name']
-                                        // var country = {iso2:iso2, name:name};
-                                        this.country_list.push({
-                                            country_iso2: country_iso2,
-                                            country_name: country_name
-                                        });
+                                        this.country_list.push({country_iso2: country_iso2,country_name: country_name});
                                     };
-                                    // console.log(this.country_list)
                                 })
                                 .catch(error => {
                                     console.log(error.message)
@@ -95,8 +90,7 @@
                             state_url() {
                                 // this creates the city list
                                 this.state_list = []
-                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
-                                    .selected_country + "/states";
+                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this.selected_country + "/states";
                                 // return state_url
                                 axios.get(state_url, {
                                         headers: {
@@ -105,34 +99,26 @@
                                     }).then(response => {
                                         console.log(state_url)
                                         var states = response.data;
-                                        if (states.length !== 0) {
+                                        if (states.length != 0) {
                                             for (i of states) {
-                                                var state_code = i['state_code']
+                                                var state_code = i['iso2']
                                                 var state_name = i['name']
-                                                console.log({
-                                                    state_code: state_code,
-                                                    state_name: state_name
-                                                })
-                                                this.state_list.push({
-                                                    state_code: state_code,
-                                                    state_name: state_name
-                                                });
+                                                this.state_list.push({state_code: state_code,state_name: state_name});
                                             };
                                         } else {
                                             // this.state_list.push(this.country_list)
-                                            alert("no state")
+                                            console.log("no state");
+                                            stateSelectDisabled()
                                         }
                                     })
                                     .catch(error => {
                                         console.log(error.message)
                                     });
-
                             },
                             city_url() {
                                 // this creates the city list
-                                // this.city_list = []
-                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
-                                    .selected_country + "/states/" + this.selected_state + "/cities";
+                                this.city_list = []
+                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this.selected_country + "/states/" + this.selected_state + "/cities";
                                 axios.get(city_url, {
                                         headers: {
                                             'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
@@ -140,28 +126,32 @@
                                     }).then(response => {
                                         console.log(city_url)
                                         var cities = response.data;
-                                        console.log(cities)
-                                        // if (cities.length !== 0) {
-                                        //     for (i of states) {
-                                        //         var state_id = i['id']
-                                        //         var state_name = i['name']
-                                        //         console.log({
-                                        //             state_id: state_id,
-                                        //             state_name: state_name
-                                        //         })
-                                        //         this.state_list.push({
-                                        //             state_id: state_id,
-                                        //             state_name: state_name
-                                        //         });
-                                        //     };
-                                        // } else {
-                                        //     this.state_list.push(this.state_list)
-                                        // }
+                                        // console.log(cities)
+                                        if (cities.length != 0) {
+                                            for (i of cities) {
+                                                var city_id = i['id']
+                                                var city_name = i['name']
+                                                this.city_list.push({city_id: city_id,city_name: city_name});
+                                            };
+                                        } else {
+                                            console.log("no city");
+                                            citySelectDisabled()
+                                        }
                                     })
                                     .catch(error => {
                                         console.log(error.message)
                                     });
-                                return city_url
+                            },
+                            stateSelectDisabled(){
+                                if (this.state_list.length ==0) {
+                                    return this.state_list.length ==0;
+                                }  
+                            },
+                            citySelectDisabled() {             
+                                if (this.city_list.length ==0) {
+                                    return this.city_list.length ==0;
+                                }
+                                    
                             }
                         }
                     }).mount('#dropdown')
