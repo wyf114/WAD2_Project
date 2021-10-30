@@ -1,0 +1,63 @@
+.title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+
+/* Carousel */
+.box {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    margin-bottom: 100px;
+  }
+
+.item {
+    background-color: black;
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    color: rgb(238, 234, 234);
+    border-radius: 3%;
+    padding:40px;
+    text-align: center;
+}
+
+.carousel-img {
+    width: 360px;
+    height:auto;
+}
+
+/* Cards */
+.card-container {
+    padding: 15px 0px;
+    margin-bottom: 20px;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+}
+
+
+
+
+/* Social Media Related Styling */
+.links {
+    text-decoration: none;
+    display:inline-block;
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+    
+}
+
+.social_media_icon {
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+    bottom: 15px;
+    position: absolute;
+}
