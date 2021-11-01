@@ -36,12 +36,12 @@ function addMarker(coordinates, header, description){
     var marker = L.marker(coordinates, {icon: BottleIcon}).addTo(mymap);
     marker.bindPopup(`<b>${header}</b><br>${description}`).openPopup();
 }
-addMarker(SINGAPORECOORDINATES, "林俊杰 JJ Lin", "Singapore");
+
 addMarker(USCOORDINATES, "Joe", "United States");
 addMarker(TAIWANCOORDINATES, "周杰伦 Jay Chou", "Taiwan");
 addMarker(JAPANCOORDINATES, "Piplup", "Japan")
 addMarker(MALAYSIACOORDINATES, "Namewee", "Malaysia")
-
+addMarker(SINGAPORECOORDINATES, "林俊杰 JJ Lin", "Singapore");
 
 
 
