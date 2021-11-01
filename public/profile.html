@@ -308,6 +308,7 @@
                     updates['/users/' + username + "/" + 'spotify_username'] = spotify_username;
                     updates['/users/' + username + "/" + 'youtube_username'] = youtube_username;
                     updates['/users/' + username + "/" + 'instagram_username'] = instagram_username;
+                    updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
                     updates['/users/' + username + "/" + 'description'] = description;
 
                     firebase.database().ref().update(updates);
