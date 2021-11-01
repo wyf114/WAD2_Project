@@ -43,6 +43,8 @@ function testSpeech() {
       var speechResult = event.results[0][0].transcript.toLowerCase();
       diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
       messageElement.value += speechResult + " ";
+      console.log(myObject);
+      myObject.message = messageElement.value;
       
       console.log('Confidence: ' + event.results[0][0].confidence);
     }
