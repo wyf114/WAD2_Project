@@ -1,7 +1,7 @@
 var sendButton = document.getElementById("telegramSendButton");
 sendButton.addEventListener("click", sendMessage);
 
-var BOTTOKEN = "2001239054:AAHGMkcRfNvPzfV3dl98IPSNti9E56Cp4GU"
+var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
 
 var sendCooldown = false;
 

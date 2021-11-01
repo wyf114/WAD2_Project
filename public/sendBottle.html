@@ -14,6 +14,11 @@
     <script src="https://unpkg.com/vue@next"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!-- AXIOS FOR TELEGRAM HTTP GET REQUEST-->
+    <script src="js/axios/axios.min.js"></script>
+
+
     <title>Send bottle</title>
 </head>
 
@@ -125,6 +130,24 @@
                         updates['/users/' + username + "/" + bottle_name] = message;
                         firebase.database().ref().update(updates);
                         document.getElementById("status").innerText = "Message Sent.";
+
+                        //send to telegram info (can add a for loop to send to everyone in the database, right now only to the logged in user)
+                        var telegram_info = users.telegram_info;
+                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                        var chatID = telegram_info;
+                        var sendString = `${username} sent a bottle: ${message}`;
+
+                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+
+                        axios.get(sendURL, {
+                            params: {}
+                        })
+                        .then(response =>  {console.log("telegram sent!")})
+                        .catch(error => {console.log("telegram error")})
+
+
+
                     } else {
                         document.getElementById("status").innerText = "User does not exist.";
                     }
