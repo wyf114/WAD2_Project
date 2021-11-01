@@ -12,20 +12,21 @@ body{
     background: white;
     min-height: 100vh;
 }
-.sea{
+/* .sea{
     background: url("../img/sea2.jpg");
     position: relative;
     padding: 100px;
     height: 550px;
     animation: backgroundMove 20s linear infinite;
     cursor : url("../img/fishingNet.png"), default;
-}
+} */
 
 section{
     position: relative;
     width:100%;
     height: 100vh;
     display: flex;
+ 
     /* justify-content: center;
     align-items: center; */
 }
@@ -39,7 +40,7 @@ section #text
     line-height: 0.55em;
     font-family: 'Courier New', Courier, monospace;
 }
-
+/* 
 section img
 {
     position: absolute;
@@ -61,11 +62,12 @@ section::before
     background:linear-gradient(to bottom,transparent, #8ed5e7 );
     z-index: 5;
 
-}
+} */
 #treeLeft{
-    width: 350px;
-    height: 500px;
-    top:50px;
+    position: relative;
+    width: 0.2em;
+    height: 0.45em;
+    top:8%;
 
 } 
 #treeRight{
@@ -80,13 +82,21 @@ section::before
     width: 100px;
     left: 92%;
 }
-.btn{
+#pen{
+    width: 150px;
+    position: absolute;
+    z-index: 12;
+    bottom: 0px;
+    right: 0px;
+    text-align: center;
+}
+/* .btn{
     text-align: center;
     position: relative;
     margin-left:600px;
     margin-top: 350px;
     z-index: 10;
-}
+} */
 /* #btn{
     text-decoration: none;
     display:inline-block;
@@ -113,11 +123,12 @@ section::before
 
 }
 #bottle1{
-    top:50%;
+    top:60%;
     width: 100px;
     position:absolute;
     animation: bottleMove 15s linear infinite;
     animation-delay: -3s;
+    cursor : url("../img/fishingNet.png"), default;
 }
 #bottle2{
     top:50%;
@@ -185,44 +196,68 @@ section::before
 
 /* try waves */
 
+#seaWavesRight
+{
+    position: absolute;
+    width: 100%;
+    
+    animation: waveMoveRight 5s linear infinite;
+}
+#seaWavesLeft
+{
+    position: absolute;
+    width: 100%;
+    animation-delay: -2s;
+    animation: waveMoveLeft 8s linear infinite;
+}
+
+
+
+
+
+
+
 
 #wave1
 {
     position: absolute;
-    width: 100%;
-    height: 200px;
     bottom: 0;
     left: 0;
+    width: 100%;
+    height: 200px;
     opacity: 0.7;
     background: url("../img/wave.png");
     animation: waveMove 10s linear infinite;
+   
 }
 
 #wave1:before 
 {
     position: absolute;
     content: '';
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 200px;
-    top: 0;
-    left: 0;
     opacity: 0.3;
     background: url("../img/wave.png");
     animation: waveMove-reverse 10s linear infinite;
+  
 }
 
 #wave1:after 
 {
     position: absolute;
     content: '';
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 200px;
-    top: 0;
-    left: 0;
     opacity: 0.5;
     background: url("../img/wave.png");
     animation-delay: -5s;
     animation: waveMove 20s linear infinite;
+    
 }
 
 /* try second group of waves */
@@ -288,6 +323,67 @@ section::before
 }
 }
 
+
+
+
+
+@keyframes waveMoveRight
+{
+0% {
+    transform: translate(0%,0%);
+    
+}
+50% {
+    transform: translate(8%,10%);
+}
+100% {
+    transform: translate(0%,0%);
+}
+}
+
+@keyframes waveMoveLeft
+{
+0% {
+    transform: translate(0%,0%);
+    
+}
+50% {
+    transform: translate(0%,10%);
+}
+100% {
+    transform: translate(0%,0%);
+}
+}
+#cloud1, #cloud4{
+    position: absolute;
+    width: 100%;
+    
+    animation: cloudMove 5s linear infinite;
+}
+#cloud2, #cloud3{
+    position: absolute;
+    width: 100%;
+    
+    animation: cloudMove 8s linear infinite;
+}
+@keyframes cloudMove
+{
+0% {
+    transform: translate(0%,0%);
+    
+}
+50% {
+    transform: translate(8%,0%);
+}
+100% {
+    transform: translate(0%,0%);
+}
+}
+
+
+
+
+
 @keyframes backgroundMove
 {
 0% {
@@ -325,6 +421,7 @@ section::before
     width: 600px;
     height: 527px;
     margin: auto;
+    margin-top: 200px;
     /* width: 80%; */
 }
 h3{
