@@ -77,18 +77,25 @@ section::before
     left:70%;
 
 } 
-#sun{
+/* #sun{
     height: 100px;
     width: 100px;
     left: 92%;
-}
-#pen{
-    width: 150px;
+} */
+#write{
     position: absolute;
     z-index: 12;
-    bottom: 0px;
+    bottom: 30px;
     right: 0px;
     text-align: center;
+}
+#pen{
+    width: 15%;
+    height: 15%;
+}
+#writeBtn{
+    font-size: 1vw;
+    
 }
 /* .btn{
     text-align: center;
@@ -123,7 +130,7 @@ section::before
 
 }
 #bottle1{
-    top:60%;
+    top:50%;
     width: 100px;
     position:absolute;
     animation: bottleMove 15s linear infinite;
@@ -224,9 +231,10 @@ section::before
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: 26%;
     opacity: 0.7;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation: waveMove 10s linear infinite;
    
 }
@@ -238,9 +246,10 @@ section::before
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: 100%;
     opacity: 0.3;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation: waveMove-reverse 10s linear infinite;
   
 }
@@ -252,20 +261,21 @@ section::before
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: 100%;
     opacity: 0.5;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation-delay: -5s;
     animation: waveMove 20s linear infinite;
     
 }
 
 /* try second group of waves */
-#wave2 
+/* #wave2 
 {
     position: absolute;
     width: 100%;
-    height: 200px;
+    height: 26%;
     bottom: 0;
     left: 0;
     opacity: 0.6;
@@ -278,7 +288,7 @@ section::before
     position: absolute;
     content: '';
     width: 100%;
-    height: 200px;
+    height: 100%;
     top: 0px;
     left: 0;
     opacity: 0.2;
@@ -291,14 +301,14 @@ section::before
     position: absolute;
     content: '';
     width: 100%;
-    height: 200px;
+    height: 100%;
     top: 0px;
     left: 0;
     opacity: 0.4;
     background: url("../img/wave.png");
     animation-delay: -2s;
     animation: waveMove 5s linear infinite;
-}
+} */
 
 
 
@@ -441,3 +451,20 @@ p{
     margin-top: 50px;
     font-size: 30px !important;
  }
+ .svg-container { 
+	display: inline-block;
+	position: relative;
+	width: 100%;
+    height:auto;
+	/* padding-bottom: 100%;  */
+	vertical-align: middle; 
+	overflow: hidden; 
+}
+
+.svg-content { 
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	top: 0;
+	left: 0;
+}
