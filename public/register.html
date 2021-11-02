@@ -41,17 +41,21 @@
                         </option>
                     </select>
 
-                    State: <select name="state" id="state" v-model="selected_state" :disabled="stateSelectDisabled">
-                        <option value="choose" selected>Please select your city</option>
+                    <div v-if="!stateSelectDisabled">
+                    State/Province: <select name="state" id="state" v-model="selected_state">
+                        <option value="choose" selected>Please select your state</option>
                         <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}</option>
                     </select>
+                    </div>
 
-                    City: <select name="city" id="city" v-model="selected_city" :disabled="citySelectDisabled">
+                    <div v-if="!citySelectDisabled">
+                    City/District: <select name="city" id="city" v-model="selected_city">
                         <option value="choose" selected>Please select your city</option>
                         <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
                     </select>
+                    </div>
 
-                    <p>{{ selected_country }}</p>
+                    <!-- <p>{{ selected_country }}</p> -->
                     <p>{{ state_url }}</p>
                     <p>{{ city_url }}</p>
 
@@ -75,10 +79,14 @@
                                     }
                                 }).then(response => {
                                     var countries = response.data;
+                                    console.log(countries)
                                     for (i of countries) {
                                         // console.log(i)
                                         var country_iso2 = i['iso2']
                                         var country_name = i['name']
+                                        // var country_latitude = i['latitude']
+                                        // var country_longitude = i['longitude']
+                                        // console.log(country_latitude,country_longitude)
                                         this.country_list.push({country_iso2: country_iso2,country_name: country_name});
                                     };
                                 })
@@ -99,6 +107,7 @@
                                     }).then(response => {
                                         console.log(state_url)
                                         var states = response.data;
+                                        console.log(states)
                                         if (states.length != 0) {
                                             for (i of states) {
                                                 var state_code = i['iso2']
@@ -126,7 +135,7 @@
                                     }).then(response => {
                                         console.log(city_url)
                                         var cities = response.data;
-                                        // console.log(cities)
+                                        console.log(cities)
                                         if (cities.length != 0) {
                                             for (i of cities) {
                                                 var city_id = i['id']
@@ -144,12 +153,12 @@
                             },
                             stateSelectDisabled(){
                                 if (this.state_list.length ==0) {
-                                    return this.state_list.length ==0;
+                                    return true;
                                 }  
                             },
                             citySelectDisabled() {             
                                 if (this.city_list.length ==0) {
-                                    return this.city_list.length ==0;
+                                    return true;
                                 }
                                     
                             }
