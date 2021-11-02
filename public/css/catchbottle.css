@@ -271,7 +271,7 @@ section::before
 }
 
 /* try second group of waves */
-/* #wave2 
+#wave2 
 {
     position: absolute;
     width: 100%;
@@ -280,6 +280,7 @@ section::before
     left: 0;
     opacity: 0.6;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation: waveMove 3s linear infinite;
 }
 
@@ -293,6 +294,7 @@ section::before
     left: 0;
     opacity: 0.2;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation: waveMove-reverse 3s linear infinite;
 }
 
@@ -306,9 +308,10 @@ section::before
     left: 0;
     opacity: 0.4;
     background: url("../img/wave.png");
+    background-size: 100% 100%;
     animation-delay: -2s;
     animation: waveMove 5s linear infinite;
-} */
+}
 
 
 
@@ -461,10 +464,10 @@ p{
 	overflow: hidden; 
 }
 
-.svg-content { 
+/* .svg-content { 
 	display: inline-block;
 	position: relative;
 	width: 100%;
 	top: 0;
 	left: 0;
-}
+} */
