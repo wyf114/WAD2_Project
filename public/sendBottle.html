@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/general.css">
     <link rel="stylesheet" href="./css/sendBottle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +18,60 @@
 
     <!-- AXIOS FOR TELEGRAM HTTP GET REQUEST-->
     <script src="js/axios/axios.min.js"></script>
-
+    <script src="js/users.js"></script>
 
     <title>Send bottle</title>
 </head>
 
 <body>
+    <script>checkLoginStatus()</script>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbar" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown">
+                            <div class="card" style="width: 15rem;">
+                                <img src="img/test_profile.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text" style="font-weight:bold;">
+                                        wyf
+                                        <script>
+                                            sessionStorage.getItem("login_status")
+                                        </script>
+                                    </p>
+                                </div>
+                            </div>
+                            <li><a class="dropdown-item" href="updateUser.html">Update User Info</a></li>
+                            <li><a class="dropdown-item" href="#">Map Feature</a></li>
+                            <li><input type="button" value="Logout" onclick="logout()"></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="aboutUs.html">About Us</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div id="app">
         <div class="container">
             <div class="row">
@@ -57,28 +106,27 @@
     </div>
     </div>
 
-
-
-
     <script>
-
         myObject = new Vue({
             el: '#app',
-            data: { message: 'Hello!' }
+            data: {
+                message: 'Hello!'
+            }
         })
         var numChars = document.getElementById('num-chars');
         var textInput = document.getElementById('exampleFormControlTextarea1');
         textInput.addEventListener('keyup', doText);
+
         function doText(event) {
-            var charLength=textInput.value.length;
-            if (charLength>380){
+            var charLength = textInput.value.length;
+            if (charLength > 380) {
                 numChars.innerHTML = charLength;
-                numChars.style.color='red';
-            }else{
+                numChars.style.color = 'red';
+            } else {
                 numChars.innerHTML = charLength;
-                numChars.style.color='black';
+                numChars.style.color = 'black';
             }
-            
+
         }
     </script>
 
@@ -103,22 +151,76 @@
         };
         firebase.initializeApp(firebaseConfig);
 
+        function sendTeleNotifHelper(chatID, from) {
+            var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+            var sendString = `${from} sent you a bottle!!`;
+
+
+            var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+            axios.get(sendURL, {
+                    params: {}
+                })
+                .then(response => {
+                    console.log("telegram sent!")
+                })
+                .catch(error => {
+                    console.log("telegram error")
+                })
+        }
+
+        function sendUserTelegram(targetUsername, from) {
+
+            list_of_user = firebase.database().ref('users/');
+            list_of_user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    console.log(snapshot.val());
+                    user_details = snapshot.val();
+                    for (user in user_details) {
+                        console.log(user);
+                        telegram_info = user_details[user].telegram_info;
+                        if (user === targetUsername) {
+                            console.log(telegram_info);
+                            sendTeleNotifHelper(telegram_info, from);
+
+                        }
+                    }
+                }
+            })
+        }
+
+        // create a bottle table in db
+        // function createBottleTable() {
+        //     firebase.database().ref('bottles/' + 'bottle0').set({
+        //             from: 'wyf',
+        //             message: 'initial singularity'
+        //         }).then(function () {
+        //             console.log("bottles created")
+        //         })
+        //         .catch(function (error) {
+        //             console.log("bottles failed to be created")
+        //         });
+        // }
+        // createBottleTable()
+
         // update the data in db
-        if (localStorage.username != null) {
+        if (sessionStorage.getItem("login_status") != null) {
             function generate(message) {
-                var username = localStorage.username;
+                var username = sessionStorage.getItem("login_status");
                 console.log("updating" + username);
-                var users = firebase.database().ref('users/' + username);
-                users.once('value').then((snapshot) => {
+                var bottles = firebase.database().ref('bottles/');
+                bottles.once('value').then((snapshot) => {
                     if (snapshot.exists()) {
                         console.log("msg:" + message);
 
                         // count number of bottles
-                        var users = snapshot.val();
+                        var bottles = snapshot.val();
+                        console.log(bottles)
                         var count_msg = 0
-                        for (user in users) {
-                            // console.log(user)
-                            if (user.includes('bottle_message')){
+                        for (bottle in bottles) {
+                            // console.log(bottle)
+                            // console.log(bottles[bottle])
+                            if (bottle.includes('bottle')) {
                                 count_msg++
                             }
                         }
@@ -126,43 +228,52 @@
 
                         //update data with new bottle name
                         var updates = {};
-                        var bottle_name = "bottle_message"+count_msg
-                        updates['/users/' + username + "/" + bottle_name] = message;
+                        var bottle_name = "bottle" + count_msg
+                        updates['/bottles/' + bottle_name + "/message"] = message;
+                        updates['/bottles/' + bottle_name + "/from"] = username;
                         firebase.database().ref().update(updates);
                         document.getElementById("status").innerText = "Message Sent.";
 
-                        //send to telegram info (can add a for loop to send to everyone in the database, right now only to the logged in user)
-                        var telegram_info = users.telegram_info;
-                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-                        var chatID = telegram_info;
-                        var sendString = `${username} sent a bottle: ${message}`;
 
-                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+                        //send to telegram
+                        sendUserTelegram("adam", username);
 
+                        //notify all users in database
+                        function notifyAllTelegram() {
+                            var allusers = firebase.database().ref('users/');
+                            allusers.once('value').then((snapshot) => {
+                                console.log(snapshot.val());
+                                for (user_info in snapshot.val()) {
+                                    console.log(`sending to ${user_info}`);
 
-                        axios.get(sendURL, {
-                            params: {}
-                        })
-                        .then(response =>  {console.log("telegram sent!")})
-                        .catch(error => {console.log("telegram error")})
+                                    //sendUserTelegram(user_info, username);
+                                }
 
+                            })
+                        }
 
+                        //notifyAllTelegram();
 
                     } else {
                         document.getElementById("status").innerText = "User does not exist.";
                     }
                 });
             }
-        }
-        else {
-            window.location.href = 'login.html';
+        } else {
+            window.location.href = 'index.html';
             alert("please login first!!");
         }
-
-
     </script>
 
 
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
 
 

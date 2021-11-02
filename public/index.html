@@ -1,52 +1,61 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Project IDK</title>
+<html lang="en">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.1.2/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.1.2/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.1.2/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
 
-  </head>
-  <body>
-
-    <P>hello world!</P>
-    <a href="catchbottle.html">bottle page</a>
-    <br>
-    <a href="register.html">register</a>
-    <br>
-    <a href="profile.html">profile</a>
-    <br>
-    <a href="login.html">login</a>
-    <br>
-    <a href="Telegramexample.html">Telegram API</a>
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
-    <script src="/public/js/index.js"></script> 
+    <style>
+        body {
+            background-image: url('../public/img/sea_register.jpeg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="box">
+
+        <div class="container-float">
+            <h3>User Login</h3>
+            <form action="#" id="form" class="justify-content-center-sm9" method="POST">
+                Username: <input type="text" name="username" id="username" required>
+                Password: <input type="password" name="password" id="password" required>
+
+                <p>Haven't owned an account? <br>
+                    <a class="link" href="register.html">click here to register</a></p>
+
+                <input class="btn btn-primary" type="button" value="Login"
+                    onclick="checkIfUserExists(document.getElementById('username').value)">
+                <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
+
+                <p id='status'></p>
+                <p id="latest"></p>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
     <script>
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
+        // Config and Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
             authDomain: "sademo2018-2-11ec2.firebaseapp.com",
@@ -58,6 +67,57 @@
         };
         firebase.initializeApp(firebaseConfig);
 
+        // check user status 
+        function checkIfUserExists(username) {
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    checkPassword(username)
+                    console.log("user exists")
+                } else {
+                    console.log("username does not exist")
+                    document.getElementById("status").innerText = "Username does not exist.";
+                }
+            });
+        }
+
+        // check password
+        function checkPassword(username) {
+            var password = document.getElementById("password").value;
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                var user = snapshot.val();
+                console.log(user.password);
+                if (String(password) != String(user.password)) {
+                    document.getElementById("status").innerText = "Passwords are not matched";
+                    console.log("mismatched")
+                } else {
+                    document.getElementById("status").innerText = "Passwords are matched";
+                    username = document.getElementById("username").value;
+                    window.location.href = 'profile.html';
+                    if (typeof (Storage) !== "undefined") {
+                        // Store
+                        sessionStorage.setItem("login_status", username);
+                    }
+
+                }
+            });
+        }
     </script>
-  </body>
+
+    <!-- <footer class="bg-dark text-center text-white">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+    </footer> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+
+</body>
+
 </html>
