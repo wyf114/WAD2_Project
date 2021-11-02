@@ -57,28 +57,27 @@
     </div>
     </div>
 
-
-
-
     <script>
-
         myObject = new Vue({
             el: '#app',
-            data: { message: 'Hello!' }
+            data: {
+                message: 'Hello!'
+            }
         })
         var numChars = document.getElementById('num-chars');
         var textInput = document.getElementById('exampleFormControlTextarea1');
         textInput.addEventListener('keyup', doText);
+
         function doText(event) {
-            var charLength=textInput.value.length;
-            if (charLength>380){
+            var charLength = textInput.value.length;
+            if (charLength > 380) {
                 numChars.innerHTML = charLength;
-                numChars.style.color='red';
-            }else{
+                numChars.style.color = 'red';
+            } else {
                 numChars.innerHTML = charLength;
-                numChars.style.color='black';
+                numChars.style.color = 'black';
             }
-            
+
         }
     </script>
 
@@ -103,66 +102,76 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        function sendTeleNotifHelper(chatID, from){
+        function sendTeleNotifHelper(chatID, from) {
             var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
             var sendString = `${from} sent you a bottle!!`;
 
 
             var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
-            
-
 
             axios.get(sendURL, {
-                params: {}
-            })
-            .then(response =>  {console.log("telegram sent!")})
-            .catch(error => {console.log("telegram error")})
+                    params: {}
+                })
+                .then(response => {
+                    console.log("telegram sent!")
+                })
+                .catch(error => {
+                    console.log("telegram error")
+                })
         }
 
-
-        function sendUserTelegram(targetUsername, from){
+        function sendUserTelegram(targetUsername, from) {
 
             list_of_user = firebase.database().ref('users/');
             list_of_user.once('value').then((snapshot) => {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     console.log(snapshot.val());
                     user_details = snapshot.val();
-                    for (user in user_details){
+                    for (user in user_details) {
                         console.log(user);
                         telegram_info = user_details[user].telegram_info;
-                        if (user === targetUsername){
+                        if (user === targetUsername) {
                             console.log(telegram_info);
                             sendTeleNotifHelper(telegram_info, from);
 
                         }
-                    
-                        
-
                     }
                 }
             })
         }
 
-
-
-
+        // create a bottle table in db
+        // function createBottleTable() {
+        //     firebase.database().ref('bottles/' + 'bottle0').set({
+        //             from: 'wyf',
+        //             message: 'initial singularity'
+        //         }).then(function () {
+        //             console.log("bottles created")
+        //         })
+        //         .catch(function (error) {
+        //             console.log("bottles failed to be created")
+        //         });
+        // }
+        // createBottleTable()
 
         // update the data in db
         if (localStorage.username != null) {
             function generate(message) {
                 var username = localStorage.username;
                 console.log("updating" + username);
-                var users = firebase.database().ref('users/' + username);
-                users.once('value').then((snapshot) => {
+                var bottles = firebase.database().ref('bottles/');
+                bottles.once('value').then((snapshot) => {
                     if (snapshot.exists()) {
                         console.log("msg:" + message);
 
                         // count number of bottles
-                        var users = snapshot.val();
+                        var bottles = snapshot.val();
+                        console.log(bottles)
                         var count_msg = 0
-                        for (user in users) {
-                            // console.log(user)
-                            if (user.includes('bottle_message')){
+                        for (bottle in bottles) {
+                            console.log(bottle)
+                            console.log(bottles[bottle])
+                            if (bottle.includes('bottle')) {
                                 count_msg++
                             }
                         }
@@ -170,8 +179,9 @@
 
                         //update data with new bottle name
                         var updates = {};
-                        var bottle_name = "bottle_message"+count_msg
-                        updates['/users/' + username + "/" + bottle_name] = message;
+                        var bottle_name = "bottle" + count_msg
+                        updates['/bottles/' + bottle_name + "/message"] = message;
+                        updates['/bottles/' + bottle_name + "/from"] = username;
                         firebase.database().ref().update(updates);
                         document.getElementById("status").innerText = "Message Sent.";
 
@@ -183,33 +193,27 @@
                         function notifyAllTelegram() {
                             var allusers = firebase.database().ref('users/');
                             allusers.once('value').then((snapshot) => {
-                            console.log(snapshot.val());
-                                for (user_info in snapshot.val()){
+                                console.log(snapshot.val());
+                                for (user_info in snapshot.val()) {
                                     console.log(`sending to ${user_info}`);
-                                    
+
                                     //sendUserTelegram(user_info, username);
                                 }
-                                
+
                             })
                         }
 
                         //notifyAllTelegram();
-                        
-
-
 
                     } else {
                         document.getElementById("status").innerText = "User does not exist.";
                     }
                 });
             }
-        }
-        else {
+        } else {
             window.location.href = 'login.html';
             alert("please login first!!");
         }
-
-
     </script>
 
 
