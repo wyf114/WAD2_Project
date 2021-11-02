@@ -28,7 +28,7 @@
                     <option value="Other">Other</option>
 
                 
-                <input class="btn btn-primary" type="button" value="Login" onclick="updateUser(localStorage.username)">
+                <input class="btn btn-primary" type="button" value="Login" onclick="updateUser(sessionStorage.getItem('login_status'))">
                 <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
 
                 <p id='status'></p>

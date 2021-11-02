@@ -18,12 +18,13 @@
 
     <!-- AXIOS FOR TELEGRAM HTTP GET REQUEST-->
     <script src="js/axios/axios.min.js"></script>
-
+    <script src="js/users.js"></script>
 
     <title>Send bottle</title>
 </head>
 
 <body>
+    <script>checkLoginStatus()</script>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
         <div class="container-fluid">
@@ -52,13 +53,14 @@
                                     <p class="card-text" style="font-weight:bold;">
                                         wyf
                                         <script>
-                                            localStorage.username
+                                            sessionStorage.getItem("login_status")
                                         </script>
                                     </p>
                                 </div>
                             </div>
                             <li><a class="dropdown-item" href="updateUser.html">Update User Info</a></li>
                             <li><a class="dropdown-item" href="#">Map Feature</a></li>
+                            <li><input type="button" value="Logout" onclick="logout()"></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -69,6 +71,7 @@
             </div>
         </div>
     </nav>
+
     <div id="app">
         <div class="container">
             <div class="row">
@@ -201,9 +204,9 @@
         // createBottleTable()
 
         // update the data in db
-        if (localStorage.username != null) {
+        if (sessionStorage.getItem("login_status") != null) {
             function generate(message) {
-                var username = localStorage.username;
+                var username = sessionStorage.getItem("login_status");
                 console.log("updating" + username);
                 var bottles = firebase.database().ref('bottles/');
                 bottles.once('value').then((snapshot) => {
@@ -257,7 +260,7 @@
                 });
             }
         } else {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
             alert("please login first!!");
         }
     </script>

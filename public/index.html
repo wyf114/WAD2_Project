@@ -94,14 +94,12 @@
                 } else {
                     document.getElementById("status").innerText = "Passwords are matched";
                     username = document.getElementById("username").value;
-                    localStorage.username = username;
                     window.location.href = 'profile.html';
                     if (typeof (Storage) !== "undefined") {
                         // Store
                         sessionStorage.setItem("login_status", username);
                     }
 
-                    var username = document.getElementById("username");
                 }
             });
         }
