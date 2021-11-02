@@ -3,7 +3,7 @@ var USCOORDINATES = [37.09024, -95.712891]
 var TAIWANCOORDINATES = [23.69781, 120.960515]
 var JAPANCOORDINATES = [36.204824, 138.252924]
 var MALAYSIACOORDINATES = [4.210484, 101.975766]
-
+var CHINACOORDINATES = [39.916668, 116.383331]
 
 
 
@@ -58,7 +58,7 @@ addMarker(TAIWANCOORDINATES, "周杰伦 Jay Chou", "Taiwan");
 addMarker(JAPANCOORDINATES, "Piplup", "Japan")
 addMarker(MALAYSIACOORDINATES, "Namewee", "Malaysia")
 addMarker(SINGAPORECOORDINATES, "林俊杰 JJ Lin", "Singapore");
-
+addMarker(CHINACOORDINATES, "WYF", "China");
 
 
 //click coordinates

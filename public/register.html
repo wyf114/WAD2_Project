@@ -42,17 +42,18 @@
                     </select>
 
                     <div v-if="!stateSelectDisabled">
-                    State/Province: <select name="state" id="state" v-model="selected_state">
-                        <option value="choose" selected>Please select your state</option>
-                        <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}</option>
-                    </select>
+                        State/Province: <select name="state" id="state" v-model="selected_state">
+                            <option value="choose" selected>Please select your state</option>
+                            <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}
+                            </option>
+                        </select>
                     </div>
 
                     <div v-if="!citySelectDisabled">
-                    City/District: <select name="city" id="city" v-model="selected_city">
-                        <option value="choose" selected>Please select your city</option>
-                        <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
-                    </select>
+                        City/District: <select name="city" id="city" v-model="selected_city">
+                            <option value="choose" selected>Please select your city</option>
+                            <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
+                        </select>
                     </div>
 
                     <!-- <p>{{ selected_country }}</p> -->
@@ -62,7 +63,7 @@
                 </div>
 
                 <p id="status"></p>
-                
+
                 <script>
                     Vue.createApp({
                         data() {
@@ -90,7 +91,10 @@
                                         // var country_latitude = i['latitude']
                                         // var country_longitude = i['longitude']
                                         // console.log(country_latitude,country_longitude)
-                                        this.country_list.push({country_iso2: country_iso2,country_name: country_name});
+                                        this.country_list.push({
+                                            country_iso2: country_iso2,
+                                            country_name: country_name
+                                        });
                                     };
                                 })
                                 .catch(error => {
@@ -101,7 +105,8 @@
                             state_url() {
                                 // this creates the city list
                                 this.state_list = []
-                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this.selected_country + "/states";
+                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
+                                    .selected_country + "/states";
                                 // return state_url
                                 axios.get(state_url, {
                                         headers: {
@@ -115,7 +120,10 @@
                                             for (i of states) {
                                                 var state_code = i['iso2']
                                                 var state_name = i['name']
-                                                this.state_list.push({state_code: state_code,state_name: state_name});
+                                                this.state_list.push({
+                                                    state_code: state_code,
+                                                    state_name: state_name
+                                                });
                                             };
                                         } else {
                                             // this.state_list.push(this.country_list)
@@ -130,7 +138,8 @@
                             city_url() {
                                 // this creates the city list
                                 this.city_list = []
-                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this.selected_country + "/states/" + this.selected_state + "/cities";
+                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
+                                    .selected_country + "/states/" + this.selected_state + "/cities";
                                 axios.get(city_url, {
                                         headers: {
                                             'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
@@ -143,7 +152,10 @@
                                             for (i of cities) {
                                                 var city_id = i['id']
                                                 var city_name = i['name']
-                                                this.city_list.push({city_id: city_id,city_name: city_name});
+                                                this.city_list.push({
+                                                    city_id: city_id,
+                                                    city_name: city_name
+                                                });
                                             };
                                         } else {
                                             console.log("no city");
@@ -154,16 +166,16 @@
                                         console.log(error.message)
                                     });
                             },
-                            stateSelectDisabled(){
-                                if (this.state_list.length ==0) {
-                                    return true;
-                                }  
-                            },
-                            citySelectDisabled() {             
-                                if (this.city_list.length ==0) {
+                            stateSelectDisabled() {
+                                if (this.state_list.length == 0) {
                                     return true;
                                 }
-                                    
+                            },
+                            citySelectDisabled() {
+                                if (this.city_list.length == 0) {
+                                    return true;
+                                }
+
                             }
                         }
                     }).mount('#dropdown')
@@ -250,6 +262,16 @@
                 });
         }
     </script>
+
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">

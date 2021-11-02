@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/general.css">
     <link rel="stylesheet" href="./css/sendBottle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +24,51 @@
 </head>
 
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbar" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown">
+                            <div class="card" style="width: 15rem;">
+                                <img src="img/test_profile.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text" style="font-weight:bold;">
+                                        wyf
+                                        <script>
+                                            localStorage.username
+                                        </script>
+                                    </p>
+                                </div>
+                            </div>
+                            <li><a class="dropdown-item" href="updateUser.html">Update User Info</a></li>
+                            <li><a class="dropdown-item" href="#">Map Feature</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="#">About Us</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="app">
         <div class="container">
             <div class="row">
@@ -169,8 +215,8 @@
                         console.log(bottles)
                         var count_msg = 0
                         for (bottle in bottles) {
-                            console.log(bottle)
-                            console.log(bottles[bottle])
+                            // console.log(bottle)
+                            // console.log(bottles[bottle])
                             if (bottle.includes('bottle')) {
                                 count_msg++
                             }
@@ -217,6 +263,14 @@
     </script>
 
 
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
 
 
