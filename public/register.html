@@ -8,6 +8,7 @@
     <title>Registeration Page</title>
 
     <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -15,8 +16,7 @@
 </head>
 
 <body>
-    <div class="box">
-        <img src="../public/img/sea_register.jpeg" alt="">
+    
         <div class="container-float">
             <h3>User Registration</h3>
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
@@ -24,9 +24,20 @@
                 <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once
                     registered</p>
 
-                Password: <input type="password" name="password" id="password" minlength="8" required>
+                Password: <input type="password" name="password" id="password" required>
+                <div id="message1">
+                    <p>Password must contain the following:</p>
+                    <p id="letter" class="invalid"><b>A lowercase letter</b> </p>
+                    <p id="capital" class="invalid"><b>A capital (uppercase) letter</b></p>
+                    <p id="number" class="invalid"><b>A number</b></p>
+                    <p id="length" class="invalid"><b>Minimum 8 characters</b></p>
+                </div>
                 Verify Password: <input type="password" name="verify" id="verify" required>
-                Gender: <select name="gender" id="gender">
+                <div id="message2">
+
+                    <p id="match" class="invalid"><b>Password must be matched</b></p>
+                </div>
+                Gender: <select name="gender" id="gender" required>
                     <option value="gender" selected>Select your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -62,137 +73,138 @@
 
                 </div>
 
-                <p id="status"></p>
 
-                <script>
-                    Vue.createApp({
-                        data() {
-                            return {
-                                country_list: [], // array of post objects
-                                state_list: [],
-                                city_list: [],
-                                selected_country: 'choose',
-                                selected_state: 'choose',
-                                selected_city: 'choose'
-                            }
-                        },
-                        created() { // created is a hook that executes as soon as Vue instance is created
-                            axios.get('https://api.countrystatecity.in/v1/countries', {
-                                    headers: {
-                                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                                    }
-                                }).then(response => {
-                                    var countries = response.data;
-                                    console.log(countries)
-                                    for (i of countries) {
-                                        // console.log(i)
-                                        var country_iso2 = i['iso2']
-                                        var country_name = i['name']
-                                        // var country_latitude = i['latitude']
-                                        // var country_longitude = i['longitude']
-                                        // console.log(country_latitude,country_longitude)
-                                        this.country_list.push({
-                                            country_iso2: country_iso2,
-                                            country_name: country_name
-                                        });
-                                    };
-                                })
-                                .catch(error => {
-                                    console.log(error.message)
-                                });
-                        },
-                        computed: {
-                            state_url() {
-                                // this creates the city list
-                                this.state_list = []
-                                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
-                                    .selected_country + "/states";
-                                // return state_url
-                                axios.get(state_url, {
-                                        headers: {
-                                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                                        }
-                                    }).then(response => {
-                                        console.log(state_url)
-                                        var states = response.data;
-                                        console.log(states)
-                                        if (states.length != 0) {
-                                            for (i of states) {
-                                                var state_code = i['iso2']
-                                                var state_name = i['name']
-                                                this.state_list.push({
-                                                    state_code: state_code,
-                                                    state_name: state_name
-                                                });
-                                            };
-                                        } else {
-                                            // this.state_list.push(this.country_list)
-                                            console.log("no state");
-                                            stateSelectDisabled()
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    });
-                            },
-                            city_url() {
-                                // this creates the city list
-                                this.city_list = []
-                                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
-                                    .selected_country + "/states/" + this.selected_state + "/cities";
-                                axios.get(city_url, {
-                                        headers: {
-                                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                                        }
-                                    }).then(response => {
-                                        console.log(city_url)
-                                        var cities = response.data;
-                                        console.log(cities)
-                                        if (cities.length != 0) {
-                                            for (i of cities) {
-                                                var city_id = i['id']
-                                                var city_name = i['name']
-                                                this.city_list.push({
-                                                    city_id: city_id,
-                                                    city_name: city_name
-                                                });
-                                            };
-                                        } else {
-                                            console.log("no city");
-                                            citySelectDisabled()
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    });
-                            },
-                            stateSelectDisabled() {
-                                if (this.state_list.length == 0) {
-                                    return true;
-                                }
-                            },
-                            citySelectDisabled() {
-                                if (this.city_list.length == 0) {
-                                    return true;
-                                }
-
-                            }
-                        }
-                    }).mount('#dropdown')
-                </script>
-
-                <input class="btn btn-primary" type="button" value="Register"
+                <input class="btn btn-primary" id="register" type="button" value="Register" disabled
                     onclick="checkIfUserExists(document.getElementById('username').value)">
-                <input class="btn btn-success" type="button" value="Update"
-                    onclick="updateUser(document.getElementById('username').value)">
 
-                <p id='status'></p>
-                <p id='latest'></p>
 
             </form>
         </div>
-    </div>
+        <footer class="bg-dark text-center text-white">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2021 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    country_list: [], // array of post objects
+                    state_list: [],
+                    city_list: [],
+                    selected_country: 'choose',
+                    selected_state: 'choose',
+                    selected_city: 'choose'
+                }
+            },
+            created() { // created is a hook that executes as soon as Vue instance is created
+                axios.get('https://api.countrystatecity.in/v1/countries', {
+                    headers: {
+                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                    }
+                }).then(response => {
+                    var countries = response.data;
+                    console.log(countries)
+                    for (i of countries) {
+                        // console.log(i)
+                        var country_iso2 = i['iso2']
+                        var country_name = i['name']
+                        // var country_latitude = i['latitude']
+                        // var country_longitude = i['longitude']
+                        // console.log(country_latitude,country_longitude)
+                        this.country_list.push({
+                            country_iso2: country_iso2,
+                            country_name: country_name
+                        });
+                    };
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    });
+            },
+            computed: {
+                state_url() {
+                    // this creates the city list
+                    this.state_list = []
+                    var state_url = "https://api.countrystatecity.in/v1/countries/" + this
+                        .selected_country + "/states";
+                    // return state_url
+                    axios.get(state_url, {
+                        headers: {
+                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                        }
+                    }).then(response => {
+                        console.log(state_url)
+                        var states = response.data;
+                        console.log(states)
+                        if (states.length != 0) {
+                            for (i of states) {
+                                var state_code = i['iso2']
+                                var state_name = i['name']
+                                this.state_list.push({
+                                    state_code: state_code,
+                                    state_name: state_name
+                                });
+                            };
+                        } else {
+                            // this.state_list.push(this.country_list)
+                            console.log("no state");
+                            stateSelectDisabled()
+                        }
+                    })
+                        .catch(error => {
+                            console.log(error.message)
+                        });
+                },
+                city_url() {
+                    // this creates the city list
+                    this.city_list = []
+                    var city_url = "https://api.countrystatecity.in/v1/countries/" + this
+                        .selected_country + "/states/" + this.selected_state + "/cities";
+                    axios.get(city_url, {
+                        headers: {
+                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                        }
+                    }).then(response => {
+                        console.log(city_url)
+                        var cities = response.data;
+                        console.log(cities)
+                        if (cities.length != 0) {
+                            for (i of cities) {
+                                var city_id = i['id']
+                                var city_name = i['name']
+                                this.city_list.push({
+                                    city_id: city_id,
+                                    city_name: city_name
+                                });
+                            };
+                        } else {
+                            console.log("no city");
+                            citySelectDisabled()
+                        }
+                    })
+                        .catch(error => {
+                            console.log(error.message)
+                        });
+                },
+                stateSelectDisabled() {
+                    if (this.state_list.length == 0) {
+                        return true;
+                    }
+                },
+                citySelectDisabled() {
+                    if (this.city_list.length == 0) {
+                        return true;
+                    }
 
+                }
+            }
+        }).mount('#dropdown')
+    </script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -223,59 +235,136 @@
             });
         }
 
+
+
+        var myInput = document.getElementById("password");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        var country=document.getElementById("country").value;
+        // var city=document.getElementById("city").value;
+        // var state=document.getElementById("state").value;
+        var numbers = /[0-9]/g;
+        var upperCaseLetters = /[A-Z]/g;
+        var lowerCaseLetters = /[a-z]/g;
+        myInput.onfocus = function () {
+            document.getElementById("message1").style.display = "block";
+        }
+
+     
+        myInput.onblur = function () {
+            document.getElementById("message1").style.display = "none";
+        }
+
+       
+        myInput.onkeyup = function () {
+            // Validate lowercase letters
+            if (myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            if (myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            if (myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate length
+            if (myInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+
+        var verify = document.getElementById("verify");
+        var match = document.getElementById("match");
+        verify.onfocus = function () {
+            document.getElementById("message2").style.display = "block";
+        }
+
+        verify.onblur = function () {
+            document.getElementById("message2").style.display = "none";
+        }
+
+        verify.onkeyup = function () {
+            if (String(myInput.value) == String(verify.value)) {
+                match.classList.remove("invalid");
+                match.classList.add("valid");
+                
+            } else {
+                match.classList.remove("valid");
+                match.classList.add("invalid");
+                
+            }
+        }
+
+        if(myInput.value.match(lowerCaseLetters)&& myInput.value.match(upperCaseLetters)&& 
+        myInput.value.match(numbers)&&myInput.value.length >= 8&& String(myInput.value) == String(verify.value)){
+            document.getElementById("register").disabled = true;
+            
+        }
+
+
         // check password
         function checkPassword() {
-            var password = document.getElementById("password").value;
-            var verify = document.getElementById("verify").value;
-            if (String(password) != String(verify)) {
-                document.getElementById("status").innerText = "Passwords are not matched";
-                console.log("mismatched")
-            } else {
                 var username = document.getElementById("username").value;
                 var gender = document.getElementById("gender").value;
                 var country = document.getElementById("country").value;
                 var city = document.getElementById("city").value;
                 var password = document.getElementById("password").value;
                 writeUserData(username, gender, country, city, password);
-            }
+            
         }
 
         // writes the data to db
         function writeUserData(username, gender, country, city, password) {
             firebase.database().ref('users/' + username).set({
-                    password: password,
-                    gender: gender,
-                    country: country,
-                    city: city,
-                    instagram_username: "",
-                    spotify_username: "",
-                    youtube_username: "",
-                    telegram_info: "",
-                    description: "",
-                    bottle_message: ""
-                }).then(function () {
-                    document.getElementById("status").innerText = "Register succeeded.";
-                    window.location.href = 'index.html';
-                })
+                password: password,
+                gender: gender,
+                country: country,
+                city: city,
+                instagram_username: "",
+                spotify_username: "",
+                youtube_username: "",
+                telegram_info: "",
+                description: "",
+                bottle_message: ""
+            }).then(function () {
+                document.getElementById("status").innerText = "Register succeeded.";
+                window.location.href = 'index.html';
+            })
                 .catch(function (error) {
                     document.getElementById("status").innerText = "Register Failed.";
                 });
         }
     </script>
 
-    <footer class="bg-dark text-center text-white">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-    </script>
+        </script>
 
 
 </body>

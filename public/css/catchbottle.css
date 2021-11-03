@@ -454,15 +454,25 @@ p{
     margin-top: 50px;
     font-size: 30px !important;
  }
- .svg-container { 
-	display: inline-block;
-	position: relative;
-	width: 100%;
-    height:auto;
-	/* padding-bottom: 100%;  */
-	vertical-align: middle; 
-	overflow: hidden; 
+ .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
 }
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    height:100%;
+    margin:auto;
+    top: 0;
+    left: 0;
+    text-align: center;
+
+}
+
 
 /* .svg-content { 
 	display: inline-block;

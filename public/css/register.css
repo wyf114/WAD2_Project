@@ -1,23 +1,39 @@
 h3{
     text-align: center;
 }
+body {
+    background-image: url(../img/seaBackground.jpg);
 
+/* Image is centered vertically and horizontally at all times */
+background-position: center center;
+
+/* Image doesn't repeat */
+background-repeat: no-repeat;
+
+/* Makes the image fixed in the viewport so that it doesn't move when 
+the content height is greater than the image height */
+background-attachment: fixed;
+
+/* This is what makes the background image rescale based on its container's size */
+background-size: cover;
+}
 .container-float {
-    width: 30%;
-    margin: auto;
+    width: 50%;
+    margin: 10% auto;
     /* margin-top: 10%; */
     padding-bottom: 20px;
     border: 1px solid rgba(255, 255, 255, 0.774);
-    background-color:rgb(117, 143, 192);
-    color: white;
-    vertical-align: middle;
+    background-color:rgba(255, 255, 255, 0.774);
+    opacity: 0.6;
+  
     border-radius: 2%;
     z-index: 1;
-    position: absolute;
-    top: 20%;
-    left: 35%;
+    
+    overflow: auto
   
 }
+
+
 
 input[type=text],input[type=password], select {
     width: 90%;
@@ -28,6 +44,9 @@ input[type=text],input[type=password], select {
 
 #form {
     font-size: 14;
+    color: black;
+    font-weight: bold;
+    opacity: 1;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;    
 }
@@ -44,6 +63,68 @@ img {
 }
 
 .link {
-    color: blanchedalmond;
+    color: darkblue;
     text-decoration: underline;
 }
+
+
+/* Style all input fields */
+/* input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  } */
+  
+  /* Style the submit button */
+  /* input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+  } */
+  
+  /* Style the container for inputs */
+  /* .container {
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+   */
+  /* The message box is shown when the user clicks on the password field */
+  #message1, #message2 {
+    display:none;
+    color: #000;
+    position: relative;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  #message1 p, #message2 p {
+    padding: 0px 35px;
+    font-size: 10px;
+    margin: 0;
+    text-align: left;  
+  }
+  
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -15px;
+    content: "✔";
+  }
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -15px;
+    content: "✖";
+  }
