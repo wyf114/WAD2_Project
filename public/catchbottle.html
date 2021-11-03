@@ -600,6 +600,9 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat illo necessitatibus aperiam vero,
                 inventore modi architecto ex facilis error in distinctio quia repellendus maiores perferendis quae
                 temporibus minima dignissimos! Eligendi?</p>
+
+            <input type="button" value="Reply" onclick="">
+            <input type="button" value="Check Profile" onclick="">
         </div>
     </div>
   
@@ -765,19 +768,23 @@
         firebase.initializeApp(firebaseConfig);
 
         function MessageList() {
-            var msg = {};
-            var user = firebase.database().ref('users/');
-            user.once('value').then((snapshot) => {
-                var user = snapshot.val();
-                console.log(user)
-                for (i in user) {
-                    console.log(user[i]['bottle_message'])
-                }
-
-            })
+            var msg = [];
+            var bottles = firebase.database().ref('bottles/');
+            bottles.once('value').then((snapshot) => {
+                var bottles = snapshot.val();
+                // console.log(bottles)
+                msg.push(bottles)
+                console.log(msg)
+                return msg;  //undefined, but can create a vue.
+            }).catch(error => {
+                console.log(error.message)
+            });
         }
-        MessageList();
-        </script>
+        var msg_list = MessageList();
+        console.log(msg_list)
+    </script>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
