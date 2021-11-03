@@ -153,7 +153,7 @@
 
         function sendTeleNotifHelper(chatID, from) {
             var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-            var sendString = `${from} sent you a bottle!!`;
+            var sendString = `${from} has written a bottle!!`;
 
 
             var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
@@ -236,7 +236,7 @@
 
 
                         //send to telegram
-                        sendUserTelegram("adam", username);
+                        //sendUserTelegram("adam", username);
 
                         //notify all users in database
                         function notifyAllTelegram() {
@@ -246,13 +246,13 @@
                                 for (user_info in snapshot.val()) {
                                     console.log(`sending to ${user_info}`);
 
-                                    //sendUserTelegram(user_info, username);
+                                    sendUserTelegram(user_info, username);
                                 }
 
                             })
                         }
 
-                        //notifyAllTelegram();
+                        notifyAllTelegram();
 
                     } else {
                         document.getElementById("status").innerText = "User does not exist.";
