@@ -19,7 +19,9 @@
 </head>
 
 <body>
-    <script>checkLoginStatus()</script>
+    <script>
+        checkLoginStatus()
+    </script>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
         <div class="container-fluid">
@@ -274,10 +276,13 @@
 
             <!-- bottle -->
             <div id="app2">
-                <div v-for="(value,name,index) in bottles" @click="onClick(index)" :style="'margin-top: ' + index*margintop + '%'" id="bottle1">
+                <div v-for="(value, name, index) in bottles" @click="onClick(value)" :style="{'margin-top': index*margintop + '%','margin-left': index*marginleft + '%'}"
+                    id="bottle1">
                     <img src="./img/bottleBody.png">
-                    
+
                     <!-- <img src="./img/bottleCap.png"> -->
+                    {{ position_left }}
+                    {{ position_top }}
 
 
                 </div>
@@ -286,12 +291,12 @@
 
                     <!-- Modal content -->
                     <div class="modal-content">
-                      <span class="close" @click="close">&times;</span>
-                      <p>{{displayName}}</p>
-                      <p>{{displayMsg}}</p>
+                        <span class="close" @click="close">&times;</span>
+                        <p>{{displayName}}</p>
+                        <p>{{displayMsg}}</p>
                     </div>
-                  
-                  </div>
+
+                </div>
             </div>
 
             <div class="wave" id="wave1"></div>
@@ -320,8 +325,6 @@
 
 
     <script>
-
-
         const app = Vue.createApp({
             data() {
                 return {
@@ -362,8 +365,7 @@
                         return 'sun';
 
 
-                    }
-                    else {
+                    } else {
                         this.fill = 'url(#nightGradient)';
                         this.skyFill = 'url(#skyMoon)';
                         this.cloudFill = '#b5cfe6';
@@ -373,9 +375,6 @@
             }
         })
         const vm = app.mount('#app1')
-
-
-
     </script>
 
 
@@ -400,18 +399,12 @@
         firebase.initializeApp(firebaseConfig);
 
         function MessageList() {
-            var msg = [];
+            var bottle_list = {}
             var bottles = firebase.database().ref('bottles/');
             bottles.once('value').then((snapshot) => {
+                // msg.push(bottles)
                 var bottles = snapshot.val();
-                msg.push(bottles)
             })
-            console.log(msg);
-            for (message of msg) {
-                console.log(message);
-                console.log("hi");
-            }
-
         }
         MessageList()
 
@@ -419,36 +412,54 @@
         Vue.createApp({
             data() {
                 return {
-                    bottles: {
-                        bottle1: {
-                            from: 'wyf',
-                            message: 'Hello! bottle1'
-                        },
-                        bottle2: {
-                            from: 'xx',
-                            message: 'Hello! hihihi bottle2'
-                        }
-                    },
+                    bottles: {},
                     margintop: 3,
                     marginleft: 3,
                     displayMsg: '',
+                    displayName: '',
                     display: '',
                     opacity: 0
                 }
-            }, methods: {
-                onClick: function (index) {
-                    index++
-                    this.displayMsg = this.bottles['bottle' + index].message
-                    this.displayName = this.bottles['bottle' + index].from
+            },
+            created() {
+                var user = sessionStorage.getItem("login_status");
+                var bottles = firebase.database().ref('bottles/');
+                bottles.once('value').then((snapshot) => {
+                    this.bottles = snapshot.val();
+                    for (i in this.bottles) {
+                        if (this.bottles[i]['from'] == user) {
+                            delete this.bottles[i];
+                        }
+                    }
+                    console.log(this.bottles)
+                })
+            },
+            methods: {
+                onClick: function (bottle) {
+                    console.log(bottle)
+                    this.displayMsg = bottle['message']
+                    this.displayName = bottle['from']
                     this.display = "block"
-                    
+
                 },
-                close: function(){
+                close: function () {
                     this.display = "none"
                 }
+            },
+            computed: {
+                position_top() {
+                    // Returns a random integer from 0 to 5:
+                    this.margintop = Math.floor(Math.random() * 11);
+                    // return this.margintop;
+                },
+                position_left() {
+                    // Returns a random integer from 0 to 10:
+                    this.marginleft = Math.floor(Math.random() * 11);
+                    // return this.marginleft;
+                }
+
             }
         }).mount('#app2')
-
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
