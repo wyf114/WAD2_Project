@@ -244,6 +244,12 @@
                             allusers.once('value').then((snapshot) => {
                                 console.log(snapshot.val());
                                 for (user_info in snapshot.val()) {
+
+                                    if (user_info === username){
+                                        console.log("do not send telegram to yourself! continuing for loop")
+                                        continue;
+                                    }
+
                                     console.log(`sending to ${user_info}`);
 
                                     sendUserTelegram(user_info, username);
