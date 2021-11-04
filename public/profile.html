@@ -79,46 +79,34 @@
                 <div class="row align-items-center" id="app">
                     <div class="col-2 col-sm-3 p-0 m-0">
                         <!-- previous arrow-->
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="head_previous"
+                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="head_previous"
                             style="cursor: pointer">
 
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="body_previous"
+                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="body_previous"
                             style="cursor: pointer">
 
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="leg_previous"
+                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="leg_previous"
                             style="cursor: pointer">
                     </div>
 
                     <!-- Parts -->
                     <div class="col-8 col-sm-6 p-0 m-0">
                         <div class="container parts p-0">
-                            <div id="head" class="p-0">
-                                <img :src="head" :style="{'width': width, 'height': height}" alt="">
-                            </div>
-                            <div id="body" class="p-0">
-                                <img :src="body" :style="{'width': width, 'height': height}" alt="">
-                            </div>
-                            <div id="leg" class="p-0">
-                                <img :src="leg" :style="{'width': width, 'height': height}" alt="">
-                            </div>
+                            <img id="head" class="p-0" :src="head"  alt="">
+                            <img id="body" class="p-0" :src="body"  alt="">
+                            <img id="leg" class="p-0" :src="leg" alt="">
                         </div>
                     </div>
 
                     <!-- next arrow-->
                     <div class="col-2 col-sm-3 p-0 m-0">
-                        <img class="arrow arrow_previous" src="img/arrow.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="head_next"
+                        <img class="arrow arrow_previous" src="img/arrow.png" @click="head_next"
                             style="cursor: pointer">
 
-                        <img class="arrow arrow_previous" src="img/arrow.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="body_next"
+                        <img class="arrow arrow_previous" src="img/arrow.png" @click="body_next"
                             style="cursor: pointer">
 
-                        <img class="arrow arrow_previous" src="img/arrow.png" alt=""
-                            :style="{'width': arrow_width, 'height': height}" @click="leg_next" style="cursor: pointer">
+                        <img class="arrow arrow_previous" src="img/arrow.png" @click="leg_next" style="cursor: pointer">
                     </div>
                 </div>
             </div>
@@ -194,8 +182,6 @@
                     head_idx: 0,
                     body_idx: 0,
                     leg_idx: 0,
-                    width: '100%',
-                    height: 'auto',
                     arrow_width: '100%',
                     heads: [
                         'img/character_head1.png',

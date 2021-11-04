@@ -29,6 +29,8 @@ textarea {
 .arrow {
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 100%;
+    height: auto;
 }
 
 .arrow_previous {
@@ -41,36 +43,49 @@ textarea {
     margin-right: 0 auto;
 }
 
-.parts {
-    width: 300px;
-    /* Can be in percentage also. */
-    height: 600px;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
-    position: relative;
+
+
+
+/* ALL SIZES */
+/* Mobile Small 320px */
+@media screen and (max-width: 374px) {
+    .parts {
+        width: 100%;
+        height: 380px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+    
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 55%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 25%;
+        z-index: -1;
+    }
 }
 
-#head {
-    position: absolute;
-}
-
-#body {
-    position: absolute;
-    top: 230px;
-    z-index: -1;
-}
 
 #leg {
     position: absolute;
-    top: 475px;
+    width: 100%;
+    bottom: 10%;
     z-index: -2;
 }
 
-@media screen and (max-width: 600px) {
+
+/* Mobile Medium 375px */
+@media screen and (min-width: 375px) {
     .parts {
-        width: 150px;
-        /* Can be in percentage also. */
-        height: 300px;
+        width: 200px;
+        height: 350px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -78,17 +93,638 @@ textarea {
 
     #head {
         position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 13%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -2%;
+        z-index: -2;
+    }
+}
+
+
+/* Mobile Large */
+@media screen and (min-width: 425px) {
+
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 20%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 7%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 505px */
+@media screen and (min-width: 505px) {
+
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 45%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 10%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -5%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 550px */
+@media screen and (min-width: 550px) {
+
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 45%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 5%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -10%;
+        z-index: -2;
+    }
+}
+
+
+/* Bootstrap Small 576px */
+@media screen and (min-width: 576px) {
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
     }
 
     #body {
         position: absolute;
-        top: 120px;
+        width: 100%;
+        bottom: 20%;
         z-index: -1;
     }
 
     #leg {
         position: absolute;
-        top: 245px;
+        width: 100%;
+        bottom: 5%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 655px */
+@media screen and (min-width: 655px) {
+
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 12%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -3%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 715px */
+@media screen and (min-width: 715px) {
+    .parts {
+        width: 200px;
+        height: 486px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 45%;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 5%;
+        z-index: -1;
+    }
+    
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -12%;
+        z-index: -2;
+    }
+}
+
+/* Tablet 768px */
+@media screen and (min-width: 768px) {
+    .parts {
+        width: 100%;
+        height: 568px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 15%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 800px */
+@media screen and (min-width: 800px) {
+    .parts {
+        width: 100%;
+        height: 588px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 15%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 840px */
+@media screen and (min-width: 840px) {
+    .parts {
+        width: 100%;
+        height: 612px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 48%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 12%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -3%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 915px */
+@media screen and (min-width: 915px) {
+    .parts {
+        width: 100%;
+        height: 657px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 45%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 10%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -5%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 975px */
+@media screen and (min-width: 975px) {
+    .parts {
+        width: 200px;
+        height: 693px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 12%;
+        
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: -5%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 992px */
+@media screen and (min-width: 992px) {
+    .parts {
+        width: 200px;
+        height: 460px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 17%;
+        
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        z-index: -2;
+    }
+}
+
+
+/* Laptop 1024px */
+@media screen and (min-width: 1024px) {
+    .parts {
+        width: 200px;
+        height: 471px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 17%;
+        
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 1280px */
+@media screen and (min-width: 1280px) {
+    .parts {
+        width: 200px;
+        height: 561px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 50%;
+    }
+
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 17%;
+        
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        z-index: -2;
+    }
+}
+
+
+/* Laptop Large 1440px */
+@media screen and (min-width: 1440px) {
+    .arrow {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 85%;
+        height: auto;
+    }
+
+    .parts {
+        /* Can be in percentage also. */
+        width: 200px;
+        height: 542px;
+        margin: 0px;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 80%;
+        bottom:50%;
+        margin-left: 7%;
+    }
+
+    #body {
+        position: absolute;
+        width: 80%;
+        bottom: 17%;
+        margin-left: 7%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 80%;
+        bottom: 0%;
+        margin-left: 7%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 1775px */
+@media screen and (min-width: 1775px) {
+    .parts {
+        width: 200px;
+        height: 642px;
+        margin: 0px;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 80%;
+        bottom:45%;
+        margin-left: 7%;
+    }
+
+    #body {
+        position: absolute;
+        width: 80%;
+        bottom: 12%;
+        margin-left: 7%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 80%;
+        bottom: -5%;
+        margin-left: 7%;
+        z-index: -2;
+    }
+}
+
+
+/* Custom Size 2195px */
+@media screen and (min-width: 2070px) {
+    .parts {
+        width: 200px;
+        height: 767px;
+        margin: 0px;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 80%;
+        bottom:45%;
+        margin-left: 7%;
+    }
+
+    #body {
+        position: absolute;
+        width: 80%;
+        bottom: 12%;
+        margin-left: 7%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 80%;
+        bottom: -5%;
+        margin-left: 7%;
+        z-index: -2;
+    }
+}
+
+/* XL 2560px */
+@media screen and (min-width: 2560px) {
+    .parts {
+        width: 200px;
+        height: 875px;
+        margin: 0px;
+        position: relative;
+    }
+
+    #head {
+        position: absolute;
+        height: auto;
+        width: 80%;
+        bottom:45%;
+        margin-left: 7%;
+    }
+
+    #body {
+        position: absolute;
+        width: 80%;
+        bottom: 12%;
+        margin-left: 7%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        width: 80%;
+        bottom: -5%;
+        margin-left: 7%;
         z-index: -2;
     }
 }
