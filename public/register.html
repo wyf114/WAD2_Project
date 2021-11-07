@@ -68,16 +68,16 @@
 
 
                 <div id="dropdown">
-                    Country: <select name="country" id="country" v-model="selected_country">
+                    Country: <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
                         <option value="choose" selected>Please select your country</option>
                         <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
                         </option>
                     </select>
 
                     <div v-if="!stateSelectDisabled">
-                        State/Province: <select name="state" id="state" v-model="selected_state">
+                        State/Province: <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
                             <option value="choose" selected>Please select your state</option>
-                            <option v-for="state in state_list" :value="state.state_code">{{ state.state_name }}
+                            <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
                             </option>
                         </select>
                     </div>
@@ -94,6 +94,8 @@
                     <p>{{ city_url }}</p>
 
                 </div>
+
+                <div id="countryCoordinate">initial</div>
 
 
                 <input class="btn btn-primary" id="register" type="button" value="Register" disabled

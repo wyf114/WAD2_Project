@@ -3143,7 +3143,7 @@ var countrycodeLatitude = {}
 
 
 for (countryinfo of countriesJson){
-    //console.log(countryinfo);
+    console.log(countryinfo.name);
     countrycodeLatitude[countryinfo.country_code] = countryinfo.latlng;
 }
 console.log(countrycodeLatitude);
