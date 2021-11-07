@@ -60,6 +60,8 @@ var BottleIcon = L.icon({
 function addMarker(coordinates, header, description){
     var marker = L.marker(coordinates, {icon: BottleIcon}).addTo(mymap);
     marker.bindPopup(`<b>${header}</b><br>${description}`).openPopup();
+    marker.on('click', function(e) {mymap.setView(new L.LatLng(coordinates[0], coordinates[1]), 16);});
+
 }
 
 /** 
