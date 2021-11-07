@@ -17,6 +17,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- General JS Script -->
+    <script src="js/users.js"></script>
 </head>
 
 <body>
@@ -39,27 +42,8 @@
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbar" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown">
-                            <div class="card" style="width: 15rem;">
-                                <img src="img/test_profile.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text" style="font-weight:bold;">
-                                        wyf
-                                        <script>
-                                            sessionStorage.getItem("login_status")
-                                        </script>
-                                    </p>
-                                </div>
-                            </div>
-                            <li><a class="dropdown-item" href="updateUser.html">Update User Info</a></li>
-                            <li><a class="dropdown-item" href="#">Map Feature</a></li>
-                            <li><input type="button" value="Logout" onclick="logout()"></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="mapPage.html">Map Feature</a>
                     </li>
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="aboutUs.html">About Us</a>
@@ -69,7 +53,13 @@
                 <!-- left navbar links -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
                       <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
+                    </li>
+                    <li class="nav-item">
+                        <p id="navbar" class="nav-link nav-logout" onclick="logout()">Logout</p>
                     </li>
                 </ul>
             </div>
