@@ -335,13 +335,14 @@ p{
     margin: auto;
     height: 75%;
     padding: 20px;
-    width: 60%;
+    width: 80% !important;
   }
   
   /* The Close Button */
   .close{
-    margin-right: 5%;
-    margin-top: 5%;
+    /* margin-right: 5%;
+    margin-top: 5%; */
+    font-family: 'Courier New', Courier, monospace;
     font-size: 30px !important;
  } 
   
