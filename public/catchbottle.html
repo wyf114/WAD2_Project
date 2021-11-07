@@ -273,12 +273,12 @@
             <div id="myModal" class="modal" :style="{ display : display}">
 
                 <div class="modal-content">
-                    <span class="close" @click="close">&times;Close</span>
+                    <span class="close" @click="close"> &times;Close</span>
                     </br>
                     </br>
                     </br>
                     <p>{{displayMsg}}</p>
-                    <button class="yellowBtn" id="reply" role="button">Reply</button>
+                    <button class="yellowBtn" id="reply" role="button" @click="messageFriend()">Reply</button>
                     <button class="yellowBtn" id="friend" role="button" @click="makeFriend()">Sender info</button>
                 </div>
 
@@ -286,15 +286,31 @@
             </div>
 
             <div id="myModal2" class="modal" :style="{ display : friendDisplay}">
-
                 <!-- Modal content -->
                 <div class="modal-content">
-                    <span class="close" @click="closeFriend">&times;</span>
+                    <span class="close" @click="closeFriend"> &#8592;Back</span>
                     <img :src="imgPath" alt="John" style="width:20%; margin:0 40% 0 40%">
-                    <p>{{displayName}}</p>
-                    <!-- <p class="title">CEO & Founder, Example</p> -->
-                    <p>{{ description }}</p>
-                    <button class="yellowBtn" id="messageFriend" role="button">Message</button>
+                    <div id="text" style="text-align: center;">
+                        {{displayName}}
+                    </br>
+                    {{ description }}
+                    </div>
+                    
+                    <button class="yellowBtn" id="messageFriend" role="button" @click="messageFriend()">Message</button>
+
+                </div>
+
+
+            </div>
+
+            <div id="myModal3" class="modal" :style="{ display : replyDisplay}">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" @click="closeReply"> &#8592;Back</span>
+                    <label for="replyMessage" style="margin-left:5%">Write your message</label><br>
+                                <textarea class="form-control" name="replyMessage" id="replyMessage" rows="7" style="margin: 0 10%; width:80%"
+                                    placeholder="Hi"></textarea>
+                    <button class="yellowBtn" id="messageFriend" role="button">Send</button>
 
                 </div>
 
@@ -419,7 +435,8 @@
                         friendDisplay: '',
                         opacity: 0,
                         description: '',
-                        imgPath: ''
+                        imgPath: '',
+                        replyDisplay: '',
                     }
                 },
                 created() {
@@ -448,9 +465,18 @@
                         this.friendDisplay = "block"
                         this.sender()
                     },
+                    messageFriend: function () {
+                        this.friendDisplay = "none"
+                        this.replyDisplay ="block"
+                        
+                    },
                     closeFriend: function () {
                         this.display = "block"
                         this.friendDisplay = "none"
+                    },
+                    closeReply: function () {
+                        this.display = "block"
+                        this.replyDisplay = "none"
                     },
                     close: function () {
                         this.display = "none"
