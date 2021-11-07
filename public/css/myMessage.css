@@ -8,22 +8,29 @@
   box-sizing: border-box;
 }
 body {
-  display: flex;
+  /* display: flex;  change if the message box has position issues */
   justify-content: center;
   align-items: center;
   height: 100vh;
   font-family: "Roboto", arial, sans-serif;
   color: #222
 }
+
+.body-content {
+  display: flex;
+  margin-top: 50px;
+}
+
 .message-container {
   height: 100%;
-
+  display: inline-block;
   padding: 20px;
   border-radius: 5px;
   background: #fffffb;
   position: relative;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 }
+
   .profile-img {
     height: 100px;
     width: 100px;
@@ -86,4 +93,3 @@ body {
         }
       }
   
-
