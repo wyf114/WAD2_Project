@@ -63,7 +63,7 @@
                         <a id="navbar" class="nav-link" href="profile.html">Profile</a>
                     </li>
                     <li class="nav-item">
-                      <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
+                        <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
                     </li>
                     <li class="nav-item">
                         <p id="navbar" class="nav-link nav-logout" onclick="logout()">Logout</p>
@@ -73,39 +73,50 @@
         </div>
     </nav>
 
-    <div id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6" id="write">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Type your message</label>
-                            <div id="speechbutton" class="btn btn-success">speech recognition</div>
-                            <div id="output"></div>
-                            <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
-                                maxlength="400"></textarea>
-                        </div>
-                        <span id='num-chars'>6</span> / 400
-                        </br>
-                        </br>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Attach an image</label>
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                        </div>
-                        <div class="text-right">
-                            <button type="button" class="btn btn-primary mb-2"
-                                onclick="generate(document.getElementById('exampleFormControlTextarea1').value)">Confirm</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-6" id="text">
-                    <p>{{message}}</p>
-                    <p id="status"></p>
+
+    
+        <div id="app">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6" id="write">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Type your message</label>
+                                <div id="speechbutton" class="btn btn-success">speech recognition</div>
+                                <div id="output"></div>
+                                <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
+                                    maxlength="400"></textarea>
+                            </div>
+                            <span id='num-chars'>6</span> / 400
+                            </br>
+                            </br>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Attach an image</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            </div>
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary mb-2"
+                                    onclick="generate(document.getElementById('exampleFormControlTextarea1').value)">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6" id="text">
+                        <p>{{message}}</p>
+                        <p id="status"></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
     <script>
         myObject = new Vue({
@@ -273,14 +284,7 @@
     </script>
 
 
-    <footer class="bg-dark text-center text-white">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+    
 
 
 

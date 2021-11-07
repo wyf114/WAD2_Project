@@ -10,7 +10,7 @@
 body {
   /* display: flex;  change if the message box has position issues */
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   height: 100vh;
   font-family: "Roboto", arial, sans-serif;
   color: #222

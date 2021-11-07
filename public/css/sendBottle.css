@@ -5,16 +5,16 @@
       height: 527px;
       /* width: 80%; */
       word-wrap: break-word;
-      
-      
   }
-  p{
+
+p{
     margin: auto;
     padding: 50px;
     text-align: center;
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
   }
+
 .row{
       display: flex;
   }
