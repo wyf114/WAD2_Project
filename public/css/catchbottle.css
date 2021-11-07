@@ -342,8 +342,9 @@ p{
   .close{
     /* margin-right: 5%;
     margin-top: 5%; */
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 30px !important;
+    margin:2% 0 0 5%;
+    font-size: 20px !important;
+    font-family: serif !important;
  } 
   
   .close:hover,
