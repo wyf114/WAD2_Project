@@ -310,8 +310,8 @@
                     <span class="close" @click="closeReply"> &#8592;Back</span>
                     <label for="replyMessage" style="margin-left:5%">Write your message</label><br>
                     <textarea class="form-control" name="replyMessage" id="replyMessage" rows="7"
-                        style="margin: 0 10%; width:80%" placeholder="Hi"></textarea>
-                    <button class="yellowBtn" id="messageFriend" role="button">Send</button>
+                        style="margin: 0 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                    <button class="yellowBtn" id="messageFriend" role="button" @click="sendReply()">Send</button>
 
                 </div>
 
@@ -424,6 +424,7 @@
                         description: '',
                         imgPath: '',
                         replyDisplay: '',
+                        text:'Hi',
                     }
                 },
                 created() {
@@ -467,6 +468,46 @@
                     },
                     close: function () {
                         this.display = "none"
+                    },
+                    sendReply: function () {
+                        if (sessionStorage.getItem("login_status") != null) {
+                            var username = sessionStorage.getItem("login_status");
+                            var receiver = this.displayName;
+                            var text = this.text;
+                            console.log("sending from:" + username);
+                            console.log("updating" + receiver);
+                            var messages = firebase.database().ref('messages/');
+                            messages.once('value').then((snapshot) => {
+                                if (snapshot.exists()) {
+                                    var messages = snapshot.val();
+                                    // console.log(messages)
+                                    if (receiver in messages) {
+                                        console.log("updating current receiver")
+                                        // count number of msgs
+                                        var msgs = messages[receiver]
+                                        console.log(msgs)
+                                        var keys = Object.keys(msgs)
+                                        var count_msg = keys.length
+                                        console.log(keys, count_msg)
+
+                                        //update data with new bottle name
+                                        var updates = {};
+                                        var msg_name = "msg" + count_msg
+                                        updates['/messages/' + receiver + "/" + msg_name + "/message"] = text;
+                                        updates['/messages/' + receiver + "/" + msg_name + "/sender"] = username;
+                                        firebase.database().ref().update(updates);
+                                    } 
+                                    else {
+                                        console.log("adding new the receiver:", receiver)
+                                        var updates = {};
+                                        updates['/messages/' + receiver + '/msg0/message'] = text;
+                                        updates['/messages/' + receiver + '/msg0/sender'] = username;
+                                        firebase.database().ref().update(updates);
+                                    }
+                                }
+
+                            })
+                        }
                     },
                     sender() {
                         var user = firebase.database().ref('users/' + this.displayName);
