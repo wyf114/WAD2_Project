@@ -67,32 +67,32 @@
         </div>
     </nav>
 
-
-    <div class="container-fluid body-content" id="message">
-        <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col-8" v-for="msg in msg_list">
-                <div class="message-container">
-                    <div class="profile-img"></div>
-                    <h1>
-                        {{ msg.sender }}
-                    </h1>
-                    <div class="description">
-                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni porro repellat ratione officiis
+    <div id="message" >
+        <div class="inbox" v-for="msg in msg_list">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-8">
+                    <div class="message-container">
+                        <div class="profile-img"></div>
+                        <h4>
+                            {{ msg.sender }}
+                        </h4>
+                        <div class="description">
+                            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni porro repellat ratione officiis
                         doloribus voluptatem beatae similique nisi iusto natus. Quibusdam, ab modi a inventore vitae eos
                         omnis provident sapiente? -->
-                        {{ msg.msg }}
+                            {{ msg.msg }}
+                        </div>
+                        <button class="yellowBtn">Reply</button>
                     </div>
-                    <button class="yellowBtn">Reply</button>
+                </div>
+                <div class="col-2">
                 </div>
             </div>
-            <div class="col-2">
-            </div>
-        </div>
-
+   
     </div>
-
+</div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
@@ -187,7 +187,7 @@
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
