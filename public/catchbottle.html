@@ -504,7 +504,6 @@
                                         firebase.database().ref().update(updates);
                                         var replyStatus=document.getElementById("replyStatus");
                                         replyStatus.innerHTML="Message Sent!";
-                                        this.text="Hi";
                                     } 
                                     else {
                                         console.log("adding new the receiver:", receiver)
@@ -514,7 +513,7 @@
                                         updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
                                     }
-                                    this.text = '';
+                                    this.text = 'Hi';
                                 }
 
                             })
