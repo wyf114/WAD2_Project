@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./css/myMessage.css">
     <link rel="stylesheet" href="./css/general.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -21,15 +22,16 @@
 
     <title>Document</title>
 </head>
+
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="line"></span> 
-                <span class="line"></span> 
+                <span class="line"></span>
+                <span class="line"></span>
                 <span class="line"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -55,7 +57,7 @@
                         <a id="navbar" class="nav-link" href="profile.html">Profile</a>
                     </li>
                     <li class="nav-item">
-                      <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
+                        <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
                     </li>
                     <li class="nav-item">
                         <p id="navbar" class="nav-link nav-logout" onclick="logout()">Logout</p>
@@ -66,26 +68,29 @@
     </nav>
 
 
-    <div class="container-fluid body-content">
+    <div class="container-fluid body-content" id="message">
         <div class="row">
             <div class="col-2">
             </div>
-        <div class="col-8">
-        <div class="message-container">
-            <div class="profile-img"></div>
-            <h1>
-            Maddie
-            </h1>
-            <div class="description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni porro repellat ratione officiis doloribus voluptatem beatae similique nisi iusto natus. Quibusdam, ab modi a inventore vitae eos omnis provident sapiente?
-            </div>
-            <button class="yellowBtn">Reply</button>
-        </div>
+            <div class="col-8" v-for="msg in msg_list">
+                <div class="message-container">
+                    <div class="profile-img"></div>
+                    <h1>
+                        {{ msg.sender }}
+                    </h1>
+                    <div class="description">
+                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni porro repellat ratione officiis
+                        doloribus voluptatem beatae similique nisi iusto natus. Quibusdam, ab modi a inventore vitae eos
+                        omnis provident sapiente? -->
+                        {{ msg.msg }}
+                    </div>
+                    <button class="yellowBtn">Reply</button>
+                </div>
             </div>
             <div class="col-2">
+            </div>
         </div>
-        </div>
-    
+
     </div>
 
     <footer class="bg-dark text-center text-white">
@@ -97,9 +102,92 @@
         <!-- Copyright -->
     </footer>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+        // Config and Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
+            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
+            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
+            projectId: "sademo2018-2-11ec2",
+            storageBucket: "sademo2018-2-11ec2.appspot.com",
+            messagingSenderId: "431393859582",
+            appId: "1:431393859582:web:ccc0434dd68846b15b82af",
+            measurementId: "G-0ZW54EJXDW"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // create a bottle table in db
+        // function createMessageTable() {
+        //     let username = sessionStorage.getItem('login_status')
+        //     firebase.database().ref('messages/' + username + '/msg0').set({
+        //             sender: "",
+        //             message: ""
+        //         }).then(function () {
+        //             console.log("messages table created")
+        //         })
+        //         .catch(function (error) {
+        //             console.log("messages table created")
+        //         });
+        // }
+        // createMessageTable()
+
+        // function MessageList() {
+        //     var msg_list = []
+        //     let user = sessionStorage.getItem("login_status");
+        //     var message = firebase.database().ref('messages/' + user);
+        //     message.once('value').then((snapshot) => {
+        //         message = snapshot.val();
+        //         console.log(message)
+        //         for (sender in message) {
+        //             console.log(sender)
+        //             var msg_content = message[sender]['message']
+        //             var send_user = message[sender]['sender']
+        //             console.log(send_user)
+        //             msg_list.push({
+        //                 send_user: msg_content
+        //             })
+        //         }
+        //         console.log(msg_list)
+
+        //     })
+        // };
+        // MessageList()
+
+        Vue.createApp({
+            data() {
+                return {
+                    msg_list: [],
+                }
+            },
+            created() {
+                var user = sessionStorage.getItem("login_status");
+                var message = firebase.database().ref('messages/' + user);
+                message.once('value').then((snapshot) => {
+                    message = snapshot.val();
+                    // console.log(message)
+                    for (sender in message) {
+                        var msg_content = message[sender]['message']
+                        var send_user = message[sender]['sender']
+                        this.msg_list.push({
+                            msg: msg_content,
+                            sender: send_user
+                        })
+                    }
+                    console.log(this.msg_list)
+                })
+            }
+        }).mount('#message')
+    </script>
+
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 </body>
+
 </html>
