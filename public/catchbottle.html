@@ -467,6 +467,7 @@
                     closeReply: function () {
                         this.display = "block"
                         this.replyDisplay = "none"
+                        this.text = ''
                     },
                     close: function () {
                         this.display = "none"
@@ -509,6 +510,7 @@
                                         updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
                                     }
+                                    this.text = '';
                                 }
 
                             })
