@@ -311,6 +311,7 @@
                     <label for="replyMessage" style="margin-left:5%">Write your message</label><br>
                     <textarea class="form-control" name="replyMessage" id="replyMessage" rows="7"
                         style="margin: 0 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                        <div id="replyStatus"></div>
                     <button class="yellowBtn" id="messageFriend" role="button" @click="sendReply()">Send</button>
 
                 </div>
@@ -496,6 +497,9 @@
                                         updates['/messages/' + receiver + "/" + msg_name + "/message"] = text;
                                         updates['/messages/' + receiver + "/" + msg_name + "/sender"] = username;
                                         firebase.database().ref().update(updates);
+                                        var replyStatus=document.getElementById("replyStatus");
+                                        replyStatus.innerHTML="Message Sent!";
+                                        this.text="Hi";
                                     } 
                                     else {
                                         console.log("adding new the receiver:", receiver)
