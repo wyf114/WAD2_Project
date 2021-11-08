@@ -132,8 +132,9 @@
                     console.log("mismatched")
                 } else {
                     document.getElementById("status").innerText = "Passwords are matched";
+                    // check login status and store into the session
                     username = document.getElementById("username").value;
-                    window.location.href = 'profile.html';
+                    window.location.href = 'catchBottle.html';
                     if (typeof (Storage) !== "undefined") {
                         // Store
                         sessionStorage.setItem("login_status", username);
