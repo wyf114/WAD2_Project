@@ -264,7 +264,7 @@
 
         <!-- bottle -->
         <div id="app2">
-            <div v-for="(value, name, index) in bottles" @click="onClick(value)"
+            <div v-for="(value, name, index) in bottles" @click="onClick(value, name)"
                 :style="{'margin-top': index*margintop + '%','margin-left': index*marginleft + '%'}" id="bottle1">
                 <img src="./img/bottleBody.png">
                 {{position_top}}
@@ -418,6 +418,7 @@
                         marginleft: 3,
                         displayMsg: '',
                         displayName: '',
+                        bottleID:'',
                         display: '',
                         friendDisplay: '',
                         opacity: 0,
@@ -441,10 +442,11 @@
                     })
                 },
                 methods: {
-                    onClick: function (bottle) {
+                    onClick: function (bottle, id) {
                         console.log(bottle)
                         this.displayMsg = bottle['message']
                         this.displayName = bottle['from']
+                        this.bottleID = id
                         this.display = "block"
 
                     },
@@ -474,6 +476,7 @@
                             var username = sessionStorage.getItem("login_status");
                             var receiver = this.displayName;
                             var text = this.text;
+                            var bottleID = this.bottleID;
                             console.log("sending from:" + username);
                             console.log("updating" + receiver);
                             var messages = firebase.database().ref('messages/');
@@ -495,6 +498,7 @@
                                         var msg_name = "msg" + count_msg
                                         updates['/messages/' + receiver + "/" + msg_name + "/message"] = text;
                                         updates['/messages/' + receiver + "/" + msg_name + "/sender"] = username;
+                                        updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
                                     } 
                                     else {
@@ -502,11 +506,15 @@
                                         var updates = {};
                                         updates['/messages/' + receiver + '/msg0/message'] = text;
                                         updates['/messages/' + receiver + '/msg0/sender'] = username;
+                                        updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
                                     }
                                 }
 
                             })
+                        }
+                        else {
+                            window.location.href = 'index.html';
                         }
                     },
                     sender() {
