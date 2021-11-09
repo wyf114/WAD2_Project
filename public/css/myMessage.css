@@ -21,6 +21,7 @@
     position: absolute;
     top: -25px;
     left: -25px;
+    z-index: 2;
     border-radius: 50%;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
   }
@@ -37,40 +38,16 @@
   }
  
   
-    .yellowBtn {
-        background-color: #fbeee0;
-        border: 2px solid #422800;
-        border-radius: 30px;
-        box-shadow: #422800 4px 4px 0 0;
-        color: #422800;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: 600;
-        font-size: 18px;
-        padding: 0 18px;
-        line-height: 30px;
-        position: absolute;
-        bottom: 5%;
-        right: 5%;
-        text-align: center;
-        text-decoration: none;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-      }
-      
-      .yellowBtn:hover {
-        background-color: #fff;
-      }
-      
-      .yellowBtn:active {
-        box-shadow: #422800 2px 2px 0 0;
-        transform: translate(2px, 2px);
-      }
-      @media (max-width: 576px) {
-        .yellowBtn{
-          font-size: 8px;
-          padding: 0 10px;
-        }
-      }
+  .expand:active, .expand:hover {
+    background-color: #fbeee0;
+  }
   
+  #inboxReply{
+    display: none;
+  }
+
+  #sendReply{
+    display: none;
+    float:right;
+    margin-bottom: 10px;
+  }

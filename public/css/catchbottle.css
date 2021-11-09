@@ -4,11 +4,11 @@ body{
     min-height: 100vh;
 }
 
-#bottle1:hover{
+.bottle:hover{
     width: 200px;
 
 }
-#bottle1{
+.bottle{
     top:50%;
     width: 100px;
     position:absolute;
@@ -354,45 +354,6 @@ p{
     cursor: pointer;
   }
   
-  
-  .yellowBtn {
-    background-color: #fbeee0;
-    border: 2px solid #422800;
-    border-radius: 30px;
-    box-shadow: #422800 4px 4px 0 0;
-    color: #422800;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 600;
-    font-size: 18px;
-    padding: 0 18px;
-    line-height: 30px;
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    z-index: 3;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-  .yellowBtn:hover {
-    background-color: #fff;
-  }
-  
-  .yellowBtn:active {
-    box-shadow: #422800 2px 2px 0 0;
-    transform: translate(2px, 2px);
-  }
-  
-  @media (max-width: 576px) {
-    .yellowBtn{
-      font-size: 8px;
-      padding: 0 10px;
-    }
-  }
 
   #friend{
     left: 5%;
@@ -401,4 +362,9 @@ p{
     position: absolute;
     bottom: 6%;
     left: 12%;
+}
+.yellowBtn{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
 }

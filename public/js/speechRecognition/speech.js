@@ -41,7 +41,6 @@ function testSpeech() {
     recognition.onresult = function(event) {
 
       var speechResult = event.results[0][0].transcript.toLowerCase();
-      diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
       messageElement.value += speechResult + " ";
       console.log(myObject);
       myObject.message = messageElement.value;
@@ -51,23 +50,17 @@ function testSpeech() {
   
     recognition.onspeechend = function() {
       recognition.stop();
-      speechBtn.textContent = 'speech recognition';
-      speechBtn.className = "btn btn-success"
       ready = true;
       diagnosticPara.textContent = '';
     }
   
     recognition.onerror = function(event) {
-      speechBtn.textContent = 'speech recognition';
-      speechBtn.className = "btn btn-success"
       diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
     }
     
     recognition.onaudiostart = function(event) {
         //Fired when the user agent has started to capture audio.
         console.log('SpeechRecognition.onaudiostart');
-        speechBtn.textContent = 'listening';
-        speechBtn.className = "btn btn-danger"
         diagnosticPara.textContent = 'listening...';
 
     }

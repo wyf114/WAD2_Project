@@ -67,7 +67,7 @@
         </div>
     </nav>
 
-    <div id="message">
+    <div id="message" >
         <div class="inbox" v-for="msg in msg_list">
             <div class="row">
                 <div class="col-2">
@@ -75,36 +75,29 @@
                 <div class="col-8">
                     <div class="message-container">
                         <div class="profile-img"></div>
-                        <div class="expand">
                         <h4>
                             {{ msg.sender }}
                         </h4>
-                        <div class="description">
+                        <div type="button" class="description" @click="showReply">
                             <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni porro repellat ratione officiis
                         doloribus voluptatem beatae similique nisi iusto natus. Quibusdam, ab modi a inventore vitae eos
                         omnis provident sapiente? -->
                             {{ msg.msg }}
-                        </div>
-                    
-                        <div class="text-center" id="inboxReply">
-                            <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
-                                style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
-                            
-                        </div>
-                        <button :id = "msg.positionIndex" class="yellowBtn" onclick="expandReply(this)">Reply</button>
+                            </div>
+                        <div class= "text-center" id="inboxReply" :style="{ display : replyDisplay}">
+                        <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
+                            style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
+                                <button class="yellowBtn">Reply</button>
+                            </div>
                         
-                            <span><button id="sendReply" class="yellowBtn">Send</button></span>
-                        
-                        
-</div>
                     </div>
                 </div>
                 <div class="col-2">
                 </div>
             </div>
-
-        </div>
+   
     </div>
+</div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
@@ -174,13 +167,12 @@
             data() {
                 return {
                     msg_list: [],
-                    // positionIndex:0,
+                    replyDisplay:'none',
                 }
             },
             created() {
                 var user = sessionStorage.getItem("login_status");
                 var message = firebase.database().ref('messages/' + user);
-                var count = 0;
                 message.once('value').then((snapshot) => {
                     message = snapshot.val();
                     // console.log(message)
@@ -189,69 +181,21 @@
                         var send_user = message[sender]['sender']
                         this.msg_list.push({
                             msg: msg_content,
-                            sender: send_user,
-                            positionIndex: count,
-                
+                            sender: send_user
                         })
-                        count++
                     }
                     console.log(this.msg_list)
                 })
             },
-        
-        }).mount('#message')
-
-
-
-     
-        function expandReply(ele){
-            var id=ele.id;
-            console.log(id);
-            var msg = document.getElementById(id);
-            msg.classList.toggle("active");
-            var reply=msg.previousSibling;
-            var sendReply=msg.nextSibling.firstChild;
-            console.log(reply);
-            if (reply.style.display === "block") {
-                    reply.style.display = "none";
-                    msg.innerHTML="Reply";
-                    sendReply.style.display= "none";
-                } else {
-                    reply.style.display = "block";
-                    msg.innerHTML="Collapse";
-                    // msg.classList.add("fa fa-angle-double-up");
-                    sendReply.style.display= "block";
+            methods:{
+                showReply: function(){
+                    if(this.replyDisplay="none"){
+                        this.replyDisplay="block"
+                    }
+                      
                 }
-        }
-       
-
-            
-        //     expend[i].addEventListener("click",  {
-        //         this.classList.toggle("active");
-        //         var reply=this.lastElementChild;
-        //         console.log(this.lastElementChild);
-        //         if (reply.style.display === "block") {
-        //             reply.style.display = "none";
-        //         } else {
-        //             reply.style.display = "block";
-        //         }
-        //     });
-        // }
-        // for (i = 0; i < expend.length; i++) {
-            
-        //     expend[i].addEventListener("click", function () {
-        //         this.classList.toggle("active");
-        //         var reply=this.lastElementChild;
-        //         console.log(this.lastElementChild);
-        //         if (reply.style.display === "block") {
-        //             reply.style.display = "none";
-        //         } else {
-        //             reply.style.display = "block";
-        //         }
-        //     });
-        // }
-
-
+            }
+        }).mount('#message')
     </script>
 
     <!-- Bundled Bootstrap JS -->

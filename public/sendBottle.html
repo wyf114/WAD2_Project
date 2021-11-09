@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -76,27 +76,36 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-md-6" id="write">
+                <div class="col-sm-12 col-lg-6" id="write">
+
+          
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Type your message</label>
-                            <div id="speechbutton" class="btn btn-success">speech recognition</div>
+                            <label for="exampleFormControlTextarea1">Type your message </label>
+                        
+                            <!-- or use <div id="speechbutton" class="yellowBtn">speech recognition</div> -->
+                            or use <div id="speechbutton" class="yellowBtn fa fa-microphone py-1 my-4" ></div>
                             <div id="output"></div>
                             <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
                                 maxlength="400"></textarea>
                         </div>
                         <span id='num-chars'>6</span> / 400
-                        </br>
-                        </br>
-                        <div class="text-right">
-                            <button type="button" class="btn btn-primary mb-2"
-                                onclick="generate(document.getElementById('exampleFormControlTextarea1').value)">Confirm</button>
-                        </div>
                     </form>
                 </div>
-                <div class="col-md-6" id="text">
-                    <p>{{message}}</p>
-                    <p id="status"></p>
+                <div class="col-sm-12 col-lg-6">
+
+            </br>
+                    Preview:
+                    <div class="row ">
+                        <p id="text">{{message}}</p>
+                    <div class="text-center" id="status"></div>
+                    <div class="text-center">
+                        <button type="button" class="yellowBtn my-3"
+                            onclick="generate(document.getElementById('exampleFormControlTextarea1').value)">Confirm</button>
+                    </div>
+                    </div>
+                    
+                    
 
                 </div>
             </div>

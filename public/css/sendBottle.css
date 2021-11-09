@@ -1,10 +1,9 @@
 
 #text{
-      background: url(../img/letterBackground.jpg);
-      width: 600px;
-      height: 527px;
-      /* width: 80%; */
+      background: url(../img/letterBackground.png);
+      background-size: 100% 100%;
       word-wrap: break-word;
+      height: 500px;
   }
 
 p{
@@ -19,6 +18,11 @@ p{
       display: flex;
   }
 
-
+.yellowBtn{
+  position: unset;
+}
+#status {
+  padding: 10px;
+}
 
   
