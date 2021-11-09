@@ -14,7 +14,7 @@
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="js/users.js"></script>
-    
+
     <!-- firebase -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
@@ -418,12 +418,13 @@
                     }
                 },
                 created() {
+                    // this.bottles = {};
                     var user = sessionStorage.getItem("login_status");
                     var bottles = firebase.database().ref('bottles/');
                     bottles.once('value').then((snapshot) => {
                         this.bottles = snapshot.val();
                         for (i in this.bottles) {
-                            if (this.bottles[i]['from'] == user) {
+                            if (this.bottles[i]['from'] == user | this.bottles[i]['reply'] == 'true') {
                                 delete this.bottles[i];
                             }
                         }
@@ -502,6 +503,7 @@
                                         firebase.database().ref().update(updates);
                                     }
                                     this.text = 'Hi';
+                                    this.popReadBottle()
                                 }
 
                             })
@@ -515,11 +517,17 @@
                         user.once('value').then((snapshot) => {
                             var sender = snapshot.val();
                             // console.log(sender)
-                            this.imgPath = sender['imgPath']
+                            this.imgPath = sender['img_head']
                             this.description = sender['description']
                             console.log(this.imgPath, this.description)
                         })
                         return this.imgPath, this.description
+                    },
+                    popReadBottle() {
+                        var id = this.bottleID;
+                        console.log(this.bottles[id])
+                        delete this.bottles[id];
+                        console.log(this.bottles)
                     }
                 },
                 computed: {

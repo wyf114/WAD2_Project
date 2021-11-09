@@ -248,11 +248,17 @@
                 if (snapshot.exists()) {
                     var telegram_info = document.getElementById("telegram_info").value;
                     var description = document.getElementById("description").value;
+                    var img_head = document.getElementById("head").src;
+                    var img_body = document.getElementById("body").src;
+                    var img_leg = document.getElementById("leg").src;
+                    console.log(img_body,img_head,img_leg)
                     var updates = {};
 
                     updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
                     updates['/users/' + username + "/" + 'description'] = description;
-
+                    updates['/users/' + username + "/" + 'img_head'] = img_head;
+                    updates['/users/' + username + "/" + 'img_body'] = img_body;
+                    updates['/users/' + username + "/" + 'img_leg'] = img_leg;
                     firebase.database().ref().update(updates);
                     document.getElementById("status").innerText = "User has been updated.";
                 } else {
