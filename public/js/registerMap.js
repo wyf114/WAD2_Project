@@ -1032,7 +1032,13 @@ function onMapClick(e) {
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
 
-    document.getElementById("countryCoordinate").innerHTML = e.latlng.toString();
+    document.getElementById("countryCoordinate").setAttribute("class", "text-success");
+    document.getElementById("countryCoordinate").innerHTML = "Register coordinates: <br>" + e.latlng.toString();
+    document.getElementById("hiddenCoordinates").innerHTML = `[${e.latlng.lat}, ${e.latlng.lng}]`;
+    console.log(document.getElementById("hiddenCoordinates").innerHTML);
+
+    checkCoordinatesInput();
+    checkallInputs();
 }
 
 mymap.on('click', onMapClick);
@@ -1047,7 +1053,13 @@ function countryChange() {
 
     console.log(newcoordinate);
 
-    mymap.setView(new L.LatLng(newcoordinate[0], newcoordinate[1]), 12);
+    if (newCountry === "SG"){
+        mymap.setView(new L.LatLng(newcoordinate[0], newcoordinate[1]), 12); //SG is small so zoom in more
+    }
+    else {
+        mymap.setView(new L.LatLng(newcoordinate[0], newcoordinate[1]), 3);
+    }
+    
 }
 
 

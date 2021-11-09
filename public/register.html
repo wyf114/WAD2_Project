@@ -32,9 +32,7 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 
-    <style>
-        #map { height: 600px; }
-    </style>
+
 
 
 
@@ -45,9 +43,12 @@
         <div class="container-float">
             <h3>User Registration</h3>
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
+                
                 Username: <input type="text" name="username" id="username" required>
                 <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once
                     registered</p>
+
+                <div id="usernameStatus"></div>
 
                 Password: <input type="password" name="password" id="password" required>
                 <div id="message1">
@@ -57,31 +58,39 @@
                     <p id="number" class="invalid"><b>A number</b></p>
                     <p id="length" class="invalid"><b>Minimum 8 characters</b></p>
                 </div>
-                Verify Password: <input type="password" name="verify" id="verify" required>
+                <p>Verify Password:</p> <input type="password" name="verify" id="verify" required>
                 <div id="message2">
 
                     <p id="match" class="invalid"><b>Password must be matched</b></p>
                 </div>
-                Gender: <select name="gender" id="gender" required>
+                <div id="passwordStatus"></div>
+                <p>Gender:</p> <select name="gender" id="gender" required>
                     <option value="gender" selected>Select your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
 
+                <div style="margin-top: 30px;">
+                    Please click on the map roughly where your location is!
+                    You can select a country or state from the dropdown below for the map to pan and zoom into.
+                </div>
+                
+                
+
                 <div id="map"></div>
                 <script src="js/registerMap.js"></script>
 
 
                 <div id="dropdown">
-                    Country: <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
-                        <option value="choose" selected>Please select your country</option>
+                    Country for map to zoom into: <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
+                        <option value="choose" selected>Please select the country</option>
                         <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
                         </option>
                     </select>
 
                     <div v-if="!stateSelectDisabled">
-                        State/Province: <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
+                        State/Province for map to zoom into: <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
                             <option value="choose" selected>Please select your state</option>
                             <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
                             </option>
@@ -101,12 +110,12 @@
 
                 </div>
 
-                <div id="countryCoordinate">initial</div>
+                <div id="countryCoordinate">Please click or tap on the map for the coordinates you want to register (cannot be changed, but no need exact location if you would like your privacy)</div>
+                <div id="hiddenCoordinates" hidden></div>
 
 
-                <input class="btn btn-primary" id="register" type="button" value="Register" disabled
-                    onclick="checkIfUserExists(document.getElementById('username').value)">
-
+                <input class="btn btn-primary" id="register" type="button" value="Register" disabled onclick="checkIfUserExists(document.getElementById('username').value)">
+                <div id="registerStatus" class="text-danger"></div>
 
             </form>
         </div>
@@ -160,6 +169,18 @@
                 state_url() {
                     // this creates the city list
                     this.state_list = []
+
+                    if (this.selected_country === "SG"){
+                        console.log("no state, Singapore");
+                        try{
+                            stateSelectDisabled();
+                        }
+                        catch {
+                            ;
+                        }
+                        return;
+                    }
+
                     var state_url = "https://api.countrystatecity.in/v1/countries/" + this
                         .selected_country + "/states";
                     // return state_url
@@ -243,10 +264,43 @@
             user.once('value').then((snapshot) => {
                 if (snapshot.exists()) {
                     document.getElementById("status").innerText = "User ID has already been taken.";
+                    document.getElementById("usernameStatus").innerHTML = "Username has been taken"
                 } else {
                     checkPassword();
                 }
             });
+        }
+
+        function checkIfUserInputExists() {
+            var username = document.getElementById("username").value;
+
+
+            if (username === ""){
+                document.getElementById("usernameStatus").innerHTML = "Username is blank :("
+                document.getElementById("usernameStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    document.getElementById("usernameStatus").innerHTML = "Username has been taken :("
+                    document.getElementById("usernameStatus").setAttribute("class", "text-danger");
+                    return false;
+                } else {
+                    document.getElementById("usernameStatus").innerHTML = "Username has not been taken :)"
+                    document.getElementById("usernameStatus").setAttribute("class", "text-success");
+                    return true;
+                }
+            });
+
+            if (document.getElementById("usernameStatus").innerHTML === "Username has not been taken :)"){
+                return true;
+            }
+            else{
+                return false;
+            }
+            
         }
 
 
@@ -343,34 +397,143 @@
         function checkPassword() {
                 var username = document.getElementById("username").value;
                 var gender = document.getElementById("gender").value;
-                var country = document.getElementById("country").value;
-                var city = document.getElementById("city").value;
+                var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
+
+
                 var password = document.getElementById("password").value;
-                writeUserData(username, gender, country, city, password);
+                writeUserData(username, gender, password, coordinates);
             
         }
 
+        function checkInputPassword() {
+
+            //lowercase, capital, number, 8 characters
+
+            function hasLowerCase(str) {
+                return (/[a-z]/.test(str));
+            }
+
+            function hasUpperCase(str) {
+                return (/[A-Z]/.test(str));
+            }
+
+            function hasNumber(myString) {
+                return /\d/.test(myString);
+            }
+
+            function hasMinimum8Characters(myString) {
+                return myString.length >= 8;
+            }
+
+
+
+            var password = document.getElementById("password").value;
+            var verifyPassword = document.getElementById("verify").value;
+            
+
+            if (!hasLowerCase(password)){
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain lower case :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (!hasUpperCase(password)){
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain capital letter :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (!hasNumber(password)){
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain number :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (!hasMinimum8Characters(password)){
+                document.getElementById("passwordStatus").innerHTML = "Password is not at least 8 characters :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (password !== verifyPassword){
+                document.getElementById("passwordStatus").innerHTML = "Passwords did not match :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            document.getElementById("passwordStatus").innerHTML = "Password is valid :)";
+            document.getElementById("passwordStatus").setAttribute("class", "text-success");
+
+
+            return true;
+
+
+            
+        }
+
+        function checkGender(){
+
+            if (document.getElementById("gender").value !== "gender"){
+                return true;
+            }
+            else {
+                return false;
+            }
+            
+        }
+
+        function checkCoordinatesInput(){
+
+            if (document.getElementById("hiddenCoordinates").innerHTML !== ""){
+                console.log("coordinates not blank");
+                return true;
+            }
+            else{
+                console.log("coordinates is blank");
+                return false;
+            }
+        }
+
+        function checkallInputs(){
+            if (checkIfUserInputExists() && checkInputPassword() && checkGender() && checkCoordinatesInput()){
+                document.getElementById("register").disabled = false;
+                document.getElementById("registerStatus").innerHTML = "";
+            }
+            else {
+                document.getElementById("register").disabled = true;
+                document.getElementById("registerStatus").innerHTML = `username is valid: ${checkIfUserInputExists()}<br>password is valid: ${checkInputPassword()}<br>gender chosen: ${checkGender()}<br>coordinates inputted: ${checkCoordinatesInput()}`;
+            }
+
+        }
+
         // writes the data to db
-        function writeUserData(username, gender, country, city, password) {
+        function writeUserData(username, gender, password, coordinates) {
             firebase.database().ref('users/' + username).set({
                 password: password,
                 gender: gender,
-                country: country,
-                city: city,
-                instagram_username: "",
-                spotify_username: "",
-                youtube_username: "",
                 telegram_info: "",
-                description: "",
-                bottle_message: ""
+                coordinates: JSON.parse(coordinates)
             }).then(function () {
-                document.getElementById("status").innerText = "Register succeeded.";
+  
                 window.location.href = 'index.html';
             })
                 .catch(function (error) {
-                    document.getElementById("status").innerText = "Register Failed.";
+                    console.log("registration failed");
+                    document.getElementById("registerStatus").innerHTML = "registration failed :( Please contact us for support";
                 });
         }
+
+
+
+        document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
+        document.getElementById("username").addEventListener("change", ()=> {checkIfUserInputExists(); checkallInputs();});
+        document.getElementById("password").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
+        document.getElementById("verify").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
+        document.getElementById("gender").addEventListener("change", ()=> {checkGender(); checkallInputs();});
+
+
+
+
     </script>
 
 
