@@ -17,8 +17,15 @@
     <!-- using CDN -->
     <script src="https://unpkg.com/vue@next"></script>
 
+    <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
     <!-- General JS Script -->
     <script src="js/users.js"></script>
+    <script src="js/database.js"></script>
 
     <title>Document</title>
 </head>
@@ -114,40 +121,7 @@
         <!-- Copyright -->
     </footer>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <!-- This is the API from Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
-
     <script>
-        // Config and Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
-            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
-            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
-            projectId: "sademo2018-2-11ec2",
-            storageBucket: "sademo2018-2-11ec2.appspot.com",
-            messagingSenderId: "431393859582",
-            appId: "1:431393859582:web:ccc0434dd68846b15b82af",
-            measurementId: "G-0ZW54EJXDW"
-        };
-        firebase.initializeApp(firebaseConfig);
-
-        // create a bottle table in db
-        // function createMessageTable() {
-        //     let username = sessionStorage.getItem('login_status')
-        //     firebase.database().ref('messages/' + username + '/msg0').set({
-        //             sender: "",
-        //             message: ""
-        //         }).then(function () {
-        //             console.log("messages table created")
-        //         })
-        //         .catch(function (error) {
-        //             console.log("messages table created")
-        //         });
-        // }
-        // createMessageTable()
-
         // function MessageList() {
         //     var msg_list = []
         //     let user = sessionStorage.getItem("login_status");

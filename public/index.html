@@ -13,70 +13,36 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <script src="js/database.js"></script>
 
 
 
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="line"></span> 
-                <span class="line"></span> 
-                <span class="line"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <!-- right navbar links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="mapPage.html">Map Feature</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="aboutUs.html">About Us</a>
-                    </li>
-                </ul>
+    <div class="container-float">
+        <h3>User Login</h3>
+        <form action="#" id="form" class="justify-content-center-sm9" method="POST">
+            Username: <input type="text" name="username" id="username" required>
+            Password: <input type="password" name="password" id="password" required>
 
-                <!-- left navbar links -->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                      <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+            <p>Haven't owned an account? <br>
+                <a class="link" href="register.html">click here to register</a></p>
 
-        <div class="container-float">
-            <h3>User Login</h3>
-            <form action="#" id="form" class="justify-content-center-sm9" method="POST">
-                Username: <input type="text" name="username" id="username" required>
-                Password: <input type="password" name="password" id="password" required>
+            <input class="btn btn-primary" type="button" value="Login"
+                onclick="checkIfUserExists(document.getElementById('username').value)">
+            <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
 
-                <p>Haven't owned an account? <br>
-                    <a class="link" href="register.html">click here to register</a></p>
+            <p id='status'></p>
+            <p id="latest"></p>
 
-                <input class="btn btn-primary" type="button" value="Login"
-                    onclick="checkIfUserExists(document.getElementById('username').value)">
-                <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
+        </form>
 
-                <p id='status'></p>
-                <p id="latest"></p>
-
-            </form>
-        
     </div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
@@ -86,26 +52,9 @@
         </div>
         <!-- Copyright -->
     </footer>
-   
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <!-- This is the API from Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
     <script>
-        // Config and Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
-            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
-            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
-            projectId: "sademo2018-2-11ec2",
-            storageBucket: "sademo2018-2-11ec2.appspot.com",
-            messagingSenderId: "431393859582",
-            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
-        };
-        firebase.initializeApp(firebaseConfig);
-
+        // dbInitialize()
         // check user status 
         function checkIfUserExists(username) {
             var user = firebase.database().ref('users/' + username);
@@ -145,19 +94,9 @@
         }
     </script>
 
-    <!-- <footer class="bg-dark text-center text-white">
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
-        </div>
-    </footer> -->
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
     </script>
 
-
 </body>
-
 </html>
