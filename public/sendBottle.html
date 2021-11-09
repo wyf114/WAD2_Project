@@ -10,11 +10,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <script src="js/database.js"></script>
+
 
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
@@ -29,15 +38,17 @@
 </head>
 
 <body>
-    <script>checkLoginStatus()</script>
+    <script>
+        checkLoginStatus()
+    </script>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="line"></span> 
-                <span class="line"></span> 
+                <span class="line"></span>
+                <span class="line"></span>
                 <span class="line"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -139,24 +150,7 @@
 
     <script src="js/speechRecognition/speech.js"></script>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <!-- This is the API from Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
-
     <script>
-        // Config and Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
-            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
-            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
-            projectId: "sademo2018-2-11ec2",
-            storageBucket: "sademo2018-2-11ec2.appspot.com",
-            messagingSenderId: "431393859582",
-            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
-        };
-        firebase.initializeApp(firebaseConfig);
-
         function sendTeleNotifHelper(chatID, from) {
             var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
             var sendString = `${from} has written a bottle!!`;
@@ -194,20 +188,6 @@
                 }
             })
         }
-
-        // create a bottle table in db
-        // function createBottleTable() {
-        //     firebase.database().ref('bottles/' + 'bottle0').set({
-        //             from: 'wyf',
-        //             message: 'initial singularity'
-        //         }).then(function () {
-        //             console.log("bottles created")
-        //         })
-        //         .catch(function (error) {
-        //             console.log("bottles failed to be created")
-        //         });
-        // }
-        // createBottleTable()
 
         // update the data in db
         if (sessionStorage.getItem("login_status") != null) {
@@ -251,8 +231,9 @@
                                 console.log(snapshot.val());
                                 for (user_info in snapshot.val()) {
 
-                                    if (user_info === username){
-                                        console.log("do not send telegram to yourself! continuing for loop")
+                                    if (user_info === username) {
+                                        console.log(
+                                            "do not send telegram to yourself! continuing for loop")
                                         continue;
                                     }
 
@@ -278,7 +259,7 @@
     </script>
 
 
-    
+
 
 
 
@@ -291,7 +272,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>

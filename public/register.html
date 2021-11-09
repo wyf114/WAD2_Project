@@ -14,6 +14,12 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
 
+    <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <script src="js/database.js"></script>
 
     <!-- leaflet css-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -229,24 +235,8 @@
             }
         }).mount('#dropdown')
     </script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <!-- This is the API from Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
     <script>
-        // Config and Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDLM5eiv5cOkBtM-os59uGPAhtFkdBCAhY",
-            authDomain: "sademo2018-2-11ec2.firebaseapp.com",
-            databaseURL: "https://sademo2018-2-11ec2.firebaseio.com",
-            projectId: "sademo2018-2-11ec2",
-            storageBucket: "sademo2018-2-11ec2.appspot.com",
-            messagingSenderId: "431393859582",
-            appId: "1:431393859582:web:ccc0434dd68846b15b82af"
-        };
-        firebase.initializeApp(firebaseConfig);
-
         // check user status 
         function checkIfUserExists(username) {
             var user = firebase.database().ref('users/' + username);
