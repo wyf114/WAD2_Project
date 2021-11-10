@@ -78,6 +78,16 @@ body {
     margin-bottom:0px;
 }
 
+.badge {
+    position: relative;
+    bottom: 40px;
+    left: 90px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+  }
+ 
 
 footer {
     margin-top:auto; 
@@ -105,11 +115,11 @@ footer {
     touch-action: manipulation;
   }
   
-  .yellowBtn:hover {
+  .yellowBtn:hover:enabled {
     background-color: #fff;
   }
   
-  .yellowBtn:active {
+  .yellowBtn:active:enabled {
     box-shadow: #422800 2px 2px 0 0;
     transform: translate(2px, 2px);
   }

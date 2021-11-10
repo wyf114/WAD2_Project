@@ -45,36 +45,28 @@
             <form action="#" id="form" class="justify-content-center-sm9" method="POST">
                 
                 Username: <input type="text" name="username" id="username" required>
-                <p style="color: red; font-size: x-small; font-weight: bold;">Your username cannot be changed once
+                <p style="font-size: x-small; font-weight: bold;" class="text-danger">Your username cannot be changed once
                     registered</p>
 
-                <div id="usernameStatus"></div>
+                <p id="usernameStatus"></p>
 
                 Password: <input type="password" name="password" id="password" required>
-                <div id="message1">
-                    <p>Password must contain the following:</p>
-                    <p id="letter" class="invalid"><b>A lowercase letter</b> </p>
-                    <p id="capital" class="invalid"><b>A capital (uppercase) letter</b></p>
-                    <p id="number" class="invalid"><b>A number</b></p>
-                    <p id="length" class="invalid"><b>Minimum 8 characters</b></p>
-                </div>
-                <p>Verify Password:</p> <input type="password" name="verify" id="verify" required>
-                <div id="message2">
+</br>
+                Verify Password: <input type="password" name="verify" id="verify" required>
 
-                    <p id="match" class="invalid"><b>Password must be matched</b></p>
-                </div>
                 <div id="passwordStatus"></div>
-                <p>Gender:</p> <select name="gender" id="gender" required>
+                Gender: </br><select name="gender" id="gender" required>
                     <option value="gender" selected>Select your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
+                <div id="genderStatus"></div>
 
-                <div style="margin-top: 30px;">
+                <p style="margin-top: 30px; font-size: x-small; font-weight: bold; padding:0 40px">
                     Please click on the map roughly where your location is!
                     You can select a country or state from the dropdown below for the map to pan and zoom into.
-                </div>
+            </p>
                 
                 
 
@@ -83,26 +75,21 @@
 
 
                 <div id="dropdown">
-                    Country for map to zoom into: <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
+                   <div style="margin-top: 20px">Country for map to zoom into: </div> <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
                         <option value="choose" selected>Please select the country</option>
                         <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
                         </option>
                     </select>
 
                     <div v-if="!stateSelectDisabled">
-                        State/Province for map to zoom into: <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
+                        <div style="margin-top: 10px">State/Province for map to zoom into: </div> <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
                             <option value="choose" selected>Please select your state</option>
                             <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
                             </option>
                         </select>
                     </div>
 
-                    <div v-if="!citySelectDisabled">
-                        City/District: <select name="city" id="city" v-model="selected_city">
-                            <option value="choose" selected>Please select your city</option>
-                            <option v-for="city in city_list" :value="city.city_id">{{ city.city_name }}</option>
-                        </select>
-                    </div>
+
 
                     <!-- <p>{{ selected_country }}</p> -->
                     <p>{{ state_url }}</p>
@@ -110,11 +97,11 @@
 
                 </div>
 
-                <div id="countryCoordinate">Please click or tap on the map for the coordinates you want to register (cannot be changed, but no need exact location if you would like your privacy)</div>
+                <p id="countryCoordinate" style="font-size: x-small; font-weight: bold; padding:0 40px">Please click or tap on the map for the coordinates you want to register (cannot be changed, but no need exact location if you would like your privacy)</p>
                 <div id="hiddenCoordinates" hidden></div>
 
 
-                <input class="btn btn-primary" id="register" type="button" value="Register" disabled onclick="checkIfUserExists(document.getElementById('username').value)">
+                <input class="yellowBtn" id="register" type="button" value="Register" disabled onclick="checkIfUserExists(document.getElementById('username').value)">
                 <div id="registerStatus" class="text-danger"></div>
 
             </form>
@@ -267,6 +254,7 @@
                     document.getElementById("usernameStatus").innerHTML = "Username has been taken"
                 } else {
                     checkPassword();
+                    checkGender();
                 }
             });
         }
@@ -302,96 +290,6 @@
             }
             
         }
-
-
-
-        var myInput = document.getElementById("password");
-        var letter = document.getElementById("letter");
-        var capital = document.getElementById("capital");
-        var number = document.getElementById("number");
-        var length = document.getElementById("length");
-        var country=document.getElementById("country").value;
-        // var city=document.getElementById("city").value;
-        // var state=document.getElementById("state").value;
-        var numbers = /[0-9]/g;
-        var upperCaseLetters = /[A-Z]/g;
-        var lowerCaseLetters = /[a-z]/g;
-        myInput.onfocus = function () {
-            document.getElementById("message1").style.display = "block";
-        }
-
-     
-        myInput.onblur = function () {
-            document.getElementById("message1").style.display = "none";
-        }
-
-       
-        myInput.onkeyup = function () {
-            // Validate lowercase letters
-            if (myInput.value.match(lowerCaseLetters)) {
-                letter.classList.remove("invalid");
-                letter.classList.add("valid");
-            } else {
-                letter.classList.remove("valid");
-                letter.classList.add("invalid");
-            }
-
-            // Validate capital letters
-            if (myInput.value.match(upperCaseLetters)) {
-                capital.classList.remove("invalid");
-                capital.classList.add("valid");
-            } else {
-                capital.classList.remove("valid");
-                capital.classList.add("invalid");
-            }
-
-            // Validate numbers
-            if (myInput.value.match(numbers)) {
-                number.classList.remove("invalid");
-                number.classList.add("valid");
-            } else {
-                number.classList.remove("valid");
-                number.classList.add("invalid");
-            }
-
-            // Validate length
-            if (myInput.value.length >= 8) {
-                length.classList.remove("invalid");
-                length.classList.add("valid");
-            } else {
-                length.classList.remove("valid");
-                length.classList.add("invalid");
-            }
-        }
-
-        var verify = document.getElementById("verify");
-        var match = document.getElementById("match");
-        verify.onfocus = function () {
-            document.getElementById("message2").style.display = "block";
-        }
-
-        verify.onblur = function () {
-            document.getElementById("message2").style.display = "none";
-        }
-
-        verify.onkeyup = function () {
-            if (String(myInput.value) == String(verify.value)) {
-                match.classList.remove("invalid");
-                match.classList.add("valid");
-                
-            } else {
-                match.classList.remove("valid");
-                match.classList.add("invalid");
-                
-            }
-        }
-
-        if(myInput.value.match(lowerCaseLetters)&& myInput.value.match(upperCaseLetters)&& 
-        myInput.value.match(numbers)&&myInput.value.length >= 8&& String(myInput.value) == String(verify.value)){
-            document.getElementById("register").disabled = true;
-            
-        }
-
 
         // check password
         function checkPassword() {
@@ -474,10 +372,15 @@
         function checkGender(){
 
             if (document.getElementById("gender").value !== "gender"){
+                document.getElementById("genderStatus").innerHTML="Gender is selected :)";
+                document.getElementById("genderStatus").setAttribute("class", "text-success");
                 return true;
             }
             else {
+                document.getElementById("genderStatus").innerHTML="No gender selected :(";
+                document.getElementById("genderStatus").setAttribute("class", "text-danger");
                 return false;
+                
             }
             
         }
@@ -501,7 +404,7 @@
             }
             else {
                 document.getElementById("register").disabled = true;
-                document.getElementById("registerStatus").innerHTML = `username is valid: ${checkIfUserInputExists()}<br>password is valid: ${checkInputPassword()}<br>gender chosen: ${checkGender()}<br>coordinates inputted: ${checkCoordinatesInput()}`;
+                // document.getElementById("registerStatus").innerHTML = `username is valid: ${checkIfUserInputExists()}<br>password is valid: ${checkInputPassword()}<br>gender chosen: ${checkGender()}<br>coordinates inputted: ${checkCoordinatesInput()}`;
             }
 
         }

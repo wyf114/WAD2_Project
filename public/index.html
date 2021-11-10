@@ -34,12 +34,11 @@
             <p>Haven't owned an account? <br>
                 <a class="link" href="register.html">click here to register</a></p>
 
-            <input class="btn btn-primary" type="button" value="Login"
+            <input class="yellowBtn" type="button" value="Login"
                 onclick="checkIfUserExists(document.getElementById('username').value)">
             <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
 
-            <p id='status'></p>
-            <p id="latest"></p>
+            <p class="text-danger m-0" id='status'></p>
 
         </form>
 
@@ -80,7 +79,7 @@
                     document.getElementById("status").innerText = "Passwords are not matched";
                     console.log("mismatched")
                 } else {
-                    document.getElementById("status").innerText = "Passwords are matched";
+                    // document.getElementById("status").innerText = "Passwords are matched";
                     // check login status and store into the session
                     username = document.getElementById("username").value;
                     window.location.href = 'catchBottle.html';
