@@ -5,9 +5,16 @@ if (username === null){
     window.location.replace("index.html")
 }
 
+navapp = Vue.createApp({
+    data() {
+        return {
+            messages: 2
+        }
+    }
+})
 
 
-var myComponent = Vue.extend({
+navapp.component("nav-bar", {
     data: function () {
         return { messages: "..." }
     },
@@ -75,14 +82,9 @@ var myComponent = Vue.extend({
      },
 })
 
-Vue.component("nav-bar", myComponent);
+const navvm = navapp.mount("#navapp")
 
-navapp = new Vue({
-    el: "#navapp",
-    data: {
-        messages: 2
-    }
-})
+
 
 
 
