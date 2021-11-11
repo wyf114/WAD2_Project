@@ -78,7 +78,7 @@
     <div class="svg-container">
 
         <div id="app1">
-            <svg height="100%" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg"
+            <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg"
                 class="svg-content">
                 <g id="beachold 1" clip-path="url(#clip0_10:2)">
                     <g id="beach">
@@ -96,7 +96,7 @@
                         <path v-if="toChange()=='moon'" id="moon"
                             d="M1202.18 28.5699C1261.82 67.8142 1285.02 170.903 1167.84 242.506C1248.22 248.654 1382.75 94.0117 1202.18 28.5699Z"
                             fill="url(#paint3_radial_10:2)" />
-                        <g v-if="toChange()=='sunset'" id="sunset">
+                        <g v-if="toChange()=='sunset'" id="sunset" preserveAspectRatio="xMidYMid slice">
                             <path id="Vector_3"
                                 d="M1065.31 551.946C1166.99 551.946 1249.42 473.655 1249.42 377.078C1249.42 280.501 1166.99 202.209 1065.31 202.209C963.634 202.209 881.207 280.501 881.207 377.078C881.207 473.655 963.634 551.946 1065.31 551.946Z"
                                 fill="url(#paint4_radial_10:2)" />
@@ -270,14 +270,13 @@
                 </defs>
             </svg>
         </div>
-
+    
         <!-- bottle -->
         <div id="app2">
             <div v-for="(value, name, index) in bottles" @click="onClick(value, name)"
-                :style="{'margin-top': index*margintop + '%','margin-left': index*marginleft + '%'}" class="bottle" :id="name">
+                :style="{'margin-top': position_top + '%','margin-left': position_left + '%'}" class="bottle" :id="name">
                 <img src="./img/bottleBody.png">
-                {{position_top}}
-                {{position_left}}
+               
             </div>
 
             <div id="myModal" class="modal" :style="{ display : display}">
@@ -335,6 +334,7 @@
                 message</button>
 
         </div>
+    </div>
 
 
         <footer class="bg-dark text-center text-white">
@@ -443,6 +443,7 @@
                         this.friendDisplay = "none"
                         this.replyDisplay = "none"
                         console.log(this.name);
+                        this.popReadBottle()    // disappear after seen
                     },
                     makeFriend: function () {
                         this.display = "none"
@@ -538,12 +539,12 @@
                     position_top() {
                         // Returns a random integer from 0 to 5:
                         this.margintop = Math.floor(Math.random() * 11);
-                        // return this.margintop;
+                        return this.margintop;
                     },
                     position_left() {
                         // Returns a random integer from 0 to 10:
                         this.marginleft = Math.floor(Math.random() * 11);
-                        // return this.marginleft;
+                        return this.marginleft;
                     }
                 }
             }).mount('#app2')

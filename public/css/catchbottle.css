@@ -76,68 +76,54 @@ body{
 }
 
 
-
-
-
-
-
-
 #wave1
 {
     position: absolute;
+    width: 100%;
+    height: 200px;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 26%;
-    opacity: 0.7;
+    opacity: 0.2;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation: waveMove 10s linear infinite;
-   
 }
 
 #wave1:before 
 {
     position: absolute;
     content: '';
-    bottom: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height: 200px;
+    top: 0;
+    left: 0;
     opacity: 0.3;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation: waveMove-reverse 10s linear infinite;
-  
 }
 
 #wave1:after 
 {
     position: absolute;
     content: '';
-    bottom: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height: 200px;
+    top: 0;
+    left: 0;
     opacity: 0.5;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation-delay: -5s;
     animation: waveMove 20s linear infinite;
-    
 }
 
-/* try second group of waves */
 #wave2 
 {
     position: absolute;
     width: 100%;
-    height: 26%;
+    height: 200px;
     bottom: 0;
     left: 0;
     opacity: 0.6;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation: waveMove 3s linear infinite;
 }
 
@@ -146,12 +132,11 @@ body{
     position: absolute;
     content: '';
     width: 100%;
-    height: 100%;
+    height: 200px;
     top: 0px;
     left: 0;
     opacity: 0.2;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation: waveMove-reverse 3s linear infinite;
 }
 
@@ -160,17 +145,14 @@ body{
     position: absolute;
     content: '';
     width: 100%;
-    height: 100%;
+    height: 200px;
     top: 0px;
     left: 0;
     opacity: 0.4;
     background: url("../img/wave.png");
-    background-size: 100% 100%;
     animation-delay: -2s;
     animation: waveMove 5s linear infinite;
 }
-
-
 
 
 @keyframes waveMove
@@ -251,9 +233,6 @@ body{
 }
 
 
-
-
-
 @keyframes backgroundMove
 {
 0% {
@@ -272,42 +251,21 @@ p{
     font-size: 30px;
   }
 
- /* .svg-container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%;
-    vertical-align: top;
-    overflow: hidden;
-}
-.svg-content {
-    display: inline-block;
-    position: absolute;
-    height:100%;
-    margin:auto;
-    top: 0;
-    left: 0;
-    text-align: center;
-
-} */
 .svg-container { 
 	display: inline-block;
 	position: relative;
-	width: 100%;
-    height:auto;
-	/* padding-bottom: 100%;  */
-	vertical-align: middle; 
-	overflow: hidden; 
+	width: 100vw;
+    height:100vh;
 }
 
 .svg-content { 
 	display: inline-block;
 	position: relative;
-	width: 100%;
+	height: 100vh;
+    width: 100vw;
 	top: 0;
 	left: 0;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -368,3 +326,28 @@ p{
     bottom: 5%;
     right: 5%;
 }
+
+@media screen and (min-width: 200px) {
+#moon, #sun{
+    transform: translateX(-420px);
+}
+#sunset{
+    transform: translateY(120px) scale(0.7);
+}
+}
+@media screen and (min-width: 1025px) {
+    #moon, #sun{
+        transform: translateX(-120px);
+    }
+    #sunset{
+        transform: translate(-20px 120px) scale(0.7);
+    }
+    }
+    @media screen and (min-width: 1400px) {
+        #moon, #sun{
+            transform: translateX(0);
+        }
+        #sunset{
+            transform: translate(0) scale(0);
+        }
+        }
