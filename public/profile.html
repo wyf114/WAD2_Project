@@ -36,123 +36,98 @@
     <script>
         checkLoginStatus()
     </script>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <!-- right navbar links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="mapPage.html">Map Feature</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="aboutUs.html">About Us</a>
-                    </li>
-                </ul>
+    <!-- Navigation Bar Vue Component (requires vue, firebase (for inbox number), navbar.js)-->
+    <!-- initialise firebase (required for nav bar inbox)-->
 
-                <!-- left navbar links -->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="navbar" class="nav-link nav-logout" onclick="logout()">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+    <div id="navapp">
+        <nav-bar></nav-bar>
+    </div>
+    <script src="js/navBarVue2.js"></script>
+    <!-- end of nav bar-->
 
     <div class="bg-image"></div>
+    <div id="app">
+        <div class="container-fluid pt-3" id="container" v-if="checkProfile()=='false'">
+            <div class="row">
+                <div class="col-lg-7 col-12">
+                    <div class="row align-items-center">
+                        <div class="col-2 col-sm-3 p-0 m-0">
+                            <!-- previous arrow-->
+                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="head_previous"
+                                style="cursor: pointer">
 
-    <div class="container-fluid pt-3" id="container">
-        <div class="row">
-            <div class="col-lg-7 col-12">
-                <div class="row align-items-center" id="app">
-                    <div class="col-2 col-sm-3 p-0 m-0">
-                        <!-- previous arrow-->
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="head_previous"
-                            style="cursor: pointer">
+                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="body_previous"
+                                style="cursor: pointer">
 
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="body_previous"
-                            style="cursor: pointer">
-
-                        <img class="arrow arrow_next" src="img/arrow_previous.png" @click="leg_previous"
-                            style="cursor: pointer">
-                    </div>
-
-                    <!-- Parts -->
-                    <div class="col-8 col-sm-6 p-0 m-0 mb-5">
-                        <div class="container parts p-0">
-                            <img id="head" class="p-0" :src="head" alt="">
-                            <img id="body" class="p-0" :src="body" alt="">
-                            <img id="leg" class="p-0" :src="leg" alt="">
+                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="leg_previous"
+                                style="cursor: pointer">
                         </div>
-                    </div>
 
-                    <!-- next arrow-->
-                    <div class="col-2 col-sm-3 p-0 m-0">
-                        <img class="arrow arrow_previous" src="img/arrow.png" @click="head_next"
-                            style="cursor: pointer">
+                        <!-- Parts -->
+                        <div class="col-8 col-sm-6 p-0 m-0 mb-5">
+                            <div class="container parts p-0">
+                                <img id="head" class="p-0" :src="head" alt="">
+                                <img id="body" class="p-0" :src="body" alt="">
+                                <img id="leg" class="p-0" :src="leg" alt="">
+                            </div>
+                        </div>
 
-                        <img class="arrow arrow_previous" src="img/arrow.png" @click="body_next"
-                            style="cursor: pointer">
+                        <!-- next arrow-->
+                        <div class="col-2 col-sm-3 p-0 m-0">
+                            <img class="arrow arrow_previous" src="img/arrow.png" @click="head_next"
+                                style="cursor: pointer">
 
-                        <img class="arrow arrow_previous" src="img/arrow.png" @click="leg_next" style="cursor: pointer">
+                            <img class="arrow arrow_previous" src="img/arrow.png" @click="body_next"
+                                style="cursor: pointer">
+
+                            <img class="arrow arrow_previous" src="img/arrow.png" @click="leg_next"
+                                style="cursor: pointer">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-5 col-12">
-                <form action="">
-                    <div class="container">
-                        <!-- self intro -->
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="description">Self Introduction</label><br>
-                                <textarea class="form-control" name="description" id="description"
-                                    placeholder="Introduce Yourself"></textarea>
+                <div class="col-lg-5 col-12">
+                    <form action="">
+                        <div class="container">
+                            <!-- self intro -->
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="description">Self Introduction</label><br>
+                                    <textarea class="form-control" name="description" id="description"
+                                        placeholder="Introduce Yourself"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Telegram Account -->
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="telegram_info">Telegram chat_id</label>
-                                <input class="form-control" type="text" name="telegram_info" id="telegram_info">
+                            <!-- Telegram Account -->
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="telegram_info">Telegram chat_id</label>
+                                    <input class="form-control" type="text" name="telegram_info" id="telegram_info">
+                                </div>
                             </div>
+
+                            <input class="btn btn-primary" type="button" value="Update"
+                                onclick="updateUser(sessionStorage.getItem('login_status'))">
+
                         </div>
+                    </form>
 
-                        <input class="btn btn-primary" type="button" value="Update"
-                            onclick="updateUser(sessionStorage.getItem('login_status'))">
-
-                    </div>
-                </form>
-
-                <p id="status"></p>
+                    <p id="status"></p>
+                </div>
             </div>
+        </div>
+        <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
+            <p>this part displays the updated profile</p>
+            <p>{{ profile.desc }}</p>
+            <img :src="profile.img_head" alt="">
+            <img :src="profile.img_body" alt="">
+            <img :src="profile.img_leg" alt="">
         </div>
     </div>
 
     <script>
         // character script
-
         // Character's Head
         Vue.createApp({
             data() {
@@ -173,8 +148,30 @@
                     legs: [
                         'img/character_leg1.png',
                         'img/character_leg2.png',
-                    ]
+                    ],
+                    profile_list: []
                 }
+            },
+            created() {
+                var user = sessionStorage.getItem("login_status");
+                var users = firebase.database().ref('users/' + user);
+                users.once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+                        var user = snapshot.val();
+                        console.log(user)
+                        var desc = user['description']
+                        var img_leg = user['img_leg']
+                        var img_body = user['img_body']
+                        var img_head = user['img_head']
+                        this.profile_list.push({
+                            desc: desc,
+                            img_leg: img_leg,
+                            img_body: img_body,
+                            img_head: img_head
+                        })
+                        console.log(this.profile_list[0]['desc'])
+                    }
+                })
             },
             methods: {
                 head_next() {
@@ -219,6 +216,29 @@
                         return this.leg_idx -= 1
                     }
                 },
+                checkProfile() {
+                    var user = sessionStorage.getItem("login_status");
+                    var users = firebase.database().ref('users/' + user);
+                    users.once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
+                            var user = snapshot.val();
+                            console.log(user)
+                            var data_list = Object.keys(user)
+                            var result = data_list.filter(function (check) {
+                                return check == "description" | check == "img_head" | check ==
+                                    "img_body" |
+                                    check == "img_leg"
+                            })
+                            if (result.length == 4) {
+                                console.log("profile exists")
+                                return true
+                            } else {
+                                console.log("profile does not exist")
+                                return false
+                            }
+                        }
+                    })
+                }
             },
             computed: {
                 head() {
@@ -240,6 +260,22 @@
             "description"
         ]
 
+        // function test() {
+        //     var img_head = document.getElementById("head").src;
+        //     var img_body = document.getElementById("body").src;
+        //     var img_leg = document.getElementById("leg").src;
+        //     var img_list = [img_head, img_body, img_leg];
+        //     for (img in img_list) {
+        //         var split_list = img.split("/");
+        //         var new_img = "..";
+        //         for (i in split_list) {
+        //             new_img += "/" + i;
+        //         }
+        //         console.log(new_img)
+        //     };
+        // }
+        // test()
+
         // update user data
         function updateUser(username) {
             console.log("updating" + username);
@@ -251,7 +287,17 @@
                     var img_head = document.getElementById("head").src;
                     var img_body = document.getElementById("body").src;
                     var img_leg = document.getElementById("leg").src;
-                    console.log(img_body,img_head,img_leg)
+                    // var img_list = [img_head, img_body, img_leg];
+                    // img_list.forEach(element => {
+                    //     var split_list = element.split("/").slice(-3);
+                    //     var new_img = "..";
+                    //     for (i in split_list) {
+                    //         new_img+= "/" + i;
+                    //     }
+                    //     console.log(new_img)
+
+                    // });
+                    console.log(img_body, img_head, img_leg)
                     var updates = {};
 
                     updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
