@@ -107,6 +107,7 @@ footer {
     font-weight: 600;
     font-size: 18px;
     padding: 0 18px;
+    z-index:3;
     line-height: 30px;
     text-align: center;
     text-decoration: none;

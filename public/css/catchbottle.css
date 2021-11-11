@@ -8,52 +8,60 @@ body{
     width: 200px;
 
 }
+
 .bottle{
     top:50%;
     width: 100px;
     position:absolute;
     z-index: 2;
-    animation: bottleMove 15s linear infinite;
-    animation-delay: -3s;
+    animation: bottleRotate 15s linear infinite;
     cursor : url("../img/fishingNet.png"), default;
 }
 
 
-@keyframes bottleMove{
-    0%{
-       left:0%;
-    }
+@keyframes bottleRotate{
+0%{
+    transform: rotate(20deg);
+}
     10%{
-       transform: rotate(-20deg);
+       transform: rotateX(-20deg);
     }
+
     20%{
         transform: rotate(20deg);
     }
+
     30%{
         transform: rotate(-20deg);
     }
+
     40%{
         transform: rotate(20deg);
     }
+
     50%{
         transform: rotate(-20deg);
     }
+
     60%{
         transform: rotate(20deg);
     }
+
     70%{
         transform: rotate(-20deg);
     }
+
     80%{
-        transform: rotate(20deg);
+        transform: rotate(20deg) ;
     }
+
     90%{
         transform: rotate(-20deg);
     }
-    100%{
-        left:100%;
+
+    100% {
         transform: rotate(20deg);
-    }
+      }
 }
 
 

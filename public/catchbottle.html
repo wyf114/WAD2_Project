@@ -273,10 +273,9 @@
     
         <!-- bottle -->
         <div id="app2">
-            <div v-for="(value, name, index) in bottles" @click="onClick(value, name)"
-                :style="{'margin-top': position_top + '%','margin-left': position_left + '%'}" class="bottle" :id="name">
+            <div v-for="bottle in bottles" @click="onClick(bottle)"
+                :style="{'margin-top': bottle.top + 'vh','margin-left': bottle.left + 'vw'}" class="bottle" :id="bottle.id">
                 <img src="./img/bottleBody.png">
-               
             </div>
 
             <div id="myModal" class="modal" :style="{ display : display}">
@@ -403,9 +402,7 @@
             Vue.createApp({
                 data() {
                     return {
-                        bottles: {},
-                        margintop: 3,
-                        marginleft: 3,
+                        bottles: [],
                         displayMsg: '',
                         displayName: '',
                         bottleID: '',
@@ -416,34 +413,46 @@
                         imgPath: '',
                         replyDisplay: '',
                         text: 'Hi',
-                        name:'',
+                        // name: '',
                     }
                 },
                 created() {
                     // this.bottles = {};
                     var user = sessionStorage.getItem("login_status");
+                    console.log(user)
                     var bottles = firebase.database().ref('bottles/');
                     bottles.once('value').then((snapshot) => {
-                        this.bottles = snapshot.val();
-                        for (i in this.bottles) {
-                            if (this.bottles[i]['from'] == user | this.bottles[i]['reply'] == 'true') {
-                                delete this.bottles[i];
+                        var bottle = snapshot.val();
+                        for (i in bottle) {
+                            if (bottle[i]['from'] != user && bottle[i]['reply'] != 'true') {
+                                var msg_content = bottle[i]['message']
+                                var send_user = bottle[i]['from']
+                                var top = Math.floor(Math.random() * 30);
+                                var left = Math.floor(Math.random() * 60);
+                                this.bottles.push({
+                                    msg: msg_content,
+                                    from: send_user,
+                                    id: i,
+                                    top: top,
+                                    left:left
+                                })
+
                             }
                         }
                         console.log(this.bottles)
                     })
                 },
                 methods: {
-                    onClick: function (bottle, id) {
+                    onClick: function (bottle) {
                         console.log(bottle)
-                        this.displayMsg = bottle['message']
+                        this.displayMsg = bottle['msg']
                         this.displayName = bottle['from']
-                        this.bottleID = id
+                        this.bottleID = bottle['id']
                         this.display = "block"
                         this.friendDisplay = "none"
                         this.replyDisplay = "none"
-                        console.log(this.name);
-                        this.popReadBottle()    // disappear after seen
+                        // console.log(this.name);
+                        this.popReadBottle(this.bottleID) // disappear after seen
                     },
                     makeFriend: function () {
                         this.display = "none"
@@ -498,7 +507,7 @@
                                         firebase.database().ref().update(updates);
                                         var replyStatus = document.getElementById("replyStatus");
                                         replyStatus.innerHTML = "Message Sent!";
-                                    }
+                                    } 
                                     else {
                                         console.log("adding new the receiver:", receiver)
                                         var updates = {};
@@ -508,11 +517,10 @@
                                         firebase.database().ref().update(updates);
                                     }
                                     this.text = 'Hi';
-                                    this.popReadBottle()
+                                    this.popReadBottle(bottleID)
                                 }
-
                             })
-                        }
+                        } 
                         else {
                             window.location.href = 'index.html';
                         }
@@ -528,23 +536,15 @@
                         })
                         return this.imgPath, this.description
                     },
-                    popReadBottle() {
-                        var id = this.bottleID;
-                        console.log(this.bottles[id])
-                        delete this.bottles[id];
-                        console.log(this.bottles)
-                    }
-                },
-                computed: {
-                    position_top() {
-                        // Returns a random integer from 0 to 5:
-                        this.margintop = Math.floor(Math.random() * 11);
-                        return this.margintop;
-                    },
-                    position_left() {
-                        // Returns a random integer from 0 to 10:
-                        this.marginleft = Math.floor(Math.random() * 11);
-                        return this.marginleft;
+                    popReadBottle(bottleID) {
+                        for (i in this.bottles) {
+                            console.log(i)
+                            if (this.bottles[i]['id'] == bottleID) {
+                                console.log(this.bottles[i])
+                                this.bottles.splice(i, 1);
+                                console.log(this.bottles)
+                            }
+                        }
                     }
                 }
             }).mount('#app2')
@@ -569,7 +569,7 @@
         <!-- Bundled Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-            </script>
+        </script>
 </body>
 
 </html>
