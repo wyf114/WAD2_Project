@@ -46,89 +46,131 @@
     <script src="js/navBarVue2.js"></script>
     <!-- end of nav bar-->
 
-    <div class="bg-image"></div>
-    <div id="app">
-        <div class="container-fluid pt-3" id="container" v-if="checkProfile()=='false'">
-            <div class="row">
-                <div class="col-lg-7 col-12">
-                    <div class="row align-items-center">
-                        <div class="col-2 col-sm-3 p-0 m-0">
-                            <!-- previous arrow-->
-                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="head_previous"
-                                style="cursor: pointer">
+    <!-- <div class="bg-image"></div> -->
+    <div class="container-fluid content" id="container-box"></div>
+        
+        <div class="row align-items-center arrow-row mb-4" id="app">
+            <div class="container-fluid pt-3" id="container" v-if="checkProfile()=='false'">
 
-                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="body_previous"
-                                style="cursor: pointer">
+                <div class="row mb-3 mt-3">
+                    <h1 class="text-center">Welcome! Please Set Your Profile</h1>
+                </div>
+                <div class="row mb-4">
+                    <!-- Column if >=large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
 
-                            <img class="arrow arrow_next" src="img/arrow_previous.png" @click="leg_previous"
-                                style="cursor: pointer">
+                    <!-- previous arrow-->
+                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="head_previous"
+                            style="cursor: pointer">
                         </div>
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="body_previous"
+                            style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="leg_previous"
+                            style="cursor: pointer">
+                        </div>
+                    </div>
 
-                        <!-- Parts -->
-                        <div class="col-8 col-sm-6 p-0 m-0 mb-5">
-                            <div class="container parts p-0">
-                                <img id="head" class="p-0" :src="head" alt="">
-                                <img id="body" class="p-0" :src="body" alt="">
-                                <img id="leg" class="p-0" :src="leg" alt="">
+                    <!-- Column if >=Large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                            <!-- Parts -->
+                    <div class="col-8 col-sm-6 col-lg-4">
+                        <div class="container parts p-0">
+                            <img id="head" class="p-0" :src="head"  alt="">
+                            <img id="body" class="p-0" :src="body"  alt="">
+                            <img id="leg" class="p-0 d-flex justify-content-center" :src="leg" alt="">
+
+                            <input id="head_text" type="hidden" :value="head">
+                            <input id="body_text" type="hidden" :value="body">
+                            <input id="leg_text" type="hidden" :value="leg">
+                        </div>
+                    </div>
+
+                    <!-- Column if >=large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                    <!-- next arrow-->
+                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="head_next"
+                            style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="body_next"
+                            style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="leg_next"
+                            style="cursor: pointer">
+                        </div>
+                    </div>
+
+                    <!-- Column if >=large -->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+                </div>
+
+                <!-- Input User Details-->
+                <div class="row">
+                    <div class="container bottom-row">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-12 col-md-10">
+                                <form action="">
+                                    <div class="container">
+                                        <!-- self intro -->
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="description">Self Introduction</label><br>
+                                                <textarea class="form-control" name="description" id="description"
+                                                    placeholder="Introduce Yourself"></textarea>
+                                            </div>
+                                        </div>
+        
+                                        <!-- Telegram Account -->
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="telegram_info">Telegram chat_id</label>
+                                                <input class="form-control" type="text" name="telegram_info" id="telegram_info">
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-2  col-md-4"></div>
+                                            <div class="col-8 col-md-4">
+                                                <input class="btn btn-block btn-primary" type="button" value="Update"
+                                            onclick="updateUser(sessionStorage.getItem('login_status'))">
+                                            </div>
+                                            <div class="col-2 col-md-4"></div>
+                                        </div>
+        
+                                    </div>
+                                </form>
+        
+                                <p id="status"></p>
                             </div>
-                        </div>
-
-                        <!-- next arrow-->
-                        <div class="col-2 col-sm-3 p-0 m-0">
-                            <img class="arrow arrow_previous" src="img/arrow.png" @click="head_next"
-                                style="cursor: pointer">
-
-                            <img class="arrow arrow_previous" src="img/arrow.png" @click="body_next"
-                                style="cursor: pointer">
-
-                            <img class="arrow arrow_previous" src="img/arrow.png" @click="leg_next"
-                                style="cursor: pointer">
+                            <div class="col-md-1"></div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-5 col-12">
-                    <form action="">
-                        <div class="container">
-                            <!-- self intro -->
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="description">Self Introduction</label><br>
-                                    <textarea class="form-control" name="description" id="description"
-                                        placeholder="Introduce Yourself"></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Telegram Account -->
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="telegram_info">Telegram chat_id</label>
-                                    <input class="form-control" type="text" name="telegram_info" id="telegram_info">
-                                </div>
-                            </div>
-
-                            <input class="btn btn-primary" type="button" value="Update"
-                                onclick="updateUser(sessionStorage.getItem('login_status'))">
-
-                        </div>
-                    </form>
-
-                    <p id="status"></p>
-                </div>
             </div>
-        </div>
-        <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
-            <p>this part displays the updated profile</p>
-            <p>{{ profile.desc }}</p>
-            <img :src="profile.img_head" alt="">
-            <img :src="profile.img_body" alt="">
-            <img :src="profile.img_leg" alt="">
+            </div>
+            <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
+                <p>this part displays the updated profile</p>
+                <p>{{ profile.desc }}</p>
+                <img :src="profile.img_head" alt="">
+                <img :src="profile.img_body" alt="">
+                <img :src="profile.img_leg" alt="">
+            </div>
         </div>
     </div>
 
     <script>
         // character script
-        // Character's Head
         Vue.createApp({
             data() {
                 return {
@@ -137,17 +179,17 @@
                     leg_idx: 0,
                     arrow_width: '100%',
                     heads: [
-                        'img/character_head1.png',
-                        'img/character_head2.png',
-                        'img/character_head3.png'
+                        './img/character_head1.png',
+                        './img/character_head2.png',
+                        './img/character_head3.png'
                     ],
                     bodies: [
-                        'img/character_body1.png',
-                        'img/character_body2.png'
+                        './img/character_body1.png',
+                        './img/character_body2.png'
                     ],
                     legs: [
-                        'img/character_leg1.png',
-                        'img/character_leg2.png',
+                        './img/character_leg1.png',
+                        './img/character_leg2.png',
                     ],
                     profile_list: []
                 }
