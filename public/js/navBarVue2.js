@@ -15,6 +15,7 @@ navapp = Vue.createApp({
 
 
 navapp.component("nav-bar", {
+    props: ['data'],
     data: function () {
         return { messages: "..." }
     },
