@@ -8,13 +8,15 @@
 
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/register.css">
 
     <script src="js/users.js"></script>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <!--  axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- using CDN -->
     <script src="https://unpkg.com/vue@next"></script>
 
@@ -27,6 +29,17 @@
 
     <!-- General JS Script -->
     <script src="js/users.js"></script>
+
+    <!-- leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- Leaflet JS-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 
     <title>Profile Creation</title>
 </head>
@@ -50,146 +63,201 @@
     <div class="bg-image"></div>
 
     <main>
-        <!-- <div class="bg-image"></div> -->
         <div id="container-box">
             <div class="tab">
                 <button class="tablinks" onclick="displayProfile()">My profile</button>
                 <button class="tablinks" onclick="updateProfile()">Update profile</button>
+                <button class="tablinks" onclick="updateAccount()">Update Account</button>
             </div>
-            <div class="row align-items-center arrow-row mb-4" id="app">
 
+            <div id="displayApp">
+                {{ checkProfile }}
                 <div id="displayProfile" class="tabcontent">
-                    <div class="container-fluid pt-3" v-if="checkProfile()=='false'">
-                        <p>Please fill in your profile</p>
-                    </div>
-                    <div class="container-fluid pt-3" v-else>
-                        <p>this part displays the updated profile</p>
-                        <p>{{ profile_list[0].desc }}</p>
+                    <div class="container-fluid pt-3" v-if="profile_list.length==4">
+                        <p>My introduction: {{ profile_list[0] }}</p>
                         <div class="displayImg">
-                            <img id="head" :src="profile_list[0].img_head" alt="">
-                            <img id="body" :src="profile_list[0].img_body" alt="">
-                            <img id="leg" :src="profile_list[0].img_leg" alt="">
-                        </div>
+                        <img id="head" :src="profile_list[1]" alt="">
+                        <img id="body" :src="profile_list[2]" alt="">
+                        <img id="leg"  :src="profile_list[3]" alt="">
                     </div>
-
-
+                    </div>
+                    <div class="container-fluid pt-3" id="container-box" v-else>
+                        <p>Oops Empty! Please go to update your profile first</p>
+                    </div>
                 </div>
-                <!--   -->
-
-                <div id="updateProfile" class="tabcontent container-fluid pt-3" style="display: none;">
-
-                    <div class="row mb-3 mt-3">
-                        <h1 class="text-center">Welcome! Please Set Your Profile</h1>
-                    </div>
-                    <div class="row mb-4">
-                        <!-- Column if >=large-->
-                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                        <!-- previous arrow-->
-                        <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
-                            <div class="row arrow-row-left">
-                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
-                                    @click="head_previous" style="cursor: pointer">
-                            </div>
-                            <div class="row arrow-row-left">
-                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
-                                    @click="body_previous" style="cursor: pointer">
-                            </div>
-                            <div class="row arrow-row-left">
-                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
-                                    @click="leg_previous" style="cursor: pointer">
-                            </div>
-                        </div>
-
-                        <!-- Column if >=Large-->
-                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                        <!-- Parts -->
-                        <div class="col-8 col-sm-6 col-lg-4">
-                            <div class="container parts p-0">
-                                <img id="head" class="p-0" :src="head" alt="">
-                                <img id="body" class="p-0" :src="body" alt="">
-                                <img id="leg" class="p-0 d-flex justify-content-center" :src="leg" alt="">
-
-                                <input id="head_text" type="hidden" :value="head">
-                                <input id="body_text" type="hidden" :value="body">
-                                <input id="leg_text" type="hidden" :value="leg">
-                            </div>
-                        </div>
-
-                        <!-- Column if >=large-->
-                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                        <!-- next arrow-->
-                        <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
-                            <div class="row arrow-row-right">
-                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
-                                    @click="head_next" style="cursor: pointer">
-                            </div>
-                            <div class="row arrow-row-right">
-                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
-                                    @click="body_next" style="cursor: pointer">
-                            </div>
-                            <div class="row arrow-row-right">
-                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
-                                    @click="leg_next" style="cursor: pointer">
-                            </div>
-                        </div>
-
-                        <!-- Column if >=large -->
-                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-                    </div>
-
-                    <!-- Input User Details-->
-                    <div class="row">
-                        <div class="container bottom-row">
-                            <div class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-12 col-md-10">
-                                    <form action="">
-                                        <div class="container">
-                                            <!-- self intro -->
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    <label for="description">Self Introduction</label><br>
-                                                    <textarea class="form-control" name="description" id="description"
-                                                        placeholder="Introduce Yourself"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <!-- Telegram Account -->
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    <label for="telegram_info">Telegram chat_id</label>
-                                                    <input class="form-control" type="text" name="telegram_info"
-                                                        id="telegram_info">
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-2  col-md-4"></div>
-                                                <div class="col-8 col-md-4 text-center my-3">
-                                                    <input class="yellowBtn" type="button" value="Update"
-                                                        onclick="updateUser(sessionStorage.getItem('login_status'))">
-                                                </div>
-                                                <div class="col-2 col-md-4"></div>
-                                            </div>
-
-                                        </div>
-                                    </form>
-
-                                    <p id="status"></p>
-                                </div>
-                                <div class="col-md-1"></div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                
             </div>
+<!-- ---------------------------updateProfile-------------------------------------------------- -->
+            <div id="updateProfile" class="tabcontent container-fluid pt-3" style="display: none;">
+                <div class="row mb-3 mt-3">
+                    <h1 class="text-center">Welcome! Please Set Your Profile</h1>
+                </div>
+                <div class="row mb-4" id="app">
+                    <!-- Column if >=large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                    <!-- previous arrow-->
+                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                @click="head_previous" style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                @click="body_previous" style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-left">
+                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                @click="leg_previous" style="cursor: pointer">
+                        </div>
+                    </div>
+
+                    <!-- Column if >=Large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                    <!-- Parts -->
+                    <div class="col-8 col-sm-6 col-lg-4">
+                        <div class="container parts p-0" style='z-index:5'>
+                            <img id="head" class="p-0" :src="head" alt="">
+                            <img id="body" class="p-0" :src="body" alt="">
+                            <img id="leg" class="p-0 d-flex justify-content-center" :src="leg" alt="">
+
+                            <input id="head_text" type="hidden" :value="head">
+                            <input id="body_text" type="hidden" :value="body">
+                            <input id="leg_text" type="hidden" :value="leg">
+                        </div>
+                    </div>
+
+                    <!-- Column if >=large-->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                    <!-- next arrow-->
+                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
+                                @click="head_next" style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
+                                @click="body_next" style="cursor: pointer">
+                        </div>
+                        <div class="row arrow-row-right">
+                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="leg_next"
+                                style="cursor: pointer">
+                        </div>
+                    </div>
+
+                    <!-- Column if >=large -->
+                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+                </div>
+
+                <!-- Input User Details-->
+                <div class="row">
+                    <div class="container bottom-row">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-12 col-md-10">
+                                <form action="">
+                                    <div class="container">
+                                        <!-- self intro -->
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="description">Self Introduction</label><br>
+                                                <textarea class="form-control" name="description" id="description"
+                                                    placeholder="Introduce Yourself"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Telegram Account -->
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="telegram_info">Telegram chat_id</label>
+                                                <input class="form-control" type="text" name="telegram_info"
+                                                    id="telegram_info">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-2  col-md-4"></div>
+                                            <div class="col-8 col-md-4 text-center my-3">
+                                                <input class="yellowBtn" type="button" value="Update"
+                                                    onclick="updateUser(sessionStorage.getItem('login_status'))">
+                                            </div>
+                                            <div class="col-2 col-md-4"></div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                                <p id="status"></p>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- ---------------------------updateAccount-------------------------------------------------- -->
+            <div id="updateAccount" class="tabcontent" style="display: none;">
+            <div class="container-fluid pt-3">
+                <h3>Update your account</h3>
+                <form action="#" id="form" class="justify-content-center-sm9" method="POST">
+    
+                    <div>Password: </div><input type="password" name="password" id="password" required>
+    
+                    <div>Verify Password:</div> <input type="password" name="verify" id="verify" required>
+    
+                    <div id="passwordStatus"></div>
+                    Gender: </br><select name="gender" id="gender" required>
+                        <option value="gender" selected>Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div id="genderStatus"></div>
+    
+                    <p style="margin-top: 30px; font-size: x-small; font-weight: bold; padding:0 40px">
+                        Please click on the map roughly where your location is!
+                        You can select a country or state from the dropdown below for the map to pan and zoom into.
+                </p>
+                    
+                    
+    
+                    <div id="map"></div>
+                    <script src="js/registerMap.js"></script>
+    
+    
+                    <div id="dropdown">
+                       <div style="margin-top: 20px">Country for map to zoom into: </div> <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
+                            <option value="choose" selected>Please select the country</option>
+                            <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
+                            </option>
+                        </select>
+    
+                        <div v-if="!stateSelectDisabled">
+                            <div style="margin-top: 10px">State/Province for map to zoom into: </div> <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
+                                <option value="choose" selected>Please select your state</option>
+                                <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
+                                </option>
+                            </select>
+                        </div>
+    
+    
+    
+                        <!-- <p>{{ selected_country }}</p> -->
+                        <p>{{ state_url }}</p>
+                        <p>{{ city_url }}</p>
+    
+                    </div>
+    
+                    <p id="countryCoordinate" style="font-size: x-small; font-weight: bold; padding:0 40px">Please click or tap on the map for the coordinates you want to register (cannot be changed, but no need exact location if you would like your privacy)</p>
+                    <div id="hiddenCoordinates" hidden></div>
+    
+    
+                    <input class="yellowBtn" id="update" type="button" value="Update" disabled onclick="updateUser(sessionStorage.getItem('login_status'))">
+                    <div id="registerStatus" class="text-danger"></div>
+    
+                </form>
+            </div>
+</div>
         </div>
     </main>
 
@@ -202,7 +270,6 @@
                     body_idx: 0,
                     leg_idx: 0,
                     arrow_width: '100%',
-
                     heads: [
                         './img/character_head1.png',
                         './img/character_head2.png',
@@ -216,29 +283,7 @@
                         './img/character_leg1.png',
                         './img/character_leg2.png',
                     ],
-                    profile_list: []
                 }
-            },
-            created() {
-                var user = sessionStorage.getItem("login_status");
-                var users = firebase.database().ref('users/' + user);
-                users.once('value').then((snapshot) => {
-                    if (snapshot.exists()) {
-                        var user = snapshot.val();
-                        console.log(user)
-                        var desc = user['description']
-                        var img_leg = user['img_leg']
-                        var img_body = user['img_body']
-                        var img_head = user['img_head']
-                        this.profile_list.push({
-                            desc: desc,
-                            img_leg: img_leg,
-                            img_body: img_body,
-                            img_head: img_head,
-                        })
-                        console.log(this.profile_list[0])
-                    }
-                })
             },
             methods: {
                 head_next() {
@@ -283,6 +328,29 @@
                         return this.leg_idx -= 1
                     }
                 },
+            },
+            computed: {
+                head() {
+                    return this.heads[this.head_idx]
+                },
+                body() {
+                    return this.bodies[this.body_idx]
+                },
+                leg() {
+                    return this.legs[this.leg_idx]
+                }
+            },
+        }).mount('#app')
+    </script>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    profile_list: [],
+                }
+            },
+            computed: {
                 checkProfile() {
                     var user = sessionStorage.getItem("login_status");
                     var users = firebase.database().ref('users/' + user);
@@ -297,72 +365,54 @@
                                     check == "img_leg"
                             })
                             if (result.length == 4) {
+                                var desc = user['description']
+                                var img_leg = user['img_leg']
+                                var img_body = user['img_body']
+                                var img_head = user['img_head']
+                                this.profile_list.push(
+                                    desc,
+                                    img_leg,
+                                    img_body,
+                                    img_head
+                                )
+                                console.log(this.profile_list[0])
                                 console.log("profile exists")
-                                return true
-                            } else {
+                                // return true
+                            }
+                            else {
                                 console.log("profile does not exist")
-                                return false
+                                // return false
                             }
                         }
                     })
                 }
             },
-            computed: {
-                head() {
-                    return this.heads[this.head_idx]
-                },
-                body() {
-                    return this.bodies[this.body_idx]
-                },
-                leg() {
-                    return this.legs[this.leg_idx]
-                }
-            },
-        }).mount('#app')
 
-
-        // function openTab(evt, pageName) {
-        //     var i, tabcontent, tablinks;
-        //     tabcontent = document.getElementsByClassName("tabcontent");
-        //     for (i = 0; i < tabcontent.length; i++) {
-        //         tabcontent[i].style.display = "none";
-        //     }
-        //     tablinks = document.getElementsByClassName("tablinks");
-        //     for (i = 0; i < tablinks.length; i++) {
-        //         tablinks[i].className = tablinks[i].className.replace(" active", "");
-        //     }
-        //     document.getElementById(pageName).style.display = "block";
-        //     evt.currentTarget.className += " active";
-        // }
-function displayProfile(){
-    var tabcontent = document.getElementsByClassName("tabcontent");
-    tabcontent[0].style.display = "block";
-    tabcontent[1].style.display = "none";
-}
-function updateProfile(){
-    var tabcontent = document.getElementsByClassName("tabcontent");
-    tabcontent[1].style.display = "block";
-    tabcontent[0].style.display = "none";
-}
+        }).mount('#displayApp')
     </script>
-
+    <script>
+        var tabcontent = document.getElementsByClassName("tabcontent");
+        function displayProfile() {
+            tabcontent[0].style.display = "block";
+            tabcontent[1].style.display = "none";
+            tabcontent[2].style.display = "none";
+        }
+        function updateProfile() {
+            tabcontent[1].style.display = "block";
+            tabcontent[0].style.display = "none";
+            tabcontent[2].style.display = "none";
+        }
+        function updateAccount() {
+            tabcontent[2].style.display = "block";
+            tabcontent[0].style.display = "none";
+            tabcontent[1].style.display = "none";
+        }
+    </script>
 
     <script>
         var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info",
             "description"
         ]
-
-
-        // var img_list = [img_head, img_body, img_leg];
-        // img_list.forEach(element => {
-        //     var split_list = element.split("/").slice(-3);
-        //     var new_img = "..";
-        //     for (i in split_list) {
-        //         new_img+= "/" + i;
-        //     }
-        //     console.log(new_img)
-
-        // });
 
         // update user data
         function updateUser(username) {
@@ -375,16 +425,6 @@ function updateProfile(){
                     var img_head = document.getElementById("head_text").value;
                     var img_body = document.getElementById("body_text").value;
                     var img_leg = document.getElementById("leg_text").value;
-                    // var img_list = [img_head, img_body, img_leg];
-                    // img_list.forEach(element => {
-                    //     var split_list = element.split("/").slice(-3);
-                    //     var new_img = "..";
-                    //     for (i in split_list) {
-                    //         new_img+= "/" + i;
-                    //     }
-                    //     console.log(new_img)
-
-                    // });
                     console.log(img_body, img_head, img_leg)
                     var updates = {};
 
@@ -401,6 +441,305 @@ function updateProfile(){
             });
         }
     </script>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                country_list: [], // array of post objects
+                state_list: [],
+                city_list: [],
+                selected_country: 'choose',
+                selected_state: 'choose',
+                selected_city: 'choose'
+            }
+        },
+        created() { // created is a hook that executes as soon as Vue instance is created
+            axios.get('https://api.countrystatecity.in/v1/countries', {
+                headers: {
+                    'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                }
+            }).then(response => {
+                var countries = response.data;
+                console.log(countries)
+                for (i of countries) {
+                    // console.log(i)
+                    var country_iso2 = i['iso2']
+                    var country_name = i['name']
+                    // var country_latitude = i['latitude']
+                    // var country_longitude = i['longitude']
+                    // console.log(country_latitude,country_longitude)
+                    this.country_list.push({
+                        country_iso2: country_iso2,
+                        country_name: country_name
+                    });
+                };
+            })
+                .catch(error => {
+                    console.log(error.message)
+                });
+        },
+        computed: {
+            state_url() {
+                // this creates the city list
+                this.state_list = []
+
+                if (this.selected_country === "SG"){
+                    console.log("no state, Singapore");
+                    try{
+                        stateSelectDisabled();
+                    }
+                    catch {
+                        ;
+                    }
+                    return;
+                }
+
+                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
+                    .selected_country + "/states";
+                // return state_url
+                axios.get(state_url, {
+                    headers: {
+                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                    }
+                }).then(response => {
+                    console.log(state_url)
+                    var states = response.data;
+                    console.log(states)
+                    if (states.length != 0) {
+                        for (i of states) {
+                            var state_code = i['iso2']
+                            var state_name = i['name']
+                            this.state_list.push({
+                                state_code: state_code,
+                                state_name: state_name
+                            });
+                        };
+                    } else {
+                        // this.state_list.push(this.country_list)
+                        console.log("no state");
+                        stateSelectDisabled()
+                    }
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    });
+            },
+            city_url() {
+                // this creates the city list
+                this.city_list = []
+                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
+                    .selected_country + "/states/" + this.selected_state + "/cities";
+                axios.get(city_url, {
+                    headers: {
+                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                    }
+                }).then(response => {
+                    console.log(city_url)
+                    var cities = response.data;
+                    console.log(cities)
+                    if (cities.length != 0) {
+                        for (i of cities) {
+                            var city_id = i['id']
+                            var city_name = i['name']
+                            this.city_list.push({
+                                city_id: city_id,
+                                city_name: city_name
+                            });
+                        };
+                    } else {
+                        console.log("no city");
+                        citySelectDisabled()
+                    }
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    });
+            },
+            stateSelectDisabled() {
+                if (this.state_list.length == 0) {
+                    return true;
+                }
+            },
+            citySelectDisabled() {
+                if (this.city_list.length == 0) {
+                    return true;
+                }
+
+            }
+        }
+    }).mount('#dropdown')
+</script>
+
+<script>
+function updateUser(username) {
+            var user = firebase.database().ref('users/' + username);
+            user.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    // var username = document.getElementById("username").value;
+                    var password = document.getElementById("password").value;
+                    var gender = document.getElementById("gender").value;
+                    var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
+                    console.log(username, password, gender, country, city)
+                    var updates = {};
+                    // updates['/users/' + username + "/" + 'username'] = username;
+                    updates['/users/' + username + "/" + 'password'] = password;
+                    updates['/users/' + username + "/" + 'gender'] = gender;
+                    updates['/users/' + username + "/" + 'coordinates'] = JSON.parse(coordinates);
+                    firebase.database().ref().update(updates);
+                    document.getElementById("status").innerText = "User has been updated.";
+                } else {
+                    document.getElementById("status").innerText = "User does not exist.";
+                }
+            });
+        }
+    // check password  
+    function checkPassword() {
+            var gender = document.getElementById("gender").value;
+            var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
+            var password = document.getElementById("password").value;
+            writeUserData( gender, password, coordinates);
+        
+    }
+
+    function checkInputPassword() {
+
+        //lowercase, capital, number, 8 characters
+
+        function hasLowerCase(str) {
+            return (/[a-z]/.test(str));
+        }
+
+        function hasUpperCase(str) {
+            return (/[A-Z]/.test(str));
+        }
+
+        function hasNumber(myString) {
+            return /\d/.test(myString);
+        }
+
+        function hasMinimum8Characters(myString) {
+            return myString.length >= 8;
+        }
+
+
+
+        var password = document.getElementById("password").value;
+        var verifyPassword = document.getElementById("verify").value;
+        
+
+        if (!hasLowerCase(password)){
+            document.getElementById("passwordStatus").innerHTML = "Password does not contain lower case :(";
+            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+            return false;
+        }
+
+        if (!hasUpperCase(password)){
+            document.getElementById("passwordStatus").innerHTML = "Password does not contain capital letter :(";
+            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+            return false;
+        }
+
+        if (!hasNumber(password)){
+            document.getElementById("passwordStatus").innerHTML = "Password does not contain number :(";
+            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+            return false;
+        }
+
+        if (!hasMinimum8Characters(password)){
+            document.getElementById("passwordStatus").innerHTML = "Password is not at least 8 characters :(";
+            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+            return false;
+        }
+
+        if (password !== verifyPassword){
+            document.getElementById("passwordStatus").innerHTML = "Passwords did not match :(";
+            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+            return false;
+        }
+
+        document.getElementById("passwordStatus").innerHTML = "Password is valid :)";
+        document.getElementById("passwordStatus").setAttribute("class", "text-success");
+
+
+        return true;
+
+
+        
+    }
+
+    function checkGender(){
+
+        if (document.getElementById("gender").value !== "gender"){
+            document.getElementById("genderStatus").innerHTML="Gender is selected :)";
+            document.getElementById("genderStatus").setAttribute("class", "text-success");
+            return true;
+        }
+        else {
+            document.getElementById("genderStatus").innerHTML="No gender selected :(";
+            document.getElementById("genderStatus").setAttribute("class", "text-danger");
+            return false;
+            
+        }
+        
+    }
+
+    function checkCoordinatesInput(){
+
+        if (document.getElementById("hiddenCoordinates").innerHTML !== ""){
+            console.log("coordinates not blank");
+            return true;
+        }
+        else{
+            console.log("coordinates is blank");
+            return false;
+        }
+    }
+
+    function checkallInputs(){
+        if (checkInputPassword() && checkGender() && checkCoordinatesInput()){
+            document.getElementById("update").disabled = false;
+            document.getElementById("update").innerHTML = "";
+        }
+        else {
+            document.getElementById("update").disabled = true;
+           }
+
+    }
+
+    // writes the data to db 
+    function writeUserData(username, gender, password, coordinates) {
+        firebase.database().ref('users/' + username).set({
+            password: password,
+            gender: gender,
+            telegram_info: "",
+            coordinates: JSON.parse(coordinates)
+        }).then(function () {
+
+            window.location.href = 'index.html';
+        })
+            .catch(function (error) {
+                console.log("registration failed");
+                document.getElementById("registerStatus").innerHTML = "registration failed :( Please contact us for support";
+            });
+    }
+
+
+
+    document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
+    document.getElementById("password").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
+    document.getElementById("verify").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
+    document.getElementById("gender").addEventListener("change", ()=> {checkGender(); checkallInputs();});
+
+
+
+
+</script>
+
+
+
+
+
 
     <footer id="profile-footer" class="bg-dark text-center text-white">
         <!-- Copyright -->
