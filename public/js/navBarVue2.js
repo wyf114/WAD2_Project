@@ -15,6 +15,7 @@ navapp = Vue.createApp({
 
 
 navapp.component("nav-bar", {
+    props: ['data'],
     data: function () {
         return { messages: "..." }
     },
@@ -68,10 +69,17 @@ navapp.component("nav-bar", {
         loggedUserMessagesInfo = firebase.database().ref(`messages/${username}`);
         loggedUserMessagesInfo.once('value').then((snapshot) => {
             if (snapshot.exists()) {
-                console.log(Object.keys(snapshot.val()).length);
-                const number_of_messages = Object.keys(snapshot.val()).length;
-
+                // console.log(Object.keys(snapshot.val()).length);
+                var messages = snapshot.val()
+                var count = []
+                for (sender in messages) {
+                    if (messages[sender]['reply'] != 'true') {
+                        count.push(sender)
+                    }
+                }
+                const number_of_messages = count.length;
                 this.messages = number_of_messages;
+                console.log("!!!!!!!!!");        
                 console.log(number_of_messages);        
             }
         })
