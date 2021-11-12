@@ -163,13 +163,29 @@
                         var img_leg = user['img_leg']
                         var img_body = user['img_body']
                         var img_head = user['img_head']
+                        // img_leg = img_leg.split("/");
+                        // var new_leg_img = "../img/";
+                        // new_leg_img += img_leg[img_leg.length - 1];
+                        // console.log(new_leg_img)
+                        // img_body = img_body.split("/");
+                        // var new_body_img = "../img/";
+                        // new_body_img += img_body[img_body.length - 1];
+                        // console.log(new_body_img)
+                        // img_head = img_head.split("/");
+                        // var new_head_img = "../img/";
+                        // new_head_img += img_head[img_head.length - 1];
+                        // console.log(new_head_img)
+
                         this.profile_list.push({
                             desc: desc,
-                            img_leg: img_leg,
-                            img_body: img_body,
-                            img_head: img_head
+                            img_leg:img_leg,
+                            img_body:img_body,
+                            img_head:img_head,
+                            // img_leg: new_leg_img,
+                            // img_body: new_body_img,
+                            // img_head: new_head_img
                         })
-                        console.log(this.profile_list[0]['desc'])
+                        console.log(this.profile_list)
                     }
                 })
             },
@@ -260,21 +276,31 @@
             "description"
         ]
 
-        // function test() {
-        //     var img_head = document.getElementById("head").src;
-        //     var img_body = document.getElementById("body").src;
-        //     var img_leg = document.getElementById("leg").src;
-        //     var img_list = [img_head, img_body, img_leg];
-        //     for (img in img_list) {
-        //         var split_list = img.split("/");
-        //         var new_img = "..";
-        //         for (i in split_list) {
-        //             new_img += "/" + i;
-        //         }
-        //         console.log(new_img)
-        //     };
-        // }
-        // test()
+        function test() {
+            var img_head = document.getElementById("head").src;
+            var img_body = document.getElementById("body").src;
+            var img_leg = document.getElementById("leg").src;
+            var img_list = [img_head, img_body, img_leg];
+            for (img in img_list) {
+                var split_list = img.split("/");
+                var new_img = "..";
+                for (i in split_list) {
+                    new_img += "/" + i;
+                }
+                console.log(new_img)
+            };
+        }
+        test()
+        // var img_list = [img_head, img_body, img_leg];
+        // img_list.forEach(element => {
+        //     var split_list = element.split("/").slice(-3);
+        //     var new_img = "..";
+        //     for (i in split_list) {
+        //         new_img+= "/" + i;
+        //     }
+        //     console.log(new_img)
+
+        // });
 
         // update user data
         function updateUser(username) {
@@ -326,7 +352,7 @@
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
