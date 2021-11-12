@@ -48,7 +48,10 @@
                 </div>
                 <div class="col-8">
                     <div class="message-container">
-                        <div class="profile-img"></div>
+                        {{ addImg }}
+                        <div>
+                            <img :src="msg.img_head" alt="" class="profile-img">
+                        </div>
                         <div class="expand">
                             <h4>
                                 {{ msg.sender }}
@@ -108,27 +111,43 @@
                 }
             },
             created() {
-                var user = sessionStorage.getItem("login_status");
-                var message = firebase.database().ref('messages/' + user);
-                var count = 0;
-                message.once('value').then((snapshot) => {
-                    message = snapshot.val();
-                    // console.log(message)
-                    for (sender in message) {
-                        if (message[sender]['reply'] != 'true') {
-                            var msg_content = message[sender]['message']
-                            var send_user = message[sender]['sender']
+                let user = sessionStorage.getItem("login_status")
+                var messages = firebase.database().ref('messages/' + user);
+                messages.once('value').then((snapshot) => {
+                    var message = snapshot.val();
+                    for (i in message) {
+                        if (message[i]['reply'] != 'true') {
+                            var msg = message[i]['message']
+                            var sender = message[i]['sender']
                             this.msg_list.push({
-                                msg: msg_content,
-                                sender: send_user,
-                                // positionIndex: count,
-                                msg_name: sender
+                                msg: msg,
+                                sender: sender,
+                                msg_name: i,
                             })
-                            count++
                         }
                     }
                     console.log(this.msg_list)
                 })
+            },
+            computed: {
+                addImg() {
+                    var users = firebase.database().ref('users/');
+                    // console.log(sender)
+                    users.once('value').then((snapshot) => {
+                        for (i in this.msg_list) {
+                            var sender = this.msg_list[i]['sender']
+                            var user = snapshot.val();
+                            console.log(user[sender])
+                            var img_head = user[sender]['img_head']
+                            console.log(img_head)
+                            this.msg_list[i]['img_head'] = img_head
+                            console.log(this.msg_list)
+
+                        }
+                    })
+
+
+                }
             },
             methods: {
                 sendReply: function (msg) {
@@ -179,7 +198,7 @@
                             this.text = '';
                             this.popReadMessage(bottleID)
 
-                            
+
                         }
 
                     })

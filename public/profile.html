@@ -16,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--  axios -->
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- using CDN -->
     <script src="https://unpkg.com/vue@next"></script>
 
@@ -32,14 +32,14 @@
 
     <!-- leaflet css-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
 
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <!-- Leaflet JS-->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
 
     <title>Profile Creation</title>
 </head>
@@ -76,17 +76,17 @@
                     <div class="container-fluid pt-3" v-if="profile_list.length==4">
                         <p>My introduction: {{ profile_list[0] }}</p>
                         <div class="displayImg">
-                        <img id="head" :src="profile_list[1]" alt="">
-                        <img id="body" :src="profile_list[2]" alt="">
-                        <img id="leg"  :src="profile_list[3]" alt="">
-                    </div>
+                            <img id="head" :src="profile_list[1]" alt="">
+                            <img id="body" :src="profile_list[2]" alt="">
+                            <img id="leg" :src="profile_list[3]" alt="">
+                        </div>
                     </div>
                     <div class="container-fluid pt-3" id="container-box" v-else>
                         <p>Oops Empty! Please go to update your profile first</p>
                     </div>
                 </div>
             </div>
-<!-- ---------------------------updateProfile-------------------------------------------------- -->
+            <!-- ---------------------------updateProfile-------------------------------------------------- -->
             <div id="updateProfile" class="tabcontent container-fluid pt-3" style="display: none;">
                 <div class="row mb-3 mt-3">
                     <h1 class="text-center">Welcome! Please Set Your Profile</h1>
@@ -160,27 +160,40 @@
                                     <div class="container">
                                         <!-- self intro -->
                                         <div class="row">
-                                            <div class="form-group">
-                                                <label for="description">Self Introduction</label><br>
-                                                <textarea class="form-control" name="description" id="description"
-                                                    placeholder="Introduce Yourself"></textarea>
+                                            <div class="form-group was-validated">
+                                                <label for="validationTextarea" class="form-label">Self
+                                                    Introduction</label><br>
+                                                <textarea class="form-control is-invalid" name="description"
+                                                    id="description" placeholder="Describe yourself"
+                                                    required></textarea>
                                             </div>
                                         </div>
 
                                         <!-- Telegram Account -->
-                                        <div class="row">
-                                            <div class="form-group">
+                                        <!-- <div class="row">
+                                            <div class="form-group was-validated">
                                                 <label for="telegram_info">Telegram chat_id</label>
-                                                <input class="form-control" type="text" name="telegram_info"
-                                                    id="telegram_info">
+                                                <span class="input-group-text" id="prepend">@</span>
+                                                <input class="form-control is-invalid" type="text" name="telegram_info" aria-describedby="prepend"
+                                                    id="telegram_info" required>
+                                            </div>
+                                        </div> -->
+                                        <div class="row">
+                                            <label for="validationServerUsername" class="form-label">Telegram
+                                                chat_id</label>
+                                            <div class="input-group form-group was-validated">
+                                                <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                                                <input type="text" class="form-control is-invalid" id="telegram_info"
+                                                    aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
+                                                    required>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-2  col-md-4"></div>
                                             <div class="col-8 col-md-4 text-center my-3">
-                                                <input class="yellowBtn" type="button" value="Update"
-                                                    onclick="updateUser(sessionStorage.getItem('login_status'))">
+                                                <input class="yellowBtn" type="button" value="UpdateProfile"
+                                                    id="UpdateProfile" onclick="checkInputsProfile()">
                                             </div>
                                             <div class="col-2 col-md-4"></div>
                                         </div>
@@ -189,75 +202,100 @@
                                 </form>
 
                                 <p id="status"></p>
+
                             </div>
                             <div class="col-md-1"></div>
                         </div>
                     </div>
                 </div>
             </div>
-<!-- ---------------------------updateAccount-------------------------------------------------- -->
+            <!-- ---------------------------updateAccount-------------------------------------------------- -->
             <div id="updateAccount" class="tabcontent" style="display: none;">
-            <div class="container-fluid pt-3">
-                <h3>Update your account</h3>
-                <form action="#" id="form" class="justify-content-center-sm9" method="POST">
-    
-                    <div>Password: </div><input type="password" name="password" id="password" required>
-    
-                    <div>Verify Password:</div> <input type="password" name="verify" id="verify" required>
-    
-                    <div id="passwordStatus"></div>
-                    Gender: </br><select name="gender" id="gender" required>
-                        <option value="gender" selected>Select your gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <div id="genderStatus"></div>
-    
-                    <p style="margin-top: 30px; font-size: x-small; font-weight: bold; padding:0 40px">
-                        Please click on the map roughly where your location is!
-                        You can select a country or state from the dropdown below for the map to pan and zoom into.
-                </p>
-                    
-                    
-    
-                    <div id="map"></div>
-                    <script src="js/registerMap.js"></script>
-    
-    
-                    <div id="dropdown">
-                       <div style="margin-top: 20px">Country for map to zoom into: </div> <select name="country" id="country" v-model="selected_country" onchange="countryChange()">
-                            <option value="choose" selected>Please select the country</option>
-                            <option v-for="country in country_list" :value="country.country_iso2">{{ country.country_name }}
-                            </option>
+                <div class="container-fluid pt-3">
+                    <h3>Update your account</h3>
+                    <form action="#" id="form" class="container justify-content-center-sm9" method="POST">
+                        <div class="row">
+                            <label for="password" class="form-group form-label">Password:</label>
+                            <div class="input-group was-validated">
+                                <input type="password" class="form-control is-invalid" name="password" id="password"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="passwordVerify" class="form-group form-label">Verify Password:</label>
+                            <div class="input-group was-validated">
+                                <input type="password" class="form-control is-invalid" name="verify" id="verify"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- <div>Password: </div><input type="password" name="password" id="password" required>
+
+                        <div>Verify Password:</div> <input type="password" name="verify" id="verify" required> -->
+
+                        <div id="passwordStatus"></div>
+                        Gender: </br><select name="gender" id="gender" class="form-group was-validated" required>
+                            <option value="gender" selected>Select your gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
                         </select>
-    
-                        <div v-if="!stateSelectDisabled">
-                            <div style="margin-top: 10px">State/Province for map to zoom into: </div> <select name="state" id="state" v-model="selected_state" onchange="stateChange()">
-                                <option value="choose" selected>Please select your state</option>
-                                <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
+                        <div id="genderStatus"></div>
+
+                        <p style="margin-top: 30px; font-size: x-small; font-weight: bold; padding:0 40px">
+                            Please click on the map roughly where your location is!
+                            You can select a country or state from the dropdown below for the map to pan and zoom into.
+                        </p>
+
+
+
+                        <div id="map"></div>
+                        <script src="js/registerMap.js"></script>
+
+
+                        <div id="dropdown">
+                            <div style="margin-top: 20px">Country for map to zoom into: </div>
+                            <select name="country" class="was-validated" id="country" v-model="selected_country"
+                                onchange="countryChange()">
+                                <option value="choose" selected>Please select the country</option>
+                                <option v-for="country in country_list" :value="country.country_iso2">
+                                    {{ country.country_name }}
                                 </option>
                             </select>
+
+                            <div v-if="!stateSelectDisabled">
+                                <div style="margin-top: 10px">State/Province for map to zoom into: </div> <select
+                                    name="state" id="state" v-model="selected_state" onchange="stateChange()">
+                                    <option value="choose" selected>Please select your state</option>
+                                    <option v-for="state in state_list" :value="state.state_name">{{ state.state_name }}
+                                    </option>
+                                </select>
+                            </div>
+
+
+
+                            <!-- <p>{{ selected_country }}</p> -->
+                            <p>{{ state_url }}</p>
+                            <p>{{ city_url }}</p>
+
                         </div>
-    
-    
-    
-                        <!-- <p>{{ selected_country }}</p> -->
-                        <p>{{ state_url }}</p>
-                        <p>{{ city_url }}</p>
-    
-                    </div>
-    
-                    <p id="countryCoordinate" style="font-size: x-small; font-weight: bold; padding:0 40px">Please click or tap on the map for the coordinates you want to register (cannot be changed, but no need exact location if you would like your privacy)</p>
-                    <div id="hiddenCoordinates" hidden></div>
-    
-    
-                    <input class="yellowBtn" id="update" type="button" value="Update" disabled onclick="updateUser(sessionStorage.getItem('login_status'))">
-                    <div id="registerStatus" class="text-danger"></div>
-    
-                </form>
+
+                        <p id="countryCoordinate" style="font-size: x-small; font-weight: bold; padding:0 40px">Please
+                            click or tap on the map for the coordinates you want to register (cannot be changed, but no
+                            need exact location if you would like your privacy)</p>
+                        <div id="hiddenCoordinates" hidden></div>
+
+
+                        <input class="yellowBtn" id="update" type="button" value="Update" onclick="checkallInputs()">
+                        <div id="registerStatus" class="text-danger"></div>
+
+                    </form>
+                    <p id="status"></p>
+
+
+                </div>
             </div>
-</div>
         </div>
     </main>
 
@@ -378,8 +416,7 @@
                                 console.log(this.profile_list[0])
                                 console.log("profile exists")
                                 // return true
-                            }
-                            else {
+                            } else {
                                 console.log("profile does not exist")
                                 // return false
                             }
@@ -392,16 +429,19 @@
     </script>
     <script>
         var tabcontent = document.getElementsByClassName("tabcontent");
+
         function displayProfile() {
             tabcontent[0].style.display = "block";
             tabcontent[1].style.display = "none";
             tabcontent[2].style.display = "none";
         }
+
         function updateProfile() {
             tabcontent[1].style.display = "block";
             tabcontent[0].style.display = "none";
             tabcontent[2].style.display = "none";
         }
+
         function updateAccount() {
             tabcontent[2].style.display = "block";
             tabcontent[0].style.display = "none";
@@ -414,8 +454,22 @@
             "description"
         ]
 
-        // update user data
-        function updateUser(username) {
+        function checkInputsProfile() {
+            var intro = document.getElementById("description").value;
+            var tele = document.getElementById("telegram_info").value;
+            var username = sessionStorage.getItem("login_status");
+
+            if (intro.replace(/\s/g, "") != "" && tele.replace(/\s/g, "") != "") {
+                updateProfileInfo(username)
+            } else {
+                document.getElementById("status").innerHTML = "All fields must be filled!";
+                document.getElementById("status").setAttribute("class", "text-danger");
+            }
+
+        }
+
+        // update profile
+        function updateProfileInfo(username) {
             console.log("updating" + username);
             var user = firebase.database().ref('users/' + username);
             user.once('value').then((snapshot) => {
@@ -434,145 +488,146 @@
                     updates['/users/' + username + "/" + 'img_body'] = img_body;
                     updates['/users/' + username + "/" + 'img_leg'] = img_leg;
                     firebase.database().ref().update(updates);
-                    document.getElementById("status").innerText = "User has been updated.";
+                    document.getElementById("status").innerHTML = "";
+                    document.getElementById("status").innerHTML = "User has been updated.";
+                    document.getElementById("status").setAttribute("class", "text-success");
                 } else {
-                    document.getElementById("status").innerText = "User does not exist.";
+                    document.getElementById("status").innerHTML = "User does not exist.";
+                    document.getElementById("status").setAttribute("class", "text-danger");
                 }
             });
         }
     </script>
 
-<script>
-    Vue.createApp({
-        data() {
-            return {
-                country_list: [], // array of post objects
-                state_list: [],
-                city_list: [],
-                selected_country: 'choose',
-                selected_state: 'choose',
-                selected_city: 'choose'
-            }
-        },
-        created() { // created is a hook that executes as soon as Vue instance is created
-            axios.get('https://api.countrystatecity.in/v1/countries', {
-                headers: {
-                    'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    country_list: [], // array of post objects
+                    state_list: [],
+                    city_list: [],
+                    selected_country: 'choose',
+                    selected_state: 'choose',
+                    selected_city: 'choose'
                 }
-            }).then(response => {
-                var countries = response.data;
-                console.log(countries)
-                for (i of countries) {
-                    // console.log(i)
-                    var country_iso2 = i['iso2']
-                    var country_name = i['name']
-                    // var country_latitude = i['latitude']
-                    // var country_longitude = i['longitude']
-                    // console.log(country_latitude,country_longitude)
-                    this.country_list.push({
-                        country_iso2: country_iso2,
-                        country_name: country_name
-                    });
-                };
-            })
-                .catch(error => {
-                    console.log(error.message)
-                });
-        },
-        computed: {
-            state_url() {
-                // this creates the city list
-                this.state_list = []
-
-                if (this.selected_country === "SG"){
-                    console.log("no state, Singapore");
-                    try{
-                        stateSelectDisabled();
-                    }
-                    catch {
-                        ;
-                    }
-                    return;
-                }
-
-                var state_url = "https://api.countrystatecity.in/v1/countries/" + this
-                    .selected_country + "/states";
-                // return state_url
-                axios.get(state_url, {
-                    headers: {
-                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                    }
-                }).then(response => {
-                    console.log(state_url)
-                    var states = response.data;
-                    console.log(states)
-                    if (states.length != 0) {
-                        for (i of states) {
-                            var state_code = i['iso2']
-                            var state_name = i['name']
-                            this.state_list.push({
-                                state_code: state_code,
-                                state_name: state_name
+            },
+            created() { // created is a hook that executes as soon as Vue instance is created
+                axios.get('https://api.countrystatecity.in/v1/countries', {
+                        headers: {
+                            'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                        }
+                    }).then(response => {
+                        var countries = response.data;
+                        console.log(countries)
+                        for (i of countries) {
+                            // console.log(i)
+                            var country_iso2 = i['iso2']
+                            var country_name = i['name']
+                            this.country_list.push({
+                                country_iso2: country_iso2,
+                                country_name: country_name
                             });
                         };
-                    } else {
-                        // this.state_list.push(this.country_list)
-                        console.log("no state");
-                        stateSelectDisabled()
-                    }
-                })
+                    })
                     .catch(error => {
                         console.log(error.message)
                     });
             },
-            city_url() {
-                // this creates the city list
-                this.city_list = []
-                var city_url = "https://api.countrystatecity.in/v1/countries/" + this
-                    .selected_country + "/states/" + this.selected_state + "/cities";
-                axios.get(city_url, {
-                    headers: {
-                        'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                    }
-                }).then(response => {
-                    console.log(city_url)
-                    var cities = response.data;
-                    console.log(cities)
-                    if (cities.length != 0) {
-                        for (i of cities) {
-                            var city_id = i['id']
-                            var city_name = i['name']
-                            this.city_list.push({
-                                city_id: city_id,
-                                city_name: city_name
-                            });
-                        };
-                    } else {
-                        console.log("no city");
-                        citySelectDisabled()
-                    }
-                })
-                    .catch(error => {
-                        console.log(error.message)
-                    });
-            },
-            stateSelectDisabled() {
-                if (this.state_list.length == 0) {
-                    return true;
-                }
-            },
-            citySelectDisabled() {
-                if (this.city_list.length == 0) {
-                    return true;
-                }
+            computed: {
+                state_url() {
+                    // this creates the city list
+                    this.state_list = []
 
+                    if (this.selected_country === "SG") {
+                        console.log("no state, Singapore");
+                        try {
+                            stateSelectDisabled();
+                        } catch {
+                            ;
+                        }
+                        return;
+                    }
+
+                    var state_url = "https://api.countrystatecity.in/v1/countries/" + this
+                        .selected_country + "/states";
+                    // return state_url
+                    axios.get(state_url, {
+                            headers: {
+                                'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                            }
+                        }).then(response => {
+                            console.log(state_url)
+                            var states = response.data;
+                            console.log(states)
+                            if (states.length != 0) {
+                                for (i of states) {
+                                    var state_code = i['iso2']
+                                    var state_name = i['name']
+                                    this.state_list.push({
+                                        state_code: state_code,
+                                        state_name: state_name
+                                    });
+                                };
+                            } else {
+                                // this.state_list.push(this.country_list)
+                                console.log("no state");
+                                stateSelectDisabled()
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                        });
+                },
+                city_url() {
+                    // this creates the city list
+                    this.city_list = []
+                    var city_url = "https://api.countrystatecity.in/v1/countries/" + this
+                        .selected_country + "/states/" + this.selected_state + "/cities";
+                    axios.get(city_url, {
+                            headers: {
+                                'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
+                            }
+                        }).then(response => {
+                            console.log(city_url)
+                            var cities = response.data;
+                            console.log(cities)
+                            if (cities.length != 0) {
+                                for (i of cities) {
+                                    var city_id = i['id']
+                                    var city_name = i['name']
+                                    this.city_list.push({
+                                        city_id: city_id,
+                                        city_name: city_name
+                                    });
+                                };
+                            } else {
+                                console.log("no city");
+                                citySelectDisabled()
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                        });
+                },
+                stateSelectDisabled() {
+                    if (this.state_list.length == 0) {
+                        return true;
+                    }
+                },
+                citySelectDisabled() {
+                    if (this.city_list.length == 0) {
+                        return true;
+                    }
+
+                }
             }
-        }
-    }).mount('#dropdown')
-</script>
+        }).mount('#dropdown')
+    </script>
 
-<script>
-function updateUser(username) {
+    <script>
+        // update user account
+        function updateUser() {
+            let username = sessionStorage.getItem("login_status")
             var user = firebase.database().ref('users/' + username);
             user.once('value').then((snapshot) => {
                 if (snapshot.exists()) {
@@ -580,164 +635,143 @@ function updateUser(username) {
                     var password = document.getElementById("password").value;
                     var gender = document.getElementById("gender").value;
                     var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
-                    console.log(username, password, gender, country, city)
+                    console.log(username, password, gender)
                     var updates = {};
                     // updates['/users/' + username + "/" + 'username'] = username;
                     updates['/users/' + username + "/" + 'password'] = password;
                     updates['/users/' + username + "/" + 'gender'] = gender;
                     updates['/users/' + username + "/" + 'coordinates'] = JSON.parse(coordinates);
                     firebase.database().ref().update(updates);
+                    document.getElementById("status").innerText = "";
                     document.getElementById("status").innerText = "User has been updated.";
+                    document.getElementById("status").setAttribute("class", "text-success");
                 } else {
                     document.getElementById("status").innerText = "User does not exist.";
+                    document.getElementById("status").setAttribute("class", "text-danger");
+
                 }
             });
         }
-    // check password  
-    function checkPassword() {
+        // check password  
+        function checkPassword() {
             var gender = document.getElementById("gender").value;
             var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
             var password = document.getElementById("password").value;
-            writeUserData( gender, password, coordinates);
-        
-    }
-
-    function checkInputPassword() {
-
-        //lowercase, capital, number, 8 characters
-
-        function hasLowerCase(str) {
-            return (/[a-z]/.test(str));
+            checkallInputs()
         }
 
-        function hasUpperCase(str) {
-            return (/[A-Z]/.test(str));
-        }
+        function checkInputPassword() {
 
-        function hasNumber(myString) {
-            return /\d/.test(myString);
-        }
+            //lowercase, capital, number, 8 characters
 
-        function hasMinimum8Characters(myString) {
-            return myString.length >= 8;
-        }
+            function hasLowerCase(str) {
+                return (/[a-z]/.test(str));
+            }
 
+            function hasUpperCase(str) {
+                return (/[A-Z]/.test(str));
+            }
 
+            function hasNumber(myString) {
+                return /\d/.test(myString);
+            }
 
-        var password = document.getElementById("password").value;
-        var verifyPassword = document.getElementById("verify").value;
-        
-
-        if (!hasLowerCase(password)){
-            document.getElementById("passwordStatus").innerHTML = "Password does not contain lower case :(";
-            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
-            return false;
-        }
-
-        if (!hasUpperCase(password)){
-            document.getElementById("passwordStatus").innerHTML = "Password does not contain capital letter :(";
-            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
-            return false;
-        }
-
-        if (!hasNumber(password)){
-            document.getElementById("passwordStatus").innerHTML = "Password does not contain number :(";
-            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
-            return false;
-        }
-
-        if (!hasMinimum8Characters(password)){
-            document.getElementById("passwordStatus").innerHTML = "Password is not at least 8 characters :(";
-            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
-            return false;
-        }
-
-        if (password !== verifyPassword){
-            document.getElementById("passwordStatus").innerHTML = "Passwords did not match :(";
-            document.getElementById("passwordStatus").setAttribute("class", "text-danger");
-            return false;
-        }
-
-        document.getElementById("passwordStatus").innerHTML = "Password is valid :)";
-        document.getElementById("passwordStatus").setAttribute("class", "text-success");
+            function hasMinimum8Characters(myString) {
+                return myString.length >= 8;
+            }
 
 
-        return true;
+
+            var password = document.getElementById("password").value;
+            var verifyPassword = document.getElementById("verify").value;
 
 
-        
-    }
+            if (!hasLowerCase(password)) {
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain lower case :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
 
-    function checkGender(){
+            if (!hasUpperCase(password)) {
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain capital letter :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
 
-        if (document.getElementById("gender").value !== "gender"){
-            document.getElementById("genderStatus").innerHTML="Gender is selected :)";
-            document.getElementById("genderStatus").setAttribute("class", "text-success");
+            if (!hasNumber(password)) {
+                document.getElementById("passwordStatus").innerHTML = "Password does not contain number :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (!hasMinimum8Characters(password)) {
+                document.getElementById("passwordStatus").innerHTML = "Password is not at least 8 characters :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            if (password !== verifyPassword) {
+                document.getElementById("passwordStatus").innerHTML = "Passwords did not match :(";
+                document.getElementById("passwordStatus").setAttribute("class", "text-danger");
+                return false;
+            }
+
+            document.getElementById("passwordStatus").innerHTML = "Password is valid :)";
+            document.getElementById("passwordStatus").setAttribute("class", "text-success");
+
             return true;
+
         }
-        else {
-            document.getElementById("genderStatus").innerHTML="No gender selected :(";
-            document.getElementById("genderStatus").setAttribute("class", "text-danger");
-            return false;
-            
+
+        function checkGender() {
+
+            if (document.getElementById("gender").value !== "gender") {
+                document.getElementById("genderStatus").innerHTML = "Gender is selected :)";
+                document.getElementById("genderStatus").setAttribute("class", "text-success");
+                return true;
+            } else {
+                document.getElementById("genderStatus").innerHTML = "No gender selected :(";
+                document.getElementById("genderStatus").setAttribute("class", "text-danger");
+                return false;
+
+            }
+
         }
-        
-    }
 
-    function checkCoordinatesInput(){
+        function checkCoordinatesInput() {
 
-        if (document.getElementById("hiddenCoordinates").innerHTML !== ""){
-            console.log("coordinates not blank");
-            return true;
+            if (document.getElementById("hiddenCoordinates").innerHTML !== "") {
+                console.log("coordinates not blank");
+                return true;
+            } else {
+                console.log("coordinates is blank");
+                return false;
+            }
         }
-        else{
-            console.log("coordinates is blank");
-            return false;
+
+        function checkallInputs() {
+            if (checkInputPassword() && checkGender() && checkCoordinatesInput()) {
+                updateUser()
+            } else {
+                document.getElementById("status").innerHTML = "All fields must be filled correctly!";
+            }
+
         }
-    }
 
-    function checkallInputs(){
-        if (checkInputPassword() && checkGender() && checkCoordinatesInput()){
-            document.getElementById("update").disabled = false;
-            document.getElementById("update").innerHTML = "";
-        }
-        else {
-            document.getElementById("update").disabled = true;
-           }
-
-    }
-
-    // writes the data to db 
-    function writeUserData(username, gender, password, coordinates) {
-        firebase.database().ref('users/' + username).set({
-            password: password,
-            gender: gender,
-            telegram_info: "",
-            coordinates: JSON.parse(coordinates)
-        }).then(function () {
-
-            window.location.href = 'index.html';
-        })
-            .catch(function (error) {
-                console.log("registration failed");
-                document.getElementById("registerStatus").innerHTML = "registration failed :( Please contact us for support";
-            });
-    }
-
-
-
-    document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
-    document.getElementById("password").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
-    document.getElementById("verify").addEventListener("change", ()=> {checkInputPassword(); checkallInputs();});
-    document.getElementById("gender").addEventListener("change", ()=> {checkGender(); checkallInputs();});
-
-
-
-
-</script>
-
-
-
+        document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
+        document.getElementById("password").addEventListener("change", () => {
+            checkInputPassword();
+            checkallInputs();
+        });
+        document.getElementById("verify").addEventListener("change", () => {
+            checkInputPassword();
+            checkallInputs();
+        });
+        document.getElementById("gender").addEventListener("change", () => {
+            checkGender();
+            checkallInputs();
+        });
+    </script>
 
 
 
@@ -753,7 +787,7 @@ function updateUser(username) {
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    </script>
 
 </body>
 
