@@ -78,16 +78,6 @@ body {
     margin-bottom:0px;
 }
 
-.badge {
-    position: relative;
-    bottom: 40px;
-    left: 90px;
-    padding: 5px 10px;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-  }
- 
 
 footer {
     margin-top:auto; 
@@ -107,7 +97,6 @@ footer {
     font-weight: 600;
     font-size: 18px;
     padding: 0 18px;
-    z-index:3;
     line-height: 30px;
     text-align: center;
     text-decoration: none;
@@ -116,11 +105,11 @@ footer {
     touch-action: manipulation;
   }
   
-  .yellowBtn:hover:enabled {
+  .yellowBtn:hover {
     background-color: #fff;
   }
   
-  .yellowBtn:active:enabled {
+  .yellowBtn:active {
     box-shadow: #422800 2px 2px 0 0;
     transform: translate(2px, 2px);
   }

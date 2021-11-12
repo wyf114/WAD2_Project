@@ -32,7 +32,7 @@
 </head>
 
 
-<body>
+<body class="Site">
     <script>
         checkLoginStatus()
     </script>
@@ -46,9 +46,9 @@
     <script src="js/navBarVue2.js"></script>
     <!-- end of nav bar-->
 
+    <main>
     <!-- <div class="bg-image"></div> -->
-    <div class="container-fluid content" id="container-box"></div>
-        
+    <div class="container-fluid content" id="container-box">
         <div class="row align-items-center arrow-row mb-4" id="app">
             <div class="container-fluid pt-3" id="container" v-if="checkProfile()=='false'">
 
@@ -158,16 +158,16 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
-                <p>this part displays the updated profile</p>
-                <p>{{ profile.desc }}</p>
-                <img :src="profile.img_head" alt="">
-                <img :src="profile.img_body" alt="">
-                <img :src="profile.img_leg" alt="">
-            </div>
+        </div>
+        <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
+            <p>this part displays the updated profile</p>
+            <p>{{ profile.desc }}</p>
+            <img :src="profile.img_head" alt="">
+            <img :src="profile.img_body" alt="">
+            <img :src="profile.img_leg" alt="">
         </div>
     </div>
+    </main>
 
     <script>
         // character script
@@ -326,9 +326,9 @@
                 if (snapshot.exists()) {
                     var telegram_info = document.getElementById("telegram_info").value;
                     var description = document.getElementById("description").value;
-                    var img_head = document.getElementById("head").src;
-                    var img_body = document.getElementById("body").src;
-                    var img_leg = document.getElementById("leg").src;
+                    var img_head = document.getElementById("head_text").src;
+                    var img_body = document.getElementById("body_text").src;
+                    var img_leg = document.getElementById("leg_text").src;
                     // var img_list = [img_head, img_body, img_leg];
                     // img_list.forEach(element => {
                     //     var split_list = element.split("/").slice(-3);
@@ -356,7 +356,7 @@
         }
     </script>
 
-    <footer class="bg-dark text-center text-white">
+    <footer id="profile-footer" class="bg-dark text-center text-white">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2021 Copyright:
