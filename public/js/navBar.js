@@ -26,13 +26,13 @@ var myComponent = Vue.extend({
                 <!-- right navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Bottle</a>
+                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Catch Bottle</a>
                     </li>
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
                     </li>
                     <li class="nav-item">
-                        <a id="navbar" class="nav-link" href="mapPage.html">Map Feature</a>
+                        <a id="navbar" class="nav-link" href="mapPage.html">Map</a>
                     </li>
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="aboutUs.html">About Us</a>
@@ -73,6 +73,9 @@ var myComponent = Vue.extend({
                 this.messages = number_of_messages;
                 console.log("!!!!!!!!!");        
                 console.log(number_of_messages);        
+            }
+            else {
+                this.messages = 0;
             }
         })
         }

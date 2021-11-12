@@ -520,6 +520,42 @@
                                     // end of telegram notifier ~ -------------------------------
 
                                     // to add: add to user_interaction database count~
+                                    const receiver_const = receiver;
+
+
+                                    loggedUserInteractedInfo = firebase.database().ref(`users/${username}/interacted_users`);
+                                    loggedUserInteractedInfo.once('value').then((snapshot) => {
+                                    if (snapshot.exists()) {
+
+                                        var interactupdates = {};
+                                        console.log("have interacted user")
+                                        console.log(receiver_const)
+                                        
+                                        var oldCount = snapshot.val()[receiver_const];
+                                        console.log(oldCount);
+                                        if (oldCount === undefined){
+
+                                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = 1;
+
+                                        }else {
+                                            var newCount = oldCount + 1;
+                                            
+                                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = newCount;
+
+                                        }
+
+                                        firebase.database().ref().update(interactupdates);
+                                            
+
+                                    }
+                                    else {
+                                        console.log("no interacted users")
+                                        console.log(receiver_const)
+                                        firebase.database().ref(`users/${username}/interacted_users`).set({
+                                            [receiver_const]: 1
+                                        })
+                                    }
+                                    })
 
 
                                     

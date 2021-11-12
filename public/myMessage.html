@@ -27,6 +27,9 @@
     <script src="js/users.js"></script>
     <script src="js/database.js"></script>
 
+    <!-- axios -->
+    <script src="js/axios/axios.min.js"></script>
+
     <title>Document</title>
 </head>
 
@@ -202,6 +205,82 @@
                         }
 
                     })
+
+                    // notify receiver on telegram ~ -------------------------------------
+                    function sendTeleNotifHelper(chatID, from) {
+                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                        var sendString = `${from} has written a reply to you!! :)`;
+
+
+                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+                        axios.get(sendURL, {
+                                params: {}
+                            })
+                            .then(response => {
+                                console.log("telegram sent!")
+                            })
+                            .catch(error => {
+                                console.log("telegram error")
+                            })
+                    }
+
+                    receiverUserInfo = firebase.database().ref(`users/${receiver}`);
+                    receiverUserInfo.once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+                        //console.log(snapshot.val().interacted_users);
+                        telegram_info = snapshot.val().telegram_info; //key: user, value: number of times
+                        sendTeleNotifHelper(telegram_info, username);
+                    }
+                    else {
+                        console.log("replied user no telegram id!")
+                    }
+                    })
+
+                    // end of telegram notifier ~ -------------------------------
+
+                    // to add: add to user_interaction database count~
+                    const receiver_const = receiver;
+
+
+                    loggedUserInteractedInfo = firebase.database().ref(`users/${username}/interacted_users`);
+                    loggedUserInteractedInfo.once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+
+                        var interactupdates = {};
+                        console.log("have interacted user")
+                        console.log(receiver_const)
+                        
+                        var oldCount = snapshot.val()[receiver_const];
+                        console.log(oldCount);
+                        if (oldCount === undefined){
+
+                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = 1;
+
+                        }else {
+                            var newCount = oldCount + 1;
+                            
+                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = newCount;
+
+                        }
+
+                        firebase.database().ref().update(interactupdates);
+                            
+
+                    }
+                    else {
+                        console.log("no interacted users")
+                        console.log(receiver_const)
+                        firebase.database().ref(`users/${username}/interacted_users`).set({
+                            [receiver_const]: 1
+                        })
+                    }
+                    })
+
+
+                    
+                    //--------- end of adding user_interaction database count
+
                 },
                 popReadMessage(bottleID) {
                     for (i in this.msg_list) {
