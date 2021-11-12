@@ -486,7 +486,7 @@
                                     this.text = 'Hi';
                                     this.popReadBottle(bottleID)
 
-                                    // notify receiver on telegram ~
+                                    // notify receiver on telegram ~ -------------------------------------
                                     function sendTeleNotifHelper(chatID, from) {
                                         var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
                                         var sendString = `${from} has written a reply to you!! :)`;
@@ -517,7 +517,13 @@
                                     }
                                     })
 
+                                    // end of telegram notifier ~ -------------------------------
+
+                                    // to add: add to user_interaction database count~
+
+
                                     
+                                    //--------- end of adding user_interaction database count
 
                                 }
                             })
