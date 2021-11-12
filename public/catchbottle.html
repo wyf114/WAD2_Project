@@ -45,8 +45,8 @@
     <div class="svg-container">
 
         <div id="app1">
-            <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg"
-                class="svg-content">
+            <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="svg-content">
                 <g id="beachold 1" clip-path="url(#clip0_10:2)">
                     <g id="beach">
                         <path id="skyColor" d="M1440 0H0V760H1440V0Z" v-bind:fill="skyFill" />
@@ -237,11 +237,12 @@
                 </defs>
             </svg>
         </div>
-    
+
         <!-- bottle -->
         <div id="app2">
             <div v-for="bottle in bottles" @click="onClick(bottle)"
-                :style="{'margin-top': bottle.top + 'vh','margin-left': bottle.left + 'vw'}" class="bottle" :id="bottle.id">
+                :style="{'margin-top': bottle.top + 'vh','margin-left': bottle.left + 'vw'}" class="bottle"
+                :id="bottle.id">
                 <img src="./img/bottleBody.png">
             </div>
 
@@ -290,7 +291,6 @@
 
                 </div>
 
-
             </div>
 
 
@@ -303,148 +303,150 @@
     </div>
 
 
-        <footer class="bg-dark text-center text-white">
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2021 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Team IDK</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
-        <script>
-            const app = Vue.createApp({
-                data() {
-                    return {
-                        //night style
-                        fill: 'url(#nightGradient)',
-                        skyFill: 'url(#skyMoon)',
-                        show: 'moon',
-                        cloudFill: '#b5cfe6',
-                        // sunset style    
-                        //    fill : 'url(#sunsetGradient)',
-                        //         skyFill : 'url(#skySunset)',
-                        //         cloudFill : '#FFF896',
-                        //         show : 'sunset',
-                        //day style
-                        // fill : 'url(#dayGradient)',
-                        //          skyFill : 'url(#skySun)',
-                        //        cloudFill:'#FFF',
-                        //         show : 'sun',
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    //night style
+                    fill: 'url(#nightGradient)',
+                    skyFill: 'url(#skyMoon)',
+                    show: 'moon',
+                    cloudFill: '#b5cfe6',
+                    // sunset style    
+                    //    fill : 'url(#sunsetGradient)',
+                    //         skyFill : 'url(#skySunset)',
+                    //         cloudFill : '#FFF896',
+                    //         show : 'sunset',
+                    //day style
+                    // fill : 'url(#dayGradient)',
+                    //          skyFill : 'url(#skySun)',
+                    //        cloudFill:'#FFF',
+                    //         show : 'sun',
+                }
+            },
+            methods: {
+                toChange() {
+                    var d = new Date();
+
+                    console.log(d.getHours());
+                    if (d.getHours() >= 17 && d.getHours() <= 19) {
+                        this.fill = 'url(#sunsetGradient)';
+                        this.skyFill = 'url(#skySunset)';
+                        this.cloudFill = '#FFF896';
+                        return 'sunset';
+
+
                     }
-                },
-                methods: {
-                    toChange() {
-                        var d = new Date();
-
-                        console.log(d.getHours());
-                        if (d.getHours() >= 17 && d.getHours() <= 19) {
-                            this.fill = 'url(#sunsetGradient)';
-                            this.skyFill = 'url(#skySunset)';
-                            this.cloudFill = '#FFF896';
-                            return 'sunset';
+                    if (d.getHours() > 7 && d.getHours() < 17) {
+                        this.fill = 'url(#dayGradient)';
+                        this.skyFill = 'url(#skySun)';
+                        this.cloudFill = '#FFF';
+                        return 'sun';
 
 
-                        }
-                        if (d.getHours() > 7 && d.getHours() < 17) {
-                            this.fill = 'url(#dayGradient)';
-                            this.skyFill = 'url(#skySun)';
-                            this.cloudFill = '#FFF';
-                            return 'sun';
-
-
-                        } else {
-                            this.fill = 'url(#nightGradient)';
-                            this.skyFill = 'url(#skyMoon)';
-                            this.cloudFill = '#b5cfe6';
-                            return 'moon';
-                        }
+                    } else {
+                        this.fill = 'url(#nightGradient)';
+                        this.skyFill = 'url(#skyMoon)';
+                        this.cloudFill = '#b5cfe6';
+                        return 'moon';
                     }
                 }
-            })
-            const vm = app.mount('#app1')
-        </script>
+            }
+        })
+        const vm = app.mount('#app1')
+    </script>
 
-        <script>
-            Vue.createApp({
-                data() {
-                    return {
-                        bottles: [],
-                        displayMsg: '',
-                        displayName: '',
-                        bottleID: '',
-                        display: '',
-                        friendDisplay: '',
-                        opacity: 0,
-                        description: '',
-                        imgPath: '',
-                        replyDisplay: '',
-                        text: 'Hi',
-                        // name: '',
-                    }
-                },
-                created() {
-                    // this.bottles = {};
-                    var user = sessionStorage.getItem("login_status");
-                    console.log(user)
-                    var bottles = firebase.database().ref('bottles/');
-                    bottles.once('value').then((snapshot) => {
-                        var bottle = snapshot.val();
-                        for (i in bottle) {
-                            if (bottle[i]['from'] != user && bottle[i]['reply'] != 'true') {
-                                var msg_content = bottle[i]['message']
-                                var send_user = bottle[i]['from']
-                                var top = Math.floor(Math.random() * 30);
-                                var left = Math.floor(Math.random() * 60);
-                                this.bottles.push({
-                                    msg: msg_content,
-                                    from: send_user,
-                                    id: i,
-                                    top: top,
-                                    left:left
-                                })
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    bottles: [],
+                    displayMsg: '',
+                    displayName: '',
+                    bottleID: '',
+                    display: '',
+                    friendDisplay: '',
+                    opacity: 0,
+                    description: '',
+                    imgPath: '',
+                    replyDisplay: '',
+                    text: 'Hi',
+                    // name: '',
+                }
+            },
+            created() {
+                // this.bottles = {};
+                var user = sessionStorage.getItem("login_status");
+                console.log(user)
+                var bottles = firebase.database().ref('bottles/');
+                bottles.once('value').then((snapshot) => {
+                    var bottle = snapshot.val();
+                    for (i in bottle) {
+                        if (bottle[i]['from'] != user && bottle[i]['reply'] != 'true') {
+                            var msg_content = bottle[i]['message']
+                            var send_user = bottle[i]['from']
+                            var top = Math.floor(Math.random() * 30);
+                            var left = Math.floor(Math.random() * 60);
+                            this.bottles.push({
+                                msg: msg_content,
+                                from: send_user,
+                                id: i,
+                                top: top,
+                                left: left
+                            })
 
-                            }
                         }
-                        console.log(this.bottles)
-                    })
+                    }
+                    console.log(this.bottles)
+                })
+            },
+            methods: {
+                onClick: function (bottle) {
+                    console.log(bottle)
+                    this.displayMsg = bottle['msg']
+                    this.displayName = bottle['from']
+                    this.bottleID = bottle['id']
+                    this.display = "block"
+                    this.friendDisplay = "none"
+                    this.replyDisplay = "none"
+                    // console.log(this.name);
+                    this.popReadBottle(this.bottleID) // disappear after seen
                 },
-                methods: {
-                    onClick: function (bottle) {
-                        console.log(bottle)
-                        this.displayMsg = bottle['msg']
-                        this.displayName = bottle['from']
-                        this.bottleID = bottle['id']
-                        this.display = "block"
-                        this.friendDisplay = "none"
-                        this.replyDisplay = "none"
-                        // console.log(this.name);
-                        this.popReadBottle(this.bottleID) // disappear after seen
-                    },
-                    makeFriend: function () {
-                        this.display = "none"
-                        this.friendDisplay = "block"
-                        this.sender()
-                    },
-                    messageFriend: function () {
-                        this.friendDisplay = "none"
-                        this.replyDisplay = "block"
+                makeFriend: function () {
+                    this.display = "none"
+                    this.friendDisplay = "block"
+                    this.sender()
+                },
+                messageFriend: function () {
+                    this.friendDisplay = "none"
+                    this.replyDisplay = "block"
 
-                    },
-                    closeFriend: function () {
-                        this.display = "block"
-                        this.friendDisplay = "none"
-                    },
-                    closeReply: function () {
-                        this.display = "block"
-                        this.replyDisplay = "none"
-                        this.text = ''
-                    },
-                    close: function () {
-                        this.display = "none"
-                    },
-                    sendReply: function () {
-                        if (sessionStorage.getItem("login_status") != null) {
+                },
+                closeFriend: function () {
+                    this.display = "block"
+                    this.friendDisplay = "none"
+                },
+                closeReply: function () {
+                    this.display = "block"
+                    this.replyDisplay = "none"
+                    this.text = ''
+                },
+                close: function () {
+                    this.display = "none"
+                },
+                sendReply: function () {
+                    if (sessionStorage.getItem("login_status") != null) {
+                        var checkText = document.getElementById("replyMessage").value;
+                        if (checkText.replace(/\s/g, "") != "") {
                             var username = sessionStorage.getItem("login_status");
                             var receiver = this.displayName;
                             var text = this.text;
@@ -468,31 +470,42 @@
                                         //update data with new bottle name
                                         var updates = {};
                                         var msg_name = "msg" + count_msg
-                                        updates['/messages/' + receiver + "/" + msg_name + "/message"] = text;
-                                        updates['/messages/' + receiver + "/" + msg_name + "/sender"] = username;
+                                        updates['/messages/' + receiver + "/" + msg_name +
+                                            "/message"] = text;
+                                        updates['/messages/' + receiver + "/" + msg_name +
+                                            "/sender"] = username;
                                         updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
-                                        var replyStatus = document.getElementById("replyStatus");
-                                        replyStatus.innerHTML = "Message Sent!";
-                                    } 
-                                    else {
+                                        document.getElementById("replyStatus").innerHTML =
+                                            "Your reply sent successfully!";
+                                        document.getElementById("replyStatus").setAttribute("class",
+                                            "text-dark");
+                                    } else {
                                         console.log("adding new the receiver:", receiver)
                                         var updates = {};
                                         updates['/messages/' + receiver + '/msg0/message'] = text;
-                                        updates['/messages/' + receiver + '/msg0/sender'] = username;
+                                        updates['/messages/' + receiver + '/msg0/sender'] =
+                                            username;
                                         updates['/bottles/' + bottleID + "/reply"] = 'true';
                                         firebase.database().ref().update(updates);
+                                        document.getElementById("replyStatus").innerHTML =
+                                            "Your reply sent successfully!";
+                                        document.getElementById("replyStatus").setAttribute("class",
+                                            "text-dark");
+
                                     }
                                     this.text = 'Hi';
                                     this.popReadBottle(bottleID)
 
                                     // notify receiver on telegram ~ -------------------------------------
                                     function sendTeleNotifHelper(chatID, from) {
-                                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                                        var BOTTOKEN =
+                                            "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
                                         var sendString = `${from} has written a reply to you!! :)`;
 
 
-                                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+                                        var sendURL =
+                                            `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
 
                                         axios.get(sendURL, {
                                                 params: {}
@@ -507,14 +520,14 @@
 
                                     receiverUserInfo = firebase.database().ref(`users/${receiver}`);
                                     receiverUserInfo.once('value').then((snapshot) => {
-                                    if (snapshot.exists()) {
-                                        //console.log(snapshot.val().interacted_users);
-                                        telegram_info = snapshot.val().telegram_info; //key: user, value: number of times
-                                        sendTeleNotifHelper(telegram_info, username);
-                                    }
-                                    else {
-                                        console.log("replied user no telegram id!")
-                                    }
+                                        if (snapshot.exists()) {
+                                            //console.log(snapshot.val().interacted_users);
+                                            telegram_info = snapshot.val()
+                                                .telegram_info; //key: user, value: number of times
+                                            sendTeleNotifHelper(telegram_info, username);
+                                        } else {
+                                            console.log("replied user no telegram id!")
+                                        }
                                     })
 
                                     // end of telegram notifier ~ -------------------------------
@@ -523,96 +536,106 @@
                                     const receiver_const = receiver;
 
 
-                                    loggedUserInteractedInfo = firebase.database().ref(`users/${username}/interacted_users`);
+                                    loggedUserInteractedInfo = firebase.database().ref(
+                                        `users/${username}/interacted_users`);
                                     loggedUserInteractedInfo.once('value').then((snapshot) => {
-                                    if (snapshot.exists()) {
+                                        if (snapshot.exists()) {
 
-                                        var interactupdates = {};
-                                        console.log("have interacted user")
-                                        console.log(receiver_const)
-                                        
-                                        var oldCount = snapshot.val()[receiver_const];
-                                        console.log(oldCount);
-                                        if (oldCount === undefined){
+                                            var interactupdates = {};
+                                            console.log("have interacted user")
+                                            console.log(receiver_const)
 
-                                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = 1;
+                                            var oldCount = snapshot.val()[receiver_const];
+                                            console.log(oldCount);
+                                            if (oldCount === undefined) {
 
-                                        }else {
-                                            var newCount = oldCount + 1;
-                                            
-                                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = newCount;
+                                                interactupdates[
+                                                    `users/${username}/interacted_users/${receiver_const}`
+                                                ] = 1;
 
+                                            } else {
+                                                var newCount = oldCount + 1;
+
+                                                interactupdates[
+                                                    `users/${username}/interacted_users/${receiver_const}`
+                                                ] = newCount;
+
+                                            }
+
+                                            firebase.database().ref().update(
+                                                interactupdates);
+
+
+                                        } else {
+                                            console.log("no interacted users")
+                                            console.log(receiver_const)
+                                            firebase.database().ref(
+                                                    `users/${username}/interacted_users`)
+                                                .set({
+                                                    [receiver_const]: 1
+                                                })
                                         }
-
-                                        firebase.database().ref().update(interactupdates);
-                                            
-
-                                    }
-                                    else {
-                                        console.log("no interacted users")
-                                        console.log(receiver_const)
-                                        firebase.database().ref(`users/${username}/interacted_users`).set({
-                                            [receiver_const]: 1
-                                        })
-                                    }
                                     })
 
 
-                                    
+
                                     //--------- end of adding user_interaction database count
 
                                 }
                             })
-                        } 
-                        else {
-                            window.location.href = 'index.html';
+                        } else {
+                            document.getElementById("replyStatus").innerHTML = "Cannot reply empty text!";
+                            document.getElementById("replyStatus").setAttribute("class", "text-danger");
                         }
-                    },
-                    sender() {
-                        var user = firebase.database().ref('users/' + this.displayName);
-                        user.once('value').then((snapshot) => {
-                            var sender = snapshot.val();
-                            // console.log(sender)
-                            this.imgPath = sender['img_head']
-                            this.description = sender['description']
-                            console.log(this.imgPath, this.description)
-                        })
-                        return this.imgPath, this.description
-                    },
-                    popReadBottle(bottleID) {
-                        for (i in this.bottles) {
-                            console.log(i)
-                            if (this.bottles[i]['id'] == bottleID) {
-                                console.log(this.bottles[i])
-                                this.bottles.splice(i, 1);
-                                console.log(this.bottles)
-                            }
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                },
+                sender() {
+                    var user = firebase.database().ref('users/' + this.displayName);
+                    user.once('value').then((snapshot) => {
+                        var sender = snapshot.val();
+                        // console.log(sender)
+                        this.imgPath = sender['img_head']
+                        this.description = sender['description']
+                        console.log(this.imgPath, this.description)
+                    })
+                    return this.imgPath, this.description
+                },
+                popReadBottle(bottleID) {
+                    for (i in this.bottles) {
+                        console.log(i)
+                        if (this.bottles[i]['id'] == bottleID) {
+                            console.log(this.bottles[i])
+                            this.bottles.splice(i, 1);
+                            console.log(this.bottles)
                         }
                     }
                 }
-            }).mount('#app2')
-
-            myModal = document.getElementById("myModal");
-            myModal2 = document.getElementById("myModal2");
-            myModal3 = document.getElementById("myModal3");
-            window.onclick = function (event) {
-                if (event.target == myModal || event.target == myModal2 || event.target == myModal3) {
-                    myModal.style.display = "none";
-                    myModal2.style.display = "none";
-                    myModal3.style.display = "none";
-                }
-
-
-
             }
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        }).mount('#app2')
 
-        <!-- Bundled Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+        myModal = document.getElementById("myModal");
+        myModal2 = document.getElementById("myModal2");
+        myModal3 = document.getElementById("myModal3");
+        window.onclick = function (event) {
+            if (event.target == myModal || event.target == myModal2 || event.target == myModal3) {
+                myModal.style.display = "none";
+                myModal2.style.display = "none";
+                myModal3.style.display = "none";
+            }
+
+
+
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Bundled Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -69,11 +69,10 @@
 
                             </div>
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
-
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
-
-
                         </div>
+                        <p id="sendStatus"></p>
+
                     </div>
                 </div>
                 <div class="col-2">
@@ -154,133 +153,153 @@
             },
             methods: {
                 sendReply: function (msg) {
-                    console.log(msg);
-                    var username = sessionStorage.getItem("login_status");
-                    var receiver = msg['sender'];
-                    var bottleID = msg['msg_name'];
-                    var text = this.text;
-                    console.log("sending from:" + username);
-                    console.log("updating" + receiver);
-                    var messages = firebase.database().ref('messages/');
-                    messages.once('value').then((snapshot) => {
-                        if (snapshot.exists()) {
-                            var messages = snapshot.val();
-                            // console.log(messages)
-                            if (receiver in messages) {
-                                console.log("updating current receiver")
-                                // count number of msgs
-                                var msgs = messages[receiver]
-                                console.log(msgs)
-                                var keys = Object.keys(msgs)
-                                var count_msg = keys.length
-                                console.log(keys, count_msg)
+                    var checkText = document.getElementById("replyMessage").value;
+                    if (checkText.replace(/\s/g, "") != "") {
+                        console.log(msg);
+                        var username = sessionStorage.getItem("login_status");
+                        var receiver = msg['sender'];
+                        var bottleID = msg['msg_name'];
+                        var text = this.text;
+                        console.log("sending from:" + username);
+                        console.log("updating" + receiver);
+                        var messages = firebase.database().ref('messages/');
+                        messages.once('value').then((snapshot) => {
+                            if (snapshot.exists()) {
+                                var messages = snapshot.val();
+                                // console.log(messages)
+                                if (receiver in messages) {
+                                    console.log("updating current receiver")
+                                    // count number of msgs
+                                    var msgs = messages[receiver]
+                                    console.log(msgs)
+                                    var keys = Object.keys(msgs)
+                                    var count_msg = keys.length
+                                    console.log(keys, count_msg)
 
-                                //update data with new bottle name
-                                var updates = {};
-                                var msg_name = "msg" + count_msg
-                                updates['/messages/' + receiver + "/" + msg_name + "/message"] =
-                                    text;
-                                updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
-                                    username;
-                                updates['/messages/' + username + "/" + bottleID + "/reply"] =
-                                    'true'
-                                firebase.database().ref().update(updates);
-                                // var replyStatus = document.getElementById("replyStatus");
-                                // replyStatus.innerHTML = "Message Sent!";
-                            } else {
-                                console.log("adding new the receiver:", receiver)
-                                var updates = {};
-                                updates['/messages/' + receiver + "/" + msg_name + "/message"] =
-                                    text;
-                                updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
-                                    username;
-                                updates['/messages/' + username + "/" + bottleID + "/reply"] =
-                                    'true'
-                                firebase.database().ref().update(updates);
+                                    //update data with new bottle name
+                                    var updates = {};
+                                    var msg_name = "msg" + count_msg
+                                    updates['/messages/' + receiver + "/" + msg_name + "/message"] =
+                                        text;
+                                    updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
+                                        username;
+                                    updates['/messages/' + username + "/" + bottleID + "/reply"] =
+                                        'true'
+                                    firebase.database().ref().update(updates);
+                                    document.getElementById("sendStatus").innerHTML =
+                                        "Your reply sent successfully!";
+                                    document.getElementById("sendStatus").setAttribute("class",
+                                        "text-dark");
+                                    document.getElementById("sendStatus").style.textAlign = "center";
+
+                                } else {
+                                    console.log("adding new the receiver:", receiver)
+                                    var updates = {};
+                                    updates['/messages/' + receiver + "/" + msg_name + "/message"] =
+                                        text;
+                                    updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
+                                        username;
+                                    updates['/messages/' + username + "/" + bottleID + "/reply"] =
+                                        'true'
+                                    firebase.database().ref().update(updates);
+                                    document.getElementById("sendStatus").innerHTML =
+                                        "Your reply sent successfully!";
+                                    document.getElementById("sendStatus").setAttribute("class",
+                                        "text-dark");
+                                    document.getElementById("sendStatus").style.textAlign = "center";
+                                }
+                                this.text = '';
+                                this.popReadMessage(bottleID)
+
+
                             }
-                            this.text = '';
-                            this.popReadMessage(bottleID)
 
-
-                        }
-
-                    })
-
-                    // notify receiver on telegram ~ -------------------------------------
-                    function sendTeleNotifHelper(chatID, from) {
-                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-                        var sendString = `${from} has written a reply to you!! :)`;
-
-
-                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
-
-                        axios.get(sendURL, {
-                                params: {}
-                            })
-                            .then(response => {
-                                console.log("telegram sent!")
-                            })
-                            .catch(error => {
-                                console.log("telegram error")
-                            })
-                    }
-
-                    receiverUserInfo = firebase.database().ref(`users/${receiver}`);
-                    receiverUserInfo.once('value').then((snapshot) => {
-                    if (snapshot.exists()) {
-                        //console.log(snapshot.val().interacted_users);
-                        telegram_info = snapshot.val().telegram_info; //key: user, value: number of times
-                        sendTeleNotifHelper(telegram_info, username);
-                    }
-                    else {
-                        console.log("replied user no telegram id!")
-                    }
-                    })
-
-                    // end of telegram notifier ~ -------------------------------
-
-                    // to add: add to user_interaction database count~
-                    const receiver_const = receiver;
-
-
-                    loggedUserInteractedInfo = firebase.database().ref(`users/${username}/interacted_users`);
-                    loggedUserInteractedInfo.once('value').then((snapshot) => {
-                    if (snapshot.exists()) {
-
-                        var interactupdates = {};
-                        console.log("have interacted user")
-                        console.log(receiver_const)
-                        
-                        var oldCount = snapshot.val()[receiver_const];
-                        console.log(oldCount);
-                        if (oldCount === undefined){
-
-                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = 1;
-
-                        }else {
-                            var newCount = oldCount + 1;
-                            
-                            interactupdates[`users/${username}/interacted_users/${receiver_const}`] = newCount;
-
-                        }
-
-                        firebase.database().ref().update(interactupdates);
-                            
-
-                    }
-                    else {
-                        console.log("no interacted users")
-                        console.log(receiver_const)
-                        firebase.database().ref(`users/${username}/interacted_users`).set({
-                            [receiver_const]: 1
                         })
+
+                        // notify receiver on telegram ~ -------------------------------------
+                        function sendTeleNotifHelper(chatID, from) {
+                            var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                            var sendString = `${from} has written a reply to you!! :)`;
+
+
+                            var sendURL =
+                                `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+                            axios.get(sendURL, {
+                                    params: {}
+                                })
+                                .then(response => {
+                                    console.log("telegram sent!")
+                                })
+                                .catch(error => {
+                                    console.log("telegram error")
+                                })
+                        }
+
+                        receiverUserInfo = firebase.database().ref(`users/${receiver}`);
+                        receiverUserInfo.once('value').then((snapshot) => {
+                            if (snapshot.exists()) {
+                                //console.log(snapshot.val().interacted_users);
+                                telegram_info = snapshot.val()
+                                    .telegram_info; //key: user, value: number of times
+                                sendTeleNotifHelper(telegram_info, username);
+                            } else {
+                                console.log("replied user no telegram id!")
+                            }
+                        })
+
+                        // end of telegram notifier ~ -------------------------------
+
+                        // to add: add to user_interaction database count~
+                        const receiver_const = receiver;
+
+
+                        loggedUserInteractedInfo = firebase.database().ref(
+                            `users/${username}/interacted_users`);
+                        loggedUserInteractedInfo.once('value').then((snapshot) => {
+                            if (snapshot.exists()) {
+
+                                var interactupdates = {};
+                                console.log("have interacted user")
+                                console.log(receiver_const)
+
+                                var oldCount = snapshot.val()[receiver_const];
+                                console.log(oldCount);
+                                if (oldCount === undefined) {
+
+                                    interactupdates[
+                                        `users/${username}/interacted_users/${receiver_const}`
+                                    ] = 1;
+
+                                } else {
+                                    var newCount = oldCount + 1;
+
+                                    interactupdates[
+                                        `users/${username}/interacted_users/${receiver_const}`
+                                    ] = newCount;
+
+                                }
+
+                                firebase.database().ref().update(interactupdates);
+
+
+                            } else {
+                                console.log("no interacted users")
+                                console.log(receiver_const)
+                                firebase.database().ref(`users/${username}/interacted_users`).set({
+                                    [receiver_const]: 1
+                                })
+                            }
+                        })
+
+
+
+                        //--------- end of adding user_interaction database count
+                    } else {
+                        document.getElementById("sendStatus").innerHTML = "Cannot reply empty text!";
+                        document.getElementById("sendStatus").setAttribute("class", "text-danger");
+
                     }
-                    })
-
-
-                    
-                    //--------- end of adding user_interaction database count
-
                 },
                 popReadMessage(bottleID) {
                     for (i in this.msg_list) {
@@ -292,6 +311,7 @@
                             navvm.$refs.nvmref.updateInbox();
                         }
                     }
+
                 }
 
             },
