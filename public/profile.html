@@ -50,128 +50,134 @@
     <div class="bg-image"></div>
 
     <main>
-    <!-- <div class="bg-image"></div> -->
-    <div class="container-fluid content">
-        <div class="row align-items-center arrow-row mb-4" id="app">
-            <!--   -->
-            <div class="container-fluid pt-3" v-if="checkProfile()=='false'" id="container-box">
+        <!-- <div class="bg-image"></div> -->
+        <div class="container-fluid content">
+            <div class="row align-items-center arrow-row mb-4" id="app">
+                <!--   -->
+                <div class="container-fluid pt-3" id="container-box">
 
-                <div class="row mb-3 mt-3">
-                    <h1 class="text-center">Welcome! Please Set Your Profile</h1>
-                </div>
-                <div class="row mb-4">
-                    <!-- Column if >=large-->
-                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                    <!-- previous arrow-->
-                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
-                        <div class="row arrow-row-left">
-                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="head_previous"
-                            style="cursor: pointer">
-                        </div>
-                        <div class="row arrow-row-left">
-                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="body_previous"
-                            style="cursor: pointer">
-                        </div>
-                        <div class="row arrow-row-left">
-                            <img class="arrow arrow_next center-block" src="img/arrow_previous.png" @click="leg_previous"
-                            style="cursor: pointer">
-                        </div>
+                    <div class="row mb-3 mt-3">
+                        <h1 class="text-center">Welcome! Please Set Your Profile</h1>
                     </div>
+                    <div class="row mb-4">
+                        <!-- Column if >=large-->
+                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
 
-                    <!-- Column if >=Large-->
-                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                            <!-- Parts -->
-                    <div class="col-8 col-sm-6 col-lg-4">
-                        <div class="container parts p-0">
-                            <img id="head" class="p-0" :src="head"  alt="">
-                            <img id="body" class="p-0" :src="body"  alt="">
-                            <img id="leg" class="p-0 d-flex justify-content-center" :src="leg" alt="">
-
-                            <input id="head_text" type="hidden" :value="head">
-                            <input id="body_text" type="hidden" :value="body">
-                            <input id="leg_text" type="hidden" :value="leg">
-                        </div>
-                    </div>
-
-                    <!-- Column if >=large-->
-                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-
-                    <!-- next arrow-->
-                    <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
-                        <div class="row arrow-row-right">
-                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="head_next"
-                            style="cursor: pointer">
-                        </div>
-                        <div class="row arrow-row-right">
-                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="body_next"
-                            style="cursor: pointer">
-                        </div>
-                        <div class="row arrow-row-right">
-                            <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png" @click="leg_next"
-                            style="cursor: pointer">
-                        </div>
-                    </div>
-
-                    <!-- Column if >=large -->
-                    <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
-                </div>
-
-                <!-- Input User Details-->
-                <div class="row">
-                    <div class="container bottom-row">
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-12 col-md-10">
-                                <form action="">
-                                    <div class="container">
-                                        <!-- self intro -->
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label for="description">Self Introduction</label><br>
-                                                <textarea class="form-control" name="description" id="description"
-                                                    placeholder="Introduce Yourself"></textarea>
-                                            </div>
-                                        </div>
-        
-                                        <!-- Telegram Account -->
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label for="telegram_info">Telegram chat_id</label>
-                                                <input class="form-control" type="text" name="telegram_info" id="telegram_info">
-                                            </div>
-                                        </div>
-        
-                                        <div class="row">
-                                            <div class="col-2  col-md-4"></div>
-                                            <div class="col-8 col-md-4 text-center my-3">
-                                                <input class="yellowBtn" type="button" value="Update"
-                                            onclick="updateUser(sessionStorage.getItem('login_status'))">
-                                            </div>
-                                            <div class="col-2 col-md-4"></div>
-                                        </div>
-        
-                                    </div>
-                                </form>
-        
-                                <p id="status"></p>
+                        <!-- previous arrow-->
+                        <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                            <div class="row arrow-row-left">
+                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                    @click="head_previous" style="cursor: pointer">
                             </div>
-                            <div class="col-md-1"></div>
+                            <div class="row arrow-row-left">
+                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                    @click="body_previous" style="cursor: pointer">
+                            </div>
+                            <div class="row arrow-row-left">
+                                <img class="arrow arrow_next center-block" src="img/arrow_previous.png"
+                                    @click="leg_previous" style="cursor: pointer">
+                            </div>
+                        </div>
+
+                        <!-- Column if >=Large-->
+                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                        <!-- Parts -->
+                        <div class="col-8 col-sm-6 col-lg-4">
+                            <div class="container parts p-0">
+                                <img id="head" class="p-0" :src="head" alt="">
+                                <img id="body" class="p-0" :src="body" alt="">
+                                <img id="leg" class="p-0 d-flex justify-content-center" :src="leg" alt="">
+
+                                <input id="head_text" type="hidden" :value="head">
+                                <input id="body_text" type="hidden" :value="body">
+                                <input id="leg_text" type="hidden" :value="leg">
+                            </div>
+                        </div>
+
+                        <!-- Column if >=large-->
+                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+
+                        <!-- next arrow-->
+                        <div class="col-2 col-sm-3 col-lg-2 col-xl-2 p-0 m-0 arrow-col my-auto">
+                            <div class="row arrow-row-right">
+                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
+                                    @click="head_next" style="cursor: pointer">
+                            </div>
+                            <div class="row arrow-row-right">
+                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
+                                    @click="body_next" style="cursor: pointer">
+                            </div>
+                            <div class="row arrow-row-right">
+                                <img class="arrow arrow_previous ms-auto center-block" src="img/arrow.png"
+                                    @click="leg_next" style="cursor: pointer">
+                            </div>
+                        </div>
+
+                        <!-- Column if >=large -->
+                        <div class="hidden-xs d-none d-lg-block d-xl-block col-lg-1 col-xl-1"></div>
+                    </div>
+
+                    <!-- Input User Details-->
+                    <div class="row">
+                        <div class="container bottom-row">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-12 col-md-10">
+                                    <form action="">
+                                        <div class="container">
+                                            <!-- self intro -->
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="description">Self Introduction</label><br>
+                                                    <textarea class="form-control" name="description" id="description"
+                                                        placeholder="Introduce Yourself"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <!-- Telegram Account -->
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="telegram_info">Telegram chat_id</label>
+                                                    <input class="form-control" type="text" name="telegram_info"
+                                                        id="telegram_info">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-2  col-md-4"></div>
+                                                <div class="col-8 col-md-4 text-center my-3">
+                                                    <input class="yellowBtn" type="button" value="Update"
+                                                        onclick="updateUser(sessionStorage.getItem('login_status'))">
+                                                </div>
+                                                <div class="col-2 col-md-4"></div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <p id="status"></p>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-       
-        <div class="container-fluid pt-3" id="container-box" v-else>
-            <p>this part displays the updated profile</p>
-            <p>{{ profile_list[0].desc }}</p>
-            <img :src="profile_list[0].img_head" alt="">
-            <img :src="profile_list[0].img_body" alt="">
-            <img :src="profile_list[0].img_leg" alt="">
         </div>
-         </div>
-    </div>
+        <div id="display">
+            {{ checkProfile }}
+            <div class="container-fluid pt-3" id="container-box" v-if="profile_list.length==4">
+                <p>this part displays the updated profile</p>
+                <p>{{ profile_list[0] }}</p>
+                <img :src="profile_list[1]" alt="">
+                <img :src="profile_list[2]" alt="">
+                <img :src="profile_list[3]" alt="">
+            </div>
+            <div class="container-fluid pt-3" id="container-box" v-else>
+                <p>Oops Empty! Please go to update your profile first</p>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -183,7 +189,6 @@
                     body_idx: 0,
                     leg_idx: 0,
                     arrow_width: '100%',
-                    
                     heads: [
                         './img/character_head1.png',
                         './img/character_head2.png',
@@ -197,29 +202,7 @@
                         './img/character_leg1.png',
                         './img/character_leg2.png',
                     ],
-                    profile_list: []
-                } 
-            },
-            created() {
-                var user = sessionStorage.getItem("login_status");
-                var users = firebase.database().ref('users/' + user);
-                users.once('value').then((snapshot) => {
-                    if (snapshot.exists()) {
-                        var user = snapshot.val();
-                        console.log(user)
-                        var desc = user['description']
-                        var img_leg = user['img_leg']
-                        var img_body = user['img_body']
-                        var img_head = user['img_head']
-                        this.profile_list.push({
-                            desc: desc,
-                            img_leg:img_leg,
-                            img_body:img_body,
-                            img_head:img_head,
-                        })
-                        console.log(this.profile_list[0])
-                    }
-                })
+                }
             },
             methods: {
                 head_next() {
@@ -264,29 +247,6 @@
                         return this.leg_idx -= 1
                     }
                 },
-                checkProfile() {
-                    var user = sessionStorage.getItem("login_status");
-                    var users = firebase.database().ref('users/' + user);
-                    users.once('value').then((snapshot) => {
-                        if (snapshot.exists()) {
-                            var user = snapshot.val();
-                            console.log(user)
-                            var data_list = Object.keys(user)
-                            var result = data_list.filter(function (check) {
-                                return check == "description" | check == "img_head" | check ==
-                                    "img_body" |
-                                    check == "img_leg"
-                            })
-                            if (result.length == 4) {
-                                console.log("profile exists")
-                                return true
-                            } else {
-                                console.log("profile does not exist")
-                                return false
-                            }
-                        }
-                    })
-                }
             },
             computed: {
                 head() {
@@ -302,23 +262,59 @@
         }).mount('#app')
     </script>
 
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    profile_list: [],
+                }
+            },
+            computed: {
+                checkProfile() {
+                    var user = sessionStorage.getItem("login_status");
+                    var users = firebase.database().ref('users/' + user);
+                    users.once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
+                            var user = snapshot.val();
+                            console.log(user)
+                            var data_list = Object.keys(user)
+                            var result = data_list.filter(function (check) {
+                                return check == "description" | check == "img_head" | check ==
+                                    "img_body" |
+                                    check == "img_leg"
+                            })
+                            if (result.length == 4) {
+                                var desc = user['description']
+                                var img_leg = user['img_leg']
+                                var img_body = user['img_body']
+                                var img_head = user['img_head']
+                                this.profile_list.push(
+                                    desc,
+                                    img_leg,
+                                    img_body,
+                                    img_head
+                                )
+                                console.log(this.profile_list[0])
+                                console.log("profile exists")
+                                // return true
+                            } 
+                            else {
+                                console.log("profile does not exist")
+                                // return false
+                            }
+                        }
+                    })
+                }
+            },
+
+        }).mount('#display')
+    </script>
+
 
     <script>
         var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info",
             "description"
         ]
-
-    
-        // var img_list = [img_head, img_body, img_leg];
-        // img_list.forEach(element => {
-        //     var split_list = element.split("/").slice(-3);
-        //     var new_img = "..";
-        //     for (i in split_list) {
-        //         new_img+= "/" + i;
-        //     }
-        //     console.log(new_img)
-
-        // });
 
         // update user data
         function updateUser(username) {
@@ -331,16 +327,6 @@
                     var img_head = document.getElementById("head_text").value;
                     var img_body = document.getElementById("body_text").value;
                     var img_leg = document.getElementById("leg_text").value;
-                    // var img_list = [img_head, img_body, img_leg];
-                    // img_list.forEach(element => {
-                    //     var split_list = element.split("/").slice(-3);
-                    //     var new_img = "..";
-                    //     for (i in split_list) {
-                    //         new_img+= "/" + i;
-                    //     }
-                    //     console.log(new_img)
-
-                    // });
                     console.log(img_body, img_head, img_leg)
                     var updates = {};
 
@@ -370,7 +356,7 @@
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    </script>
 
 </body>
 
