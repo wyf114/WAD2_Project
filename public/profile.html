@@ -180,7 +180,7 @@
                                             <div class="col-2  col-md-4"></div>
                                             <div class="col-8 col-md-4 text-center my-3">
                                                 <input class="yellowBtn" type="button" value="Update"
-                                                    onclick="updateUser(sessionStorage.getItem('login_status'))">
+                                                    onclick="updateProfileInfo(sessionStorage.getItem('login_status'))">
                                             </div>
                                             <div class="col-2 col-md-4"></div>
                                         </div>
@@ -415,7 +415,7 @@
         ]
 
         // update user data
-        function updateUser(username) {
+        function updateProfileInfo(username) {
             console.log("updating" + username);
             var user = firebase.database().ref('users/' + username);
             user.once('value').then((snapshot) => {
@@ -580,7 +580,6 @@ function updateUser(username) {
                     var password = document.getElementById("password").value;
                     var gender = document.getElementById("gender").value;
                     var coordinates = document.getElementById("hiddenCoordinates").innerHTML;
-                    console.log(username, password, gender, country, city)
                     var updates = {};
                     // updates['/users/' + username + "/" + 'username'] = username;
                     updates['/users/' + username + "/" + 'password'] = password;
