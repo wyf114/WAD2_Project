@@ -33,7 +33,7 @@
 <body>
     <!-- Navigation Bar Vue Component (requires vue, firebase (for inbox number), navbar.js)-->
     <div id="navapp">
-        <nav-bar></nav-bar>
+        <nav-bar ref="nvmref"></nav-bar>
     </div>
     <script src="js/navBarVue2.js"></script>
     <!-- end of nav bar-->
@@ -180,6 +180,8 @@
                             }
                             this.text = '';
                             this.popReadMessage(bottleID)
+
+                            
                         }
 
                     })
@@ -191,6 +193,7 @@
                             this.msg_list.splice(i, 1);
                             console.log(this.msg_list)
                             alert("Message sent!")
+                            navvm.$refs.nvmref.updateInbox();
                         }
                     }
                 }
