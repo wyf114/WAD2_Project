@@ -51,9 +51,10 @@
 
     <main>
     <!-- <div class="bg-image"></div> -->
-    <div class="container-fluid content" id="container-box">
+    <div class="container-fluid content">
         <div class="row align-items-center arrow-row mb-4" id="app">
-            <div class="container-fluid pt-3" id="container" v-if="checkProfile()=='false'">
+            <!--   -->
+            <div class="container-fluid pt-3" v-if="checkProfile()=='false'" id="container-box">
 
                 <div class="row mb-3 mt-3">
                     <h1 class="text-center">Welcome! Please Set Your Profile</h1>
@@ -144,8 +145,8 @@
         
                                         <div class="row">
                                             <div class="col-2  col-md-4"></div>
-                                            <div class="col-8 col-md-4">
-                                                <input class="btn btn-block btn-primary" type="button" value="Update"
+                                            <div class="col-8 col-md-4 text-center my-3">
+                                                <input class="yellowBtn" type="button" value="Update"
                                             onclick="updateUser(sessionStorage.getItem('login_status'))">
                                             </div>
                                             <div class="col-2 col-md-4"></div>
@@ -161,14 +162,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid pt-3" id="container" v-else v-for="profile in profile_list">
+       
+        <div class="container-fluid pt-3" id="container-box" v-else>
             <p>this part displays the updated profile</p>
-            <p>{{ profile.desc }}</p>
-            <img :src="profile.img_head" alt="">
-            <img :src="profile.img_body" alt="">
-            <img :src="profile.img_leg" alt="">
+            <p>{{ profile_list[0].desc }}</p>
+            <img :src="profile_list[0].img_head" alt="">
+            <img :src="profile_list[0].img_body" alt="">
+            <img :src="profile_list[0].img_leg" alt="">
         </div>
+         </div>
     </div>
     </main>
 
@@ -181,6 +183,7 @@
                     body_idx: 0,
                     leg_idx: 0,
                     arrow_width: '100%',
+                    
                     heads: [
                         './img/character_head1.png',
                         './img/character_head2.png',
@@ -195,7 +198,7 @@
                         './img/character_leg2.png',
                     ],
                     profile_list: []
-                }
+                } 
             },
             created() {
                 var user = sessionStorage.getItem("login_status");
@@ -214,7 +217,7 @@
                             img_body:img_body,
                             img_head:img_head,
                         })
-                        console.log(this.profile_list)
+                        console.log(this.profile_list[0])
                     }
                 })
             },
@@ -305,21 +308,7 @@
             "description"
         ]
 
-        function test() {
-            var img_head = document.getElementById("head").src;
-            var img_body = document.getElementById("body").src;
-            var img_leg = document.getElementById("leg").src;
-            var img_list = [img_head, img_body, img_leg];
-            for (img in img_list) {
-                var split_list = img.split("/");
-                var new_img = "..";
-                for (i in split_list) {
-                    new_img += "/" + i;
-                }
-                console.log(new_img)
-            };
-        }
-        test()
+    
         // var img_list = [img_head, img_body, img_leg];
         // img_list.forEach(element => {
         //     var split_list = element.split("/").slice(-3);
@@ -339,9 +328,9 @@
                 if (snapshot.exists()) {
                     var telegram_info = document.getElementById("telegram_info").value;
                     var description = document.getElementById("description").value;
-                    var img_head = document.getElementById("head_text").src;
-                    var img_body = document.getElementById("body_text").src;
-                    var img_leg = document.getElementById("leg_text").src;
+                    var img_head = document.getElementById("head_text").value;
+                    var img_body = document.getElementById("body_text").value;
+                    var img_leg = document.getElementById("leg_text").value;
                     // var img_list = [img_head, img_body, img_leg];
                     // img_list.forEach(element => {
                     //     var split_list = element.split("/").slice(-3);

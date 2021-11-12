@@ -36,7 +36,7 @@
     padding: 0px;
 }
 
-#container-box {
+/* #container-box {
     background-color: whitesmoke;
     z-index: -3;
     width: 80%;
@@ -46,6 +46,21 @@
     border-radius: 1em;
     flex: 1;
     padding-bottom: 100px;
+
+} */
+#container-box{
+
+        width: 80%;
+        margin: 10% auto;
+        padding-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.774);
+        background-color:rgba(255, 255, 255, 0.774);
+        border-radius: 2%;
+        z-index: 1;
+        
+      
+      
+    
 }
 
 .bottom_row {
@@ -78,13 +93,13 @@ textarea {
   }
 
 
-main {
-    min-height: 100vh; /* will cover the 100% of viewport */
+/* main {
+    min-height: 100vh; 
     overflow: hidden;
     display: block;
     position: relative;
     padding-bottom: 200px;
-   }
+   } */
 
 /* .arrow-row-left {
     width: 95%;
@@ -127,10 +142,10 @@ main {
 }
 
 
-#profile-footer {
+/* #profile-footer {
     position: aboslute;
     bottom: 0px;
-}
+} */
 
 @keyframes shake {
     0% { transform: translate(2px); }
