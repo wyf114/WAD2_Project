@@ -22,6 +22,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
     <script src="js/database.js"></script>
 
+    <!-- axios -->
+    <script src="js/axios/axios.min.js"></script>
+
 
     <!-- <script src="js/jquery-3.5.1.min.js"></script> -->
     <title>Drifting bottle</title>
@@ -482,6 +485,40 @@
                                     }
                                     this.text = 'Hi';
                                     this.popReadBottle(bottleID)
+
+                                    // notify receiver on telegram ~
+                                    function sendTeleNotifHelper(chatID, from) {
+                                        var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                                        var sendString = `${from} has written a reply to you!! :)`;
+
+
+                                        var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+                                        axios.get(sendURL, {
+                                                params: {}
+                                            })
+                                            .then(response => {
+                                                console.log("telegram sent!")
+                                            })
+                                            .catch(error => {
+                                                console.log("telegram error")
+                                            })
+                                    }
+
+                                    receiverUserInfo = firebase.database().ref(`users/${receiver}`);
+                                    receiverUserInfo.once('value').then((snapshot) => {
+                                    if (snapshot.exists()) {
+                                        //console.log(snapshot.val().interacted_users);
+                                        telegram_info = snapshot.val().telegram_info; //key: user, value: number of times
+                                        sendTeleNotifHelper(telegram_info, username);
+                                    }
+                                    else {
+                                        console.log("replied user no telegram id!")
+                                    }
+                                    })
+
+                                    
+
                                 }
                             })
                         } 
