@@ -74,6 +74,9 @@ var myComponent = Vue.extend({
                 console.log("!!!!!!!!!");        
                 console.log(number_of_messages);        
             }
+            else {
+                this.messages = 0;
+            }
         })
         }
     },

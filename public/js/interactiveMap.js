@@ -108,7 +108,7 @@ if (snapshot.exists()) {
                 }
                 else{
                     console.log(interacted_user);
-                    addMarker(coordinates, interacted_user, "Number of times: " + number_of_times);
+                    addMarker(coordinates, interacted_user, "Number of exchanges: " + number_of_times);
                     console.log("added marker!");
                 }
 
