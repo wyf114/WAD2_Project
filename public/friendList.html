@@ -58,20 +58,20 @@
                             {{ fri.name }}
                         </h4>
                         <div class="description text-center">
-                            <p v-if="addDate[index]>0">You have met {{ fri.name }} for {{ fri.date_diff }} days.</p>
+                            <p v-if="addDate[index]>0">You have met {{ fri.name }} for {{ fri.date_diff }} days.</p >
                             <p v-else>This is the first day you met each other. </p>
                         </div>
 
                         <div class="text-center" id="inboxReply">
-                            <textarea class="form-control" name="replyMessage" :id="fri.name" rows="3"
+                            <textarea class="form-control" name="replyMessage" id="textinput" rows="3"
                                 style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                         </div>
-                        <button :id="index" class="yellowBtn" onclick="expandReply(this)">Message</button>
-                        <span><button id="sendReply" class="yellowBtn"
-                                @click="sendMsg(fri)">Send</button></span>
+                        <button :id="fri.name" class="yellowBtn" onclick="expandReply(this)">Message</button>
+                        <span><button id="sendReply" class="yellowBtn" @click="sendReplyClick(fri)">Send</button></span>
+                        <p id="sendStatus"></p>
                     </div>
-                    <p id="sendStatus"></p>
+                   
                 </div>
             </div>
 
@@ -107,6 +107,7 @@
                 return {
                     friend_list: [],
                     id: '',
+                    sendId:'',
                     // date: '',
                     // name: ''
                 }
@@ -175,9 +176,9 @@
                 }
             },
             methods: {
-                sendMsg: function (fri) {
-                    var textID = fri.name;
-                    var checkText = document.getElementById(textID).value;
+                sendReplyClick: function(fri) {
+                    var checkText = document.getElementById(fri.name).previousSibling.firstChild.value;
+                    console.log(checkText);
                     if (checkText.replace(/\s/g, "") != "") {
                         console.log(fri);
                         var username = sessionStorage.getItem("login_status");
@@ -210,11 +211,11 @@
                                     // updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                     //     'true'
                                     firebase.database().ref().update(updates);
-                                    document.getElementById("sendStatus").innerHTML =
-                                        "Your reply sent successfully!";
-                                    document.getElementById("sendStatus").setAttribute("class",
-                                        "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign =
+                                    document.getElementById(fri.name).nextSibling.nextSibling.innerHTML =
+                                        "Your message sent successfully!";
+                                        document.getElementById(fri.name).nextSibling.nextSibling.setAttribute("class",
+                                        "text-success");
+                                        document.getElementById(fri.name).nextSibling.nextSibling.style.textAlign =
                                         "center";
 
                                 } else {
@@ -227,11 +228,11 @@
                                     // updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                     //     'true'
                                     firebase.database().ref().update(updates);
-                                    document.getElementById("sendStatus").textContent =
-                                        "Your reply sent successfully!";
-                                    document.getElementById("sendStatus").setAttribute("class",
-                                        "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign =
+                                    document.getElementById(fri.name).nextSibling.nextSibling.innerHTML =
+                                        "Your message sent successfully!";
+                                        document.getElementById(fri.name).nextSibling.nextSibling.setAttribute("class",
+                                        "text-success");
+                                        document.getElementById(fri.name).nextSibling.nextSibling.style.textAlign =
                                         "center";
                                 }
                                 document.getElementById(textID).value = "";
@@ -318,8 +319,11 @@
 
                         //--------- end of adding user_interaction database count
                     } else {
-                        document.getElementById("sendStatus").innerHTML = "Cannot reply empty text!";
-                        document.getElementById("sendStatus").setAttribute("class", "text-danger");
+                        
+                        document.getElementById(fri.name).nextSibling.nextSibling.innerHTML = "Cannot reply empty text!";
+                        document.getElementById(fri.name).nextSibling.nextSibling.setAttribute("class", "text-danger");
+                        document.getElementById(fri.name).nextSibling.nextSibling.style.textAlign =
+                                        "center";
 
                     }
                 },

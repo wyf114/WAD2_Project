@@ -172,10 +172,45 @@ textarea {
 
 /* ALL SIZES */
 /* Mobile Small 320px */
-@media screen and (max-width: 374px) {
+@media screen and (min-width: 315px) {
     .parts {
         width: 100%;
-        height: 270px;
+        height: 290px;
+        margin-left: 0 auto;
+        margin-right: 0 auto;
+        position: relative;
+        padding: 10px;
+    }
+    
+    #head {
+        position: absolute;
+        height:auto;
+        width: 100%;
+        bottom: 50%;
+        z-index: 99999;
+    }
+    
+    #body {
+        position: absolute;
+        width: 100%;
+        bottom: 20%;
+        z-index: -1;
+    }
+
+    #leg {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        bottom: 5%;
+        z-index: -2;
+    }
+}
+
+/* custom size 374px */
+@media screen and (min-width: 374px) {
+    .parts {
+        width: 100%;
+        height: 380px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -227,14 +262,14 @@ textarea {
     #body {
         position: absolute;
         width: 100%;
-        bottom: 23%;
+        bottom: 17%;
         z-index: -6;
     }
     
     #leg {
         position: absolute;
         width: 100%;
-        bottom: 8%;
+        bottom: 2%;
         z-index: -7;
     }
 }
@@ -261,14 +296,14 @@ textarea {
     #body {
         position: absolute;
         width: 100%;
-        bottom: 20%;
+        bottom: 18%;
         z-index: -1;
     }
     
     #leg {
         position: absolute;
         width: 100%;
-        bottom: 7%;
+        bottom: 5%;
         z-index: -2;
     }
 }
@@ -346,7 +381,7 @@ textarea {
 @media screen and (min-width: 576px) {
     .parts {
         width: 200px;
-        height: 480px;
+        height: 430px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -356,20 +391,20 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 55%;
+        bottom: 50%;
     }
 
     #body {
         position: absolute;
         width: 100%;
-        bottom: 20%;
+        bottom: 17%;
         z-index: -1;
     }
 
     #leg {
         position: absolute;
         width: 100%;
-        bottom: 5%;
+        bottom: 2%;
         z-index: -2;
     }
 }
@@ -677,7 +712,7 @@ textarea {
 @media screen and (min-width: 1115px) {
     .parts {
         width: 200px;
-        height: 640px;
+        height: 630px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -688,20 +723,20 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 53%;
+        bottom: 48%;
     }
 
     #body {
         position: absolute;
         width: 100%;
-        bottom: 17%;
+        bottom: 18%;
         z-index: -1;
     }
 
     #leg {
         position: absolute;
         width: 100%;
-        bottom: 4%;
+        bottom: 3%;
         z-index: -2;
     }
 }
@@ -711,7 +746,7 @@ textarea {
 @media screen and (min-width: 1280px) {
     .parts {
         width: 200px;
-        height: 571px;
+        height: 680px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -723,20 +758,20 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 45%;
+        bottom: 50%;
     }
 
     #body {
         position: absolute;
         width: 100%;
-        bottom: 10%;
+        bottom: 18%;
         z-index: -1;
     }
 
     #leg {
         position: absolute;
         width: 100%;
-        bottom: -5%;
+        bottom: 8%;
         z-index: -2;
     }
 }
@@ -881,14 +916,14 @@ textarea {
     #body {
         position: absolute;
         width: 80%;
-        bottom: 16%;
+        bottom: 20%;
         z-index: -1;
     }
 
     #leg {
         position: absolute;
         width: 80%;
-        bottom: 0%;
+        bottom: 4%;
         z-index: -2;
     }
 }

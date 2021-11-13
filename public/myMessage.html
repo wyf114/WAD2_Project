@@ -86,9 +86,9 @@
                             <button :id="index" class="yellowBtn" onclick="expandReply(this)">Reply</button>
 
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
-
+                           <div id="sendStatus"></div>
                         </div>
-
+                       
 
                     </div>
                 </div>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- :style="{ display : sendStatus}" -->
-        <div id="myModal4" class="modal" :style="{ display : sendStatus}">
+        <div id="myModal4" class="modal" :style="{ display : sendDisplay}">
             <!-- Modal content -->
             <div class="modal-content2">
                 <img src="img/success.png" style="width: 10%;">
@@ -140,7 +140,7 @@
                     msg_list: [],
                     img_list: [],
                     id: '',
-                    sendStatus: '',
+                    sendDisplay: '',
                 }
             },
             created() {
@@ -184,7 +184,7 @@
             },
             methods: {
                 exit: function () {
-                    this.sendStatus = "none"
+                    this.sendDisplay = "none";
                 },
                 sendReply: function (msg) {
                     var textID = msg.msg_name
@@ -221,7 +221,7 @@
                                     updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                         'true'
                                     firebase.database().ref().update(updates);
-                                    this.sendStatus = "block";
+                                    this.sendDisplay = "block";
 
                                 } else {
                                     console.log("adding new the receiver:", receiver)
@@ -233,7 +233,7 @@
                                     updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                         'true'
                                     firebase.database().ref().update(updates);
-                                    this.sendStatus = "block";
+                                    this.sendDisplay = "block";
                                 }
                                 document.getElementById(textID).value = "";
                                 this.popReadMessage(bottleID)
@@ -323,8 +323,10 @@
 
                         //--------- end of adding user_interaction database count
                     } else {
-                        document.getElementById("sendStatus").innerHTML = "Cannot reply empty text!";
-                        document.getElementById("sendStatus").setAttribute("class", "text-danger");
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.innerHTML = "Cannot reply empty text!";
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.setAttribute("class", "text-danger");
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.style.textAlign =
+                                        "center";
 
                     }
                 },
@@ -368,7 +370,7 @@
                         } else {
                             console.log("sender is not a friend yet :x")
                             is_friend = false;
-                            return false;
+                            return is_friend;
 
                         }
                     })
@@ -490,10 +492,11 @@
             msg.classList.toggle("active");
             var reply = msg.previousSibling;
             var sendReply = msg.nextSibling.firstChild;
+            console.log(sendReply)
             console.log(reply);
             if (reply.style.display === "block") {
                 reply.style.display = "none";
-                msg.innerHTML = "Reply";
+                msg.innerHTML = "Message";
                 sendReply.style.display = "none";
             } else {
                 reply.style.display = "block";

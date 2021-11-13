@@ -1,200 +1,215 @@
 .title {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: whitesmoke;
 }
 
 
 /* Carousel */
 .box {
-    width: 100%;
-    height: 120%;
-    margin-top: 15px;
-    margin-bottom: 30px;
-  }
-
-.item {
-    color: antiquewhite;
-    width: 80%;
-    max-width: 700px; 
-    display: flex;
-    height: 500px;
-    margin: auto;
-    border-radius: 3%;
-    padding:20px;
-    text-align: center;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 120%;
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
-.carousell-item-box {
-  background-color: black;
-  padding: 25px;
-  border-radius: 5%;
+.item {
+  color: antiquewhite;
+  width: 80%;
+  max-width: 680px; 
+  display: flex;
+  height: 500px;
+  margin: auto;
+  border-radius: 3%;
+  padding:20px;
+  text-align: center;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-item-box {
+background-color: black;
+padding: 25px;
+border-radius: 5%;
 }
 
 .carousel-img {
-    
-    /* height:100%;
-    width: auto;  */
-    object-fit: cover;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  
+  /* height:100%;
+  width: auto;  */
+  object-fit: cover;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .caption {
-    font-size: larger;
+  font-size: larger;
 }
 
 @media (max-width: 560px) {
-    .carousel-caption p {
-      font-size: 300%;
-    }
-    .carousel-caption p {
-      font-size: 100%;
-    }
+  .carousel-caption p {
+    font-size: 300%;
   }
+  .carousel-caption p {
+    font-size: 100%;
+  }
+}
 
 
 
 #parallax_1 {
-  /* The image used */
-  background-image: url("../img/lighthouse.jpg");
-  position: relative;
+/* The image used */
+background-image: url("../img/lighthouse.jpg");
+position: relative;
 
-  /* Set a specific height */
-  min-height: 100%;
+/* Set a specific height */
+min-height: 100%;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 
 /* Parallax 2 */
 #parallax_2 {
-  /* The image used */
-  background-image: url("../img/Loneliness.jpg");
-  position: relative;
-  
-  padding-top: 110px;
-  padding-bottom: 110px;
+/* The image used */
+background-image: url("../img/Loneliness.jpg");
+position: relative;
 
-  /* Set a specific height */
-  min-height:50vh;
+padding-top: 110px;
+padding-bottom: 110px;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/* Set a specific height */
+min-height:50vh;
+
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 
 #parallax_3 {
-  /* The image used */
-  background-image: url("../img/cloudy_sea.jpg");
-  position: relative;
+/* The image used */
+background-image: url("../img/cloudy_sea.jpg");
+position: relative;
 
-  /* Set a specific height */
-  min-height: 100%;
+/* Set a specific height */
+min-height: 100%;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 /* Parallax 4 */
 #parallax_4 {
+/* The image used */
+background-image: url("../img/sea_register.webp");
+position: relative;
+width: 100%;
+
+padding-top: 110px 100px ;
+
+/* Set a specific height */
+min-height:65vh;
+
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#parallax-caption-box-4 {
+text-align: center;
+color: rgb(32, 26, 26);
+padding: 5%;
+
+
+backdrop-filter: blur(100px);
+}
+
+#parallax-caption-4 {
+padding: 0px;
+height: 100%;
+width: 100%;
+background-color:transparent;
+line-height: 2em;
+margin: 0px;
+font-size: 8vh;
+}
+
+#parallax_5 {
   /* The image used */
-  background-image: url("../img/sea_register.webp");
+  background-image: url("../img/people.jpg");
   position: relative;
-  width: 100%;
   
-  padding-top: 110px 100px ;
-
   /* Set a specific height */
-  min-height:65vh;
-
+  min-height: 100%;
+  
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-#parallax-caption-box-4 {
-  text-align: center;
-  color: rgb(32, 26, 26);
-  padding: 5%;
-  
-  
-  backdrop-filter: blur(100px);
-}
-
-#parallax-caption-4 {
-  padding: 0px;
-  height: 100%;
-  width: 100%;
-  background-color:transparent;
-  line-height: 2em;
-  margin: 0px;
-  font-size: 8vh;
-}
-
+  }
 
 
 /* parallax styling */
 .parallax_caption {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  text-align: center;
-  border: black;
+position: absolute;
+left: 0;
+top: 50%;
+width: 100%;
+text-align: center;
+border: black;
 }
 
 #parallax_border {
-  background-color: black;
-  color: whitesmoke;
-  letter-spacing: 3px;
-  line-height: 2em;
-  padding: 10px;
+background-color: black;
+color: whitesmoke;
+letter-spacing: 3px;
+line-height: 2em;
+padding: 10px;
 }
 
 /* .parallax-caption's outer div */
 .parallax-caption-box {
-  text-align: center;
-  color: whitesmoke;
-  backdrop-filter: blur(2px);
-  padding: 10%;
+text-align: center;
+color: whitesmoke;
+backdrop-filter: blur(2px);
+padding: 10%;
 }
 
 .parallax-caption {
-  padding: 5%;
-  background-color: rgba(0, 0, 0, 0.644);
-  line-height: 2.2em;
-  margin: 0px;
+padding: 5%;
+background-color: rgba(0, 0, 0, 0.644);
+line-height: 2.2em;
+margin: 0px;
 }
 
 /* smaller text when small screen */
 @media only screen and (max-width: 700px){
-  .parallax-caption {
-    font-size: 13px;
-  }
+.parallax-caption {
+  font-size: 13px;
+}
 }
 
 
@@ -204,13 +219,13 @@
 
 /* Cards */
 .card-container {
-    padding: 15px 0px;
-    margin-bottom: 20px;
+  padding: 15px 0px;
+  margin-bottom: 20px;
 }
 
 .card {
-    width: 300px;
-    height: auto;
+  width: 300px;
+  height: auto;
 }
 
 
@@ -218,108 +233,108 @@
 
 /* Social Media Related Styling */
 .links {
-    text-decoration: none;
-    display:inline-block;
-    width: 25px;
-    height: auto;
-    margin-right: 10px;
-    
+  text-decoration: none;
+  display:inline-block;
+  width: 25px;
+  height: auto;
+  margin-right: 10px;
+  
 }
 
 .social_media_icon {
-    width: 25px;
-    height: auto;
-    margin-right: 10px;
-    bottom: 15px;
-    position: absolute;
+  width: 25px;
+  height: auto;
+  margin-right: 10px;
+  bottom: 15px;
+  position: absolute;
 }
 
 
 /* Modal */
 #myImg {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  
-  #myImg:hover {opacity: 0.7;}
-  
-  /* The Modal (background) */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.486); /* Fallback color */
-    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-  }
-  
-  /* Modal Content (Image) */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.486); /* Fallback color */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width:800px;
+  background-color: transparent !important; 
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.3s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
   .modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width:800px;
-    background-color: transparent !important; 
+    width: 100%;
   }
-  
-  /* Caption of Modal Image (Image Text) - Same Width as the Image */
-  #caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-  }
-  
-  /* Add Animation - Zoom in the Modal */
-  .modal-content, #caption {
-    animation-name: zoom;
-    animation-duration: 0.3s;
-  }
-  
-  @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-  }
-  
-  /* The Close Button */
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px){
-    .modal-content {
-      width: 100%;
-    }
 
-    .caption {
-      font-size: smaller !important; 
-    }
-
-    h2 {
-      font-size:20px !important; 
-    }
+  .caption {
+    font-size: smaller !important; 
   }
+
+  h2 {
+    font-size:20px !important; 
+  }
+}
