@@ -368,15 +368,11 @@ p{
     #moon, #sun{
         transform: translateX(-120px);
     }
-    #sunset{
-        transform: translate(-20px 120px) scale(0.7);
+
     }
+@media screen and (min-width: 1400px) {
+    #moon, #sun{
+        transform: translateX(0);
     }
-    @media screen and (min-width: 1400px) {
-        #moon, #sun{
-            transform: translateX(0);
-        }
-        #sunset{
-            transform: translate(0) scale(0);
-        }
-        }
+
+    }
