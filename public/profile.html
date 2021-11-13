@@ -514,6 +514,9 @@
                     document.getElementById("status").innerHTML = "";
                     document.getElementById("status").innerHTML = "User has been updated.";
                     document.getElementById("status").setAttribute("class", "text-success");
+                    // empty the text box after update
+                    document.getElementById('description').value='' ; 
+                    document.getElementById("telegram_info").value='' ; 
                 } else {
                     document.getElementById("status").innerHTML = "User does not exist.";
                     document.getElementById("status").setAttribute("class", "text-danger");
@@ -528,7 +531,7 @@
                 return {
                     country_list: [], // array of post objects
                     state_list: [],
-                    city_list: [],
+                    // city_list: [],
                     selected_country: 'choose',
                     selected_state: 'choose',
                     selected_city: 'choose'
@@ -737,6 +740,10 @@
                     document.getElementById("status_acc").innerText = "";
                     document.getElementById("status_acc").innerText = "User has been updated.";
                     document.getElementById("status_acc").setAttribute("class", "text-success");
+                    // empty the text box after update
+                    document.getElementById('password').value='' ; 
+                    document.getElementById("verify").value='' ; 
+
                 }
             } else {
                 document.getElementById("status_acc").innerHTML = "All fields must be filled correctly!";
