@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="text-center" id="inboxReply">
-                            <textarea class="form-control" name="replyMessage" :id="fri.name" rows="3"
+                            <textarea class="form-control" name="replyMessage" id="textinput" rows="3"
                                 style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                         </div>
@@ -323,7 +323,7 @@
                         document.getElementById(fri.name).nextSibling.nextSibling.innerHTML = "Cannot reply empty text!";
                         document.getElementById(fri.name).nextSibling.nextSibling.setAttribute("class", "text-danger");
                         document.getElementById(fri.name).nextSibling.nextSibling.style.textAlign =
-                                        "center";;
+                                        "center";
 
                     }
                 },
