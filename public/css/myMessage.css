@@ -15,7 +15,7 @@
   .profile-img {
     height: 100px;
     width: 100px;
-    background: url('../img/character_head2.png');
+    /* background: url('../img/character_head2.png'); */
     background-size: cover;
     background-position: center;
     position: absolute;
