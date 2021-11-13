@@ -40,54 +40,52 @@
 
     <!-- remove if it looks messy-->
     <div class="bg-image"></div>
-<div class="friendContainer">
-    <div id="message" class="wrapper">
-        
-            
-                <div class="inbox" v-for="msg in msg_list" v-if="msg_list.length>0">
-              
-                    <div class="message-container">
-                        
-                        <div>
-                            <img :src="" alt="" class="profile-img">
+    <div class="friendContainer">
+        <div id="friend" class="wrapper">
+            <div class="inbox" v-for="fri in friend_list" v-if="friend_list.length>0">
+
+                <div class="message-container">
+
+                    <div>
+                        {{ addImg }}
+                        <img :src="fri.img_head" alt="" class="profile-img">
+                    </div>
+                    <div class="expand">
+                        <h4 v-model="name">
+                            {{ fri.name }}
+                        </h4>
+                        <div class="description text-center" v-model="date">
+                            {{ anniversary }}
                         </div>
-                        <div class="expand">
-                            <h4>
-                                wyf
-                            </h4>
-                            <div class="description text-center">
-                                Met 10 days ago
-                            </div>
 
-                            <div class="text-center" id="inboxReply">
-                                <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
-                                    style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                        <div class="text-center" id="inboxReply">
+                            <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
+                                style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
 
-                            </div>
-                            <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Message</button>
-                            <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
                         </div>
-                        <p id="sendStatus"></p>
+                        <button :id="fri.name" class="yellowBtn" onclick="expandReply(this)">Message</button>
+                        <span><button id="sendReply" class="yellowBtn" @click="sendReply(fri)">Send</button></span>
+                    </div>
+                    <p id="sendStatus"></p>
 
-                    </div>
-                    </div>
-            
-        </div>
-        <div v-else>
-            <div class="row">
-                <div class="col-2">
-                </div>
-                <div class="col-8">
-                    <div class="message-container" style="position: relative; margin-top: 40%; text-align: center;">
-                        <p>You have no friends yet. Why don't you try to catch a bottle?</p>
-                    </div>
-                </div>
-                <div class="col-2">
                 </div>
             </div>
-        </div>
+            <div v-else>
+                <div class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-8">
+                        <div class="message-container" style="position: relative; margin-top: 40%; text-align: center;">
+                            <p>You have no friends yet. Why don't you try to catch a bottle and meet some new friends?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+            </div>
 
-    
+        </div>
     </div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
@@ -102,29 +100,29 @@
         Vue.createApp({
             data() {
                 return {
-                    msg_list: [],
-                    img_list: [],
+                    friend_list: [],
                     id: '',
                     text: '',
+                    date: '',
+                    name:''
                 }
             },
             created() {
                 let user = sessionStorage.getItem("login_status")
-                var messages = firebase.database().ref('messages/' + user);
-                messages.once('value').then((snapshot) => {
-                    var message = snapshot.val();
-                    for (i in message) {
-                        if (message[i]['reply'] != 'true') {
-                            var msg = message[i]['message']
-                            var sender = message[i]['sender']
-                            this.msg_list.push({
-                                msg: msg,
-                                sender: sender,
-                                msg_name: i,
-                            })
-                        }
+                var friends = firebase.database().ref('friends/' + user);
+                friends.once('value').then((snapshot) => {
+                    var friend = snapshot.val();
+                    for (f in friend) {
+                        var name = f;
+                        var date = friend[f]['date']
+                        this.friend_list.push({
+                            name: name,
+                            date: date
+                        })
                     }
-                    console.log(this.msg_list)
+                    console.log(this.friend_list)
+                    this.date = date;
+                    this.name = name;
                 })
             },
             computed: {
@@ -132,29 +130,45 @@
                     var users = firebase.database().ref('users/');
                     // console.log(sender)
                     users.once('value').then((snapshot) => {
-                        for (i in this.msg_list) {
-                            var sender = this.msg_list[i]['sender']
+                        for (i in this.friend_list) {
+                            var sender = this.friend_list[i]['name']
                             var user = snapshot.val();
                             console.log(user[sender])
                             var img_head = user[sender]['img_head']
                             console.log(img_head)
-                            this.msg_list[i]['img_head'] = img_head
-                            console.log(this.msg_list)
-
+                            this.friend_list[i]['img_head'] = img_head
+                            console.log(this.friend_list)
                         }
                     })
-
-
+                },
+                anniversary() {
+                    var name = this.name;
+                    var date = this.date;
+                    var today = new Date();
+                    var current_year = today.getFullYear()
+                    var current_mth = (today.getMonth() + 1)
+                    var current_day = today.getDate();
+                    var current = new Date(current_year, current_mth, current_day);
+                    var anni = date.split('/')
+                    var the_date = new Date(anni[2], anni[1], anni[0]);
+                    var diff = (current.getTime() - the_date.getTime()) / (1000 * 60 * 60 * 24);   
+                    console.log(diff)
+                    if (diff == 0) {
+                        return "This is the first day you met each other"
+                    }
+                    else {
+                        return "You have met " + name + " for " + diff + " days"
+                    }
                 }
             },
             methods: {
-                sendReply: function (msg) {
+                sendReply: function (fri) {
                     var checkText = document.getElementById("replyMessage").value;
                     if (checkText.replace(/\s/g, "") != "") {
-                        console.log(msg);
+                        console.log(fri);
                         var username = sessionStorage.getItem("login_status");
-                        var receiver = msg['sender'];
-                        var bottleID = msg['msg_name'];
+                        var receiver = fri['name'];
+                        // var bottleID = msg['msg_name'];
                         var text = this.text;
                         console.log("sending from:" + username);
                         console.log("updating" + receiver);
@@ -179,14 +193,15 @@
                                         text;
                                     updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
                                         username;
-                                    updates['/messages/' + username + "/" + bottleID + "/reply"] =
-                                        'true'
+                                    // updates['/messages/' + username + "/" + bottleID + "/reply"] =
+                                    //     'true'
                                     firebase.database().ref().update(updates);
                                     document.getElementById("sendStatus").innerHTML =
                                         "Your reply sent successfully!";
                                     document.getElementById("sendStatus").setAttribute("class",
                                         "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign = "center";
+                                    document.getElementById("sendStatus").style.textAlign =
+                                        "center";
 
                                 } else {
                                     console.log("adding new the receiver:", receiver)
@@ -195,19 +210,17 @@
                                         text;
                                     updates['/messages/' + receiver + "/" + msg_name + "/sender"] =
                                         username;
-                                    updates['/messages/' + username + "/" + bottleID + "/reply"] =
-                                        'true'
+                                    // updates['/messages/' + username + "/" + bottleID + "/reply"] =
+                                    //     'true'
                                     firebase.database().ref().update(updates);
                                     document.getElementById("sendStatus").innerHTML =
                                         "Your reply sent successfully!";
                                     document.getElementById("sendStatus").setAttribute("class",
                                         "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign = "center";
+                                    document.getElementById("sendStatus").style.textAlign =
+                                        "center";
                                 }
                                 this.text = '';
-                                this.popReadMessage(bottleID)
-
-
                             }
 
                         })
@@ -216,7 +229,6 @@
                         function sendTeleNotifHelper(chatID, from) {
                             var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
                             var sendString = `${from} has written a reply to you!! :)`;
-
 
                             var sendURL =
                                 `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
@@ -297,21 +309,8 @@
 
                     }
                 },
-                popReadMessage(bottleID) {
-                    for (i in this.msg_list) {
-                        if (this.msg_list[i]['msg_name'] == bottleID) {
-                            console.log(this.msg_list[i])
-                            this.msg_list.splice(i, 1);
-                            console.log(this.msg_list)
-                            alert("Message sent!")
-                            navvm.$refs.nvmref.updateInbox();
-                        }
-                    }
-
-                }
-
             },
-        }).mount('#message')
+        }).mount('#friend')
 
         function expandReply(ele) {
             var id = ele.id;

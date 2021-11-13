@@ -59,20 +59,19 @@ createBottleTable()
 
 // create a friends table in db for friendList page
 function createFriendTable() {
-    var checkBottle = firebase.database().ref('friends');
+    let username = sessionStorage.getItem('login_status');
+    var checkBottle = firebase.database().ref('friends/');
     checkBottle.once('value').then((snapshot) => {
         if (snapshot.exists()) {
             console.log("friend table exists");
         } else {
-            let username = sessionStorage.getItem('login_status');
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-            today = mm + '/' + dd + '/' + yyyy;
-            firebase.database().ref('friends/' + username).set({
-                    friend0: 'll',
-                    time: today
+            today = dd + '/' + mm + '/' + yyyy;
+            firebase.database().ref('friends/' + username + '/ll').set({
+                    date: today
                 }).then(function () {
                     console.log("friends created")
                 })
