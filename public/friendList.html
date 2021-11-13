@@ -41,8 +41,10 @@
     <!-- remove if it looks messy-->
     <div class="bg-image"></div>
     <div class="friendContainer">
-        <div id="friend" class="wrapper">
-            <div class="inbox" v-for="fri in friend_list" v-if="friend_list.length>0">
+        
+        <div id="friend">
+            <div class="wrapper">
+            <div class="inbox " v-for="fri in friend_list" v-if="friend_list.length>0">
 
                 <div class="message-container">
 
@@ -69,6 +71,7 @@
                     <p id="sendStatus"></p>
 
                 </div>
+            </div>
             </div>
             <div v-else>
                 <div class="row">

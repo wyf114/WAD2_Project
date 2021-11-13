@@ -303,6 +303,14 @@ p{
     padding: 20px;
     width: 80% !important;
   }
+
+  .modal-content2 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
   
   /* The Close Button */
   .close{
@@ -336,6 +344,11 @@ p{
     position: absolute;
     bottom: 6%;
     left: 12%;
+}
+#friendStatus{
+    position: absolute;
+    bottom: 6%;
+    left: 30%;
 }
 .yellowBtn{
     position: absolute;

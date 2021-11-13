@@ -272,7 +272,9 @@
             </br>
             {{ description }}
           </div>
-          <button class="yellowBtn" id="friendThis" role="button" @click="connect()">Connect</button>
+          
+          <button class="yellowBtn" id="friendThis" role="button" @click="connect()" :style="{display:connectDisplay}">Connect</button>
+          <div id="friendStatus"></div>
           <button class="yellowBtn" id="messageFriend" role="button" @click="messageFriend()">Message</button>
 
         </div>
@@ -376,6 +378,7 @@
           bottleID: '',
           display: '',
           friendDisplay: '',
+          connectDisplay:'',
           opacity: 0,
           description: '',
           imgPath: '',
@@ -405,6 +408,7 @@
                 top: top,
                 left: left
               })
+              this.displayName = send_user;
             }
           }
           console.log(this.bottles)
@@ -426,6 +430,7 @@
           this.display = "none"
           this.friendDisplay = "block"
           this.sender()
+          this.friendList()
         },
         messageFriend: function () {
           this.friendDisplay = "none"
@@ -480,7 +485,7 @@
                     document.getElementById("replyStatus").innerHTML =
                       "Your reply sent successfully!";
                     document.getElementById("replyStatus").setAttribute("class",
-                      "text-dark");
+                      "text-info");
                   } else {
                     console.log("adding new the receiver:", receiver)
                     var updates = {};
@@ -492,7 +497,7 @@
                     document.getElementById("replyStatus").innerHTML =
                       "Your reply sent successfully!";
                     document.getElementById("replyStatus").setAttribute("class",
-                      "text-dark");
+                      "text-info");
                   }
                   this.text = 'Hi';
                   this.popReadBottle(bottleID)
@@ -608,26 +613,53 @@
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-            today = mm + '/' + dd + '/' + yyyy;
+            today = dd + '/' + mm + '/' + yyyy;
             if (snapshot.exists()) {
               console.log("user exists in the friends table");
               var updates = {};
               updates['/friends/' + user + "/" + fri + "/date"] = today;
               updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+              updates['/friends/' + fri + "/" + user + "/request"] = 'true';
               firebase.database().ref().update(updates);
-              document.getElementById("replyStatus").innerHTML = "You are friends now!";
-              document.getElementById("replyStatus").setAttribute("class", "text-dark");
-            } 
-            else {
+              document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
+              document.getElementById("friendStatus").setAttribute("class", "text-info");
+            } else {
               console.log("adding new the user:", user)
               var updates = {};
               updates['/friends/' + user + "/" + fri + "/date"] = today;
               updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+              updates['/friends/' + fri + "/" + user + "/request"] = 'true';
               firebase.database().ref().update(updates);
-              document.getElementById("replyStatus").innerHTML = "You are friends now!";
-              document.getElementById("replyStatus").setAttribute("class", "text-dark");
+              document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
+              document.getElementById("friendStatus").setAttribute("class", "text-info");
             }
+            friendList();
           });
+        },
+        friendList() {
+          var username = sessionStorage.getItem("login_status");
+          var friends = firebase.database().ref('friends/' + username);
+          // var friend_list = [];
+          friends.once('value').then((snapshot) => {
+            if (snapshot.exists()) {
+              var fri = snapshot.val();
+              console.log(fri)
+              for (i in fri) {
+                console.log("hihi",i)
+                console.log("yoyo",this.displayName)
+                if (i == this.displayName) {
+                  // this.friendDisplay = "none"
+                  this.displayName = "hello!"
+                  console.log(this.displayName)
+                  this.connectDisplay="none"
+                  
+                }
+                else{
+                  this.connectDisplay="block"
+                }
+              }
+            }
+          })
         }
       }
     }).mount('#app2')
