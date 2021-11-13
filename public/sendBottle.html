@@ -69,7 +69,7 @@
                             <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
                                 maxlength="400" placeholder="Hi"></textarea>
                         </div>
-                        <span id='num-chars'>6</span> / 400
+                        <span id="total-num-chars"><span id='num-chars'>6</span> / 400</span>
                     </form>
                 </div>
                 <div class="col-sm-12 col-lg-6">
@@ -118,7 +118,7 @@
                 numChars.style.color = 'red';
             } else {
                 numChars.innerHTML = charLength;
-                numChars.style.color = 'black';
+                numChars.style.color = 'whitesmoke';
             }
 
         }
