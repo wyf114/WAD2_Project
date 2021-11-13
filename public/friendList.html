@@ -46,9 +46,7 @@
     <div class="friendContainer">
         
         <div id="friend">
-            <div class="wrapper">
-            <div class="inbox " v-for="fri in friend_list" v-if="friend_list.length>0">
-
+            <div class="inbox" v-for="fri in friend_list" v-if="friend_list.length>0">
                 <div class="message-container">
 
                     <div>
@@ -72,16 +70,15 @@
                         <span><button id="sendReply" class="yellowBtn" @click="sendReply(fri)">Send</button></span>
                     </div>
                     <p id="sendStatus"></p>
-
                 </div>
             </div>
-            </div>
+            
             <div v-else>
                 <div class="row">
                     <div class="col-2">
                     </div>
                     <div class="col-8">
-                        <div class="message-container" style="position: relative; margin-top: 40%; text-align: center;">
+                        <div class="message-container" style="position: relative; margin-top: 20%; text-align: center;">
                             <p>You have no friends yet. Why don't you try to catch a bottle and meet some new friends?
                             </p>
                         </div>
@@ -128,7 +125,7 @@
                             date: date
                         })
 
-                        updates['/friends/' + user + "/" + f + "/notify"] = "seen";
+                        updates['/friends/' + user + "/" + f + "/notify"] = "true";
 
                     }
                     console.log(this.friend_list)

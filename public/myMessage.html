@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./css/myMessage.css">
     <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,12 +56,24 @@
                         {{ addImg }}
                         <div>
                             <img :src="msg.img_head" alt="" class="profile-img">
-                            <button class="yellowBtn" @click="connect(msg.sender, getPath(msg.sender))" v-if="checkFriend(msg.sender)" style="margin-top:50px;">Follow</button>
+
                         </div>
                         <div class="expand">
-                            <h4>
-                                {{ msg.sender }}
-                            </h4>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <h4>
+                                        {{ msg.sender }}
+                                    </h4>
+                                </div>
+                              
+                                <div class="col-lg-4 col-12 text-center">
+                                    <button class="yellowBtn fas fa-plus"
+                                        @click="connect(msg.sender, getPath(msg.sender))"
+                                        v-if="checkFriend(msg.sender)">&nbsp;Follow</button>
+                                </div>
+                                
+                            </div>
                             <div class="description text-center">
                                 {{ msg.msg }}
                             </div>
@@ -70,9 +84,9 @@
 
                             </div>
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
-                            
+
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
-                            
+
                         </div>
 
 
@@ -82,12 +96,12 @@
                 </div>
             </div>
         </div>
-        <div v-else>
+        <div v-else id="noFriend">
             <div class="row">
                 <div class="col-2">
                 </div>
                 <div class="col-8">
-                    <div class="message-container" style="position: relative; margin-top: 40%; text-align: center;">
+                    <div class="message-container" style="position: relative; margin-top: 20%; text-align: center;">
                         <p>You have no new message received. Why don't you try to catch a bottle?</p>
                     </div>
                 </div>
@@ -169,7 +183,7 @@
                 }
             },
             methods: {
-                exit: function(){
+                exit: function () {
                     this.sendStatus = "none"
                 },
                 sendReply: function (msg) {
@@ -324,7 +338,7 @@
                     }
 
                 },
-                getPath(aUser){
+                getPath(aUser) {
                     var img_head_path = "";
                     aUserInfo = firebase.database().ref(`users/${aUser}/img_head`);
                     img_head_path = aUserInfo.once('value').then((snapshot) => {
@@ -340,7 +354,7 @@
                     return img_head_path;
 
                 },
-                checkFriend(sender_name){
+                checkFriend(sender_name) {
                     var is_friend = false;
                     var username = sessionStorage.getItem("login_status");
 
@@ -364,106 +378,107 @@
                     let user = sessionStorage.getItem("login_status");
                     var friend = firebase.database().ref('friends/' + user);
                     friend.once('value').then((snapshot) => {
-                        
+
                         var today = new Date();
                         var dd = String(today.getDate()).padStart(2, '0');
                         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                         var yyyy = today.getFullYear();
                         today = dd + '/' + mm + '/' + yyyy;
                         if (snapshot.exists()) {
-                        console.log("user exists in the friends table");
-                        var updates = {};
-                        updates['/friends/' + user + "/" + fri + "/date"] = today;
-                        updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
-                        updates['/friends/' + fri + "/" + user + "/request"] = 'true';
+                            console.log("user exists in the friends table");
+                            var updates = {};
+                            updates['/friends/' + user + "/" + fri + "/date"] = today;
+                            updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+                            updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
-                        // set to pending ------
+                            // set to pending ------
 
-                        //updates['/friends/' + user + "/" + fri + "/request"] = "pending";
+                            //updates['/friends/' + user + "/" + fri + "/request"] = "pending";
 
-                        firebase.database().ref().update(updates);
-                        //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
-                        //document.getElementById("friendStatus").setAttribute("class", "text-info");
-                        alert("you made a new friend!");
+                            firebase.database().ref().update(updates);
+                            //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
+                            //document.getElementById("friendStatus").setAttribute("class", "text-info");
+                            alert("you made a new friend!");
                         } else {
-                        console.log("adding new the user:", user)
-                        var updates = {};
-                        updates['/friends/' + user + "/" + fri + "/date"] = today;
-                        updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
-                        updates['/friends/' + fri + "/" + user + "/request"] = 'true';
+                            console.log("adding new the user:", user)
+                            var updates = {};
+                            updates['/friends/' + user + "/" + fri + "/date"] = today;
+                            updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+                            updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
-                        // set to pending ------
+                            // set to pending ------
 
-                        updates['/friends/' + user + "/" + fri + "/request"] = "pending";
+                        updates['/friends/' + user + "/" + fri + "/notify"] = "false";
                         
 
-                        // end ----------
-                        firebase.database().ref().update(updates);
-                        navvm.$refs.nvmref.updateFriend(); //update number of friends
-                        //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
-                        //document.getElementById("friendStatus").setAttribute("class", "text-info");
-                        alert("you made a new friend!");
 
-                        // notify the befriended user on telegram ~
+                            // end ----------
+                            firebase.database().ref().update(updates);
+                            navvm.$refs.nvmref.updateFriend(); //update number of friends
+                            //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
+                            //document.getElementById("friendStatus").setAttribute("class", "text-info");
+                            alert("you made a new friend!");
 
-                        function sendFriendTeleNotifHelper(chatID, from) {
-                            var BOTTOKEN =
-                                "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-                            var sendString = `${from} has befriended you :)`;
+                            // notify the befriended user on telegram ~
 
-                            var sendURL =
-                                `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+                            function sendFriendTeleNotifHelper(chatID, from) {
+                                var BOTTOKEN =
+                                    "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                                var sendString = `${from} has befriended you :)`;
 
-                            axios.get(sendURL, {
-                                params: {}
+                                var sendURL =
+                                    `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+                                axios.get(sendURL, {
+                                    params: {}
                                 })
-                                .then(response => {
-                                console.log("telegram sent!")
-                                })
-                                .catch(error => {
-                                console.log("telegram error")
-                                })
+                                    .then(response => {
+                                        console.log("telegram sent!")
+                                    })
+                                    .catch(error => {
+                                        console.log("telegram error")
+                                    })
                             }
 
-                        receiverFriendUserInfo = firebase.database().ref(`users/${this.displayName}`);
-                        console.log(`sent friend request to ${this.displayName} i think`);
-                        receiverFriendUserInfo.once('value').then((snapshot) => {
-                            if (snapshot.exists()) {
-                            //console.log(snapshot.val().interacted_users);
-                            telegram_info = snapshot.val()
-                                .telegram_info; //key: user, value: number of times
-                            sendFriendTeleNotifHelper(telegram_info, username);
-                            } else {
-                            console.log("replied user no telegram id!")
-                            }
-                        })
+                            receiverFriendUserInfo = firebase.database().ref(`users/${this.displayName}`);
+                            console.log(`sent friend request to ${this.displayName} i think`);
+                            receiverFriendUserInfo.once('value').then((snapshot) => {
+                                if (snapshot.exists()) {
+                                    //console.log(snapshot.val().interacted_users);
+                                    telegram_info = snapshot.val()
+                                        .telegram_info; //key: user, value: number of times
+                                    sendFriendTeleNotifHelper(telegram_info, username);
+                                } else {
+                                    console.log("replied user no telegram id!")
+                                }
+                            })
 
-                        // end of notification of befriended user
+                            // end of notification of befriended user
 
 
 
                         }
                         this.friendList();
                     });
-                    },
-                    friendList() {
+                },
+                friendList() {
                     var username = sessionStorage.getItem("login_status");
                     var friends = firebase.database().ref('friends/' + username);
                     // var friend_list = [];
                     friends.once('value').then((snapshot) => {
                         if (snapshot.exists()) {
-                        var fri = snapshot.val();
-                        console.log(fri)
-                        var friList=Object.keys(fri)
-                        if(friList.includes(this.displayName)){
-                            console.log(this.displayName)
-                            this.connectDisplay="none"
-                        }else{
-                            this.connectDisplay="block"
+                            var fri = snapshot.val();
+                            console.log(fri)
+                            var friList = Object.keys(fri)
+                            if (friList.includes(this.displayName)) {
+                                console.log(this.displayName)
+                                this.connectDisplay = "none"
+                            } else {
+                                this.connectDisplay = "block"
                             }
                         }
                     })
-                    }
+                }
             },
         }).mount('#message')
 

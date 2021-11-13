@@ -639,8 +639,8 @@
 
               // set to pending ------
 
-              updates['/friends/' + user + "/" + fri + "/request"] = "pending";
-
+              updates['/friends/' + user + "/" + fri + "/notify"] = "false";
+              
 
               // end ----------
               firebase.database().ref().update(updates);
