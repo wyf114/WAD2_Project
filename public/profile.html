@@ -74,8 +74,8 @@
             <div id="displayApp">
                 {{ checkProfile }}
                 <div id="displayProfile" class="tabcontent">
-                    <div class="container-fluid pt-3 pb-3" v-if="profile_list.length==5">
-                        
+                    <div class="container-fluid pt-3 pb-3" v-if="profile_list.length==6">
+
                         <div class="displayImg row">
 
                             <!-- previous arrow-->
@@ -87,7 +87,7 @@
                                 <div class="container parts p-0" style='z-index:5'>
                                     <img id="head" :src="profile_list[2]" alt="">
                                     <img id="body" :src="profile_list[3]" alt="">
-                                    <img id="leg"  :src="profile_list[4]" alt="">
+                                    <img id="leg" :src="profile_list[4]" alt="">
                                 </div>
                             </div>
 
@@ -96,8 +96,12 @@
 
                         </div>
                         <div class="row mb-3 mt-3 text-center">
-                            <h5>My introduction:</h5> <p>{{ profile_list[0] }}</p>
-                            <h5>My tele chat_id:</h5> <p>{{ profile_list[1] }}</p>
+                            <h5>Username:</h5>
+                            <p>{{ profile_list[5] }}</p>
+                            <h5>My introduction:</h5>
+                            <p>{{ profile_list[0] }}</p>
+                            <h5>My tele chat_id:</h5>
+                            <p>{{ profile_list[1] }}</p>
                         </div>
                     </div>
                     <div class="container-fluid pt-3" id="container-box" v-else>
@@ -413,7 +417,8 @@
                             console.log(user)
                             var data_list = Object.keys(user)
                             var result = data_list.filter(function (check) {
-                                return check == "description" | check=="telegram_info" | check == "img_head" | check ==
+                                return check == "description" | check == "telegram_info" |
+                                    check == "img_head" | check ==
                                     "img_body" |
                                     check == "img_leg"
                             })
@@ -423,14 +428,16 @@
                                 var img_leg = user['img_leg']
                                 var img_body = user['img_body']
                                 var img_head = user['img_head']
+                                var username = sessionStorage.getItem("login_status")
                                 this.profile_list.push(
                                     desc,
                                     telegram_info,
                                     img_head,
                                     img_body,
-                                    img_leg
+                                    img_leg,
+                                    username
                                 )
-                                console.log(this.profile_list[0])
+                                console.log(this.profile_list)
                                 console.log("profile exists")
                                 // return true
                             } else {
@@ -519,8 +526,8 @@
                     document.getElementById("status").innerHTML = "User has been updated.";
                     document.getElementById("status").setAttribute("class", "text-success");
                     // empty the text box after update
-                    document.getElementById('description').value='' ; 
-                    document.getElementById("telegram_info").value='' ; 
+                    document.getElementById('description').value = '';
+                    document.getElementById("telegram_info").value = '';
                 } else {
                     document.getElementById("profileStatus").innerHTML = "User does not exist.";
                     document.getElementById("profileStatus").setAttribute("class", "text-danger");
@@ -745,8 +752,8 @@
                     document.getElementById("status_acc").innerText = "User has been updated.";
                     document.getElementById("status_acc").setAttribute("class", "text-success");
                     // empty the text box after update
-                    document.getElementById('password').value='' ; 
-                    document.getElementById("verify").value='' ; 
+                    document.getElementById('password').value = '';
+                    document.getElementById("verify").value = '';
 
                 }
             } else {

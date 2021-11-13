@@ -85,7 +85,7 @@
                             </div>
                             <button :id="index" class="yellowBtn" onclick="expandReply(this)">Reply</button>
 
-                            <span><button :id="msg.msg_name" class="yellowBtn sendReply" @click="sendReply(msg)">Send</button></span>
+                            <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
 
                         </div>
 

@@ -58,7 +58,7 @@
                             {{ fri.name }}
                         </h4>
                         <div class="description text-center">
-                            <p v-if="addDate">You have met {{ fri.name }} for {{ fri.date_diff }} days.</p>
+                            <p v-if="addDate[index]>0">You have met {{ fri.name }} for {{ fri.date_diff }} days.</p>
                             <p v-else>This is the first day you met each other. </p>
                         </div>
 
@@ -68,7 +68,8 @@
 
                         </div>
                         <button :id="index" class="yellowBtn" onclick="expandReply(this)">Message</button>
-                        <span><button :id="fri.name" class="yellowBtn sendReply" @click="sendMsg(fri)">Send</button></span>
+                        <span><button id="sendReply" class="yellowBtn"
+                                @click="sendMsg(fri)">Send</button></span>
                     </div>
                     <p id="sendStatus"></p>
                 </div>
@@ -106,7 +107,6 @@
                 return {
                     friend_list: [],
                     id: '',
-                    sendId:'',
                     // date: '',
                     // name: ''
                 }
@@ -161,19 +161,17 @@
                     var current_mth = (today.getMonth() + 1)
                     var current_day = today.getDate();
                     var current = new Date(current_year, current_mth, current_day);
+                    var dateDiff = [];
                     for (i in this.friend_list) {
                         var date = this.friend_list[i]['date'];
                         var anni = date.split('/')
                         var the_date = new Date(anni[2], anni[1], anni[0]);
                         var diff = (current.getTime() - the_date.getTime()) / (1000 * 60 * 60 * 24);
                         this.friend_list[i]['date_diff'] = diff;
+                        dateDiff.push(diff);
                     }
                     console.log(this.friend_list)
-                    if (diff == 0) {
-                        return false
-                    } else {
-                        return true
-                    }
+                    return dateDiff;
                 }
             },
             methods: {
