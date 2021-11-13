@@ -74,10 +74,8 @@
             <div id="displayApp">
                 {{ checkProfile }}
                 <div id="displayProfile" class="tabcontent">
-                    <div class="container-fluid pt-3 pb-3" v-if="profile_list.length==4">
-                        <div class="row mb-3 mt-3">
-                            <p>My introduction: {{ profile_list[0] }}</p>
-                        </div>
+                    <div class="container-fluid pt-3 pb-3" v-if="profile_list.length==5">
+                        
                         <div class="displayImg row">
 
                             <!-- previous arrow-->
@@ -87,15 +85,19 @@
                             <!-- Parts -->
                             <div class="col-8 col-sm-6 col-lg-4">
                                 <div class="container parts p-0" style='z-index:5'>
-                                    <img id="head" :src="profile_list[1]" alt="">
-                                    <img id="body" :src="profile_list[2]" alt="">
-                                    <img id="leg"  :src="profile_list[3]" alt="">
+                                    <img id="head" :src="profile_list[2]" alt="">
+                                    <img id="body" :src="profile_list[3]" alt="">
+                                    <img id="leg"  :src="profile_list[4]" alt="">
                                 </div>
                             </div>
 
                             <!-- next arrow-->
                             <div class="col-2 col-sm-3 col-lg-4 p-0 m-0 arrow-col my-auto"></div>
                             
+                        </div>
+                        <div class="row mb-3 mt-3 text-center">
+                            <h5>My introduction:</h5> <p>{{ profile_list[0] }}</p>
+                            <h5>My tele chat_id:</h5> <p>{{ profile_list[1] }}</p>
                         </div>
                     </div>
                     <div class="container-fluid pt-3" id="container-box" v-else>
@@ -218,7 +220,7 @@
                                     </div>
                                 </form>
 
-                                <p id="status"></p>
+                                <p id="profileStatus"></p>
 
                             </div>
                             <div class="col-md-1"></div>
@@ -412,17 +414,19 @@
                             console.log(user)
                             var data_list = Object.keys(user)
                             var result = data_list.filter(function (check) {
-                                return check == "description" | check == "img_head" | check ==
+                                return check == "description" | check=="telegram_info" | check == "img_head" | check ==
                                     "img_body" |
                                     check == "img_leg"
                             })
-                            if (result.length == 4) {
+                            if (result.length == 5) {
                                 var desc = user['description']
+                                var telegram_info = user['telegram_info']
                                 var img_leg = user['img_leg']
                                 var img_body = user['img_body']
                                 var img_head = user['img_head']
                                 this.profile_list.push(
                                     desc,
+                                    telegram_info,
                                     img_head,
                                     img_body,
                                     img_leg
@@ -477,9 +481,6 @@
     </script>
 
     <script>
-        var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info",
-            "description"
-        ]
 
         function checkInputsProfile() {
             var intro = document.getElementById("description").value;
@@ -489,8 +490,8 @@
             if (intro.replace(/\s/g, "") != "" && tele.replace(/\s/g, "") != "") {
                 updateProfileInfo(username)
             } else {
-                document.getElementById("status").innerHTML = "All fields must be filled!";
-                document.getElementById("status").setAttribute("class", "text-danger");
+                document.getElementById("profileStatus").innerHTML = "All fields must be filled!";
+                document.getElementById("profileStatus").setAttribute("class", "text-danger");
             }
 
         }
@@ -515,12 +516,12 @@
                     updates['/users/' + username + "/" + 'img_body'] = img_body;
                     updates['/users/' + username + "/" + 'img_leg'] = img_leg;
                     firebase.database().ref().update(updates);
-                    document.getElementById("status").innerHTML = "";
-                    document.getElementById("status").innerHTML = "User has been updated.";
-                    document.getElementById("status").setAttribute("class", "text-success");
+                    document.getElementById("profileStatus").innerHTML = "";
+                    document.getElementById("profileStatus").innerHTML = "Your profile has been updated.";
+                    document.getElementById("profileStatus").setAttribute("class", "text-success");
                 } else {
-                    document.getElementById("status").innerHTML = "User does not exist.";
-                    document.getElementById("status").setAttribute("class", "text-danger");
+                    document.getElementById("profileStatus").innerHTML = "User does not exist.";
+                    document.getElementById("profileStatus").setAttribute("class", "text-danger");
                 }
             });
         }
