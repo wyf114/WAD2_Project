@@ -272,8 +272,9 @@
             </br>
             {{ description }}
           </div>
-          
-          <button class="yellowBtn" id="friendThis" role="button" @click="connect()" :style="{display:connectDisplay}">Connect</button>
+
+          <button class="yellowBtn" id="friendThis" role="button" @click="connect()"
+            :style="{display:connectDisplay}">Connect</button>
           <div id="friendStatus"></div>
           <button class="yellowBtn" id="messageFriend" role="button" @click="messageFriend()">Message</button>
 
@@ -378,7 +379,7 @@
           bottleID: '',
           display: '',
           friendDisplay: '',
-          connectDisplay:'',
+          connectDisplay: '',
           opacity: 0,
           description: '',
           imgPath: '',
@@ -432,7 +433,7 @@
           this.sender()
           this.friendList()
 
-          
+
 
 
         },
@@ -623,6 +624,7 @@
               var updates = {};
               updates['/friends/' + user + "/" + fri + "/date"] = today;
               updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+              updates['/friends/' + user + "/" + fri + "/send_request"] = 'true';
               updates['/friends/' + fri + "/" + user + "/request"] = 'true';
               firebase.database().ref().update(updates);
               document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
@@ -632,12 +634,13 @@
               var updates = {};
               updates['/friends/' + user + "/" + fri + "/date"] = today;
               updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+              updates['/friends/' + user + "/" + fri + "/send_request"] = 'true';
               updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
               // set to pending ------
 
               updates['/friends/' + user + "/" + fri + "/request"] = "pending";
-              
+
 
               // end ----------
               firebase.database().ref().update(updates);
@@ -649,23 +652,23 @@
               // notify the befriended user on telegram ~
 
               function sendFriendTeleNotifHelper(chatID, from) {
-                  var BOTTOKEN =
-                    "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-                  var sendString = `${from} has befriended you :)`;
+                var BOTTOKEN =
+                  "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                var sendString = `${from} has befriended you :)`;
 
-                  var sendURL =
-                    `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+                var sendURL =
+                  `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
 
-                  axios.get(sendURL, {
-                      params: {}
-                    })
-                    .then(response => {
-                      console.log("telegram sent!")
-                    })
-                    .catch(error => {
-                      console.log("telegram error")
-                    })
-                }
+                axios.get(sendURL, {
+                    params: {}
+                  })
+                  .then(response => {
+                    console.log("telegram sent!")
+                  })
+                  .catch(error => {
+                    console.log("telegram error")
+                  })
+              }
 
               receiverFriendUserInfo = firebase.database().ref(`users/${this.displayName}`);
               console.log(`sent friend request to ${this.displayName} i think`);
@@ -696,13 +699,17 @@
             if (snapshot.exists()) {
               var fri = snapshot.val();
               console.log(fri)
-              var friList=Object.keys(fri)
-              if(friList.includes(this.displayName)){
+              var friList = Object.keys(fri)
+              if (friList.includes(this.displayName)) {
                 console.log(this.displayName)
-                  this.connectDisplay="none"
-              }else{
-                  this.connectDisplay="block"
+                if (fri[this.displayName]['send_request'] == 'true') {
+                  this.connectDisplay = "none"
+                } else {
+                  this.connectDisplay = "block"
                 }
+              } else {
+                this.connectDisplay = "block"
+              }
             }
           })
         }
