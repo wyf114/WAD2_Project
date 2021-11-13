@@ -89,13 +89,13 @@
                                 <div class="container parts p-0" style='z-index:5'>
                                     <img id="head" :src="profile_list[1]" alt="">
                                     <img id="body" :src="profile_list[2]" alt="">
-                                    <img id="leg"  :src="profile_list[3]" alt="">
+                                    <img id="leg" :src="profile_list[3]" alt="">
                                 </div>
                             </div>
 
                             <!-- next arrow-->
                             <div class="col-2 col-sm-3 col-lg-4 p-0 m-0 arrow-col my-auto"></div>
-                            
+
                         </div>
                     </div>
                     <div class="container-fluid pt-3" id="container-box" v-else>
@@ -202,7 +202,9 @@
                                                 <span class="input-group-text" id="inputGroupPrepend3">@</span>
                                                 <input type="text" class="form-control is-invalid" id="telegram_info"
                                                     aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
-                                                    required><span><i class="yellowBtn fas fa-info-circle py-1" style="margin-left: 30px; margin-top: 10px;" onclick="openInfo()"></i></span> 
+                                                    required><span><i class="yellowBtn fas fa-info-circle py-1"
+                                                        style="margin-left: 30px; margin-top: 10px;"
+                                                        onclick="openInfo()"></i></span>
                                             </div>
                                         </div>
 
@@ -226,15 +228,15 @@
                     </div>
                 </div>
             </div>
-<!-- --------------------------------------pop up info-------------------------------- -->
+            <!-- --------------------------------------pop up info-------------------------------- -->
             <div id="myModal5" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content2">
                     <h3>How to get this chat id?</h3>
                     <img src="img/telegram_setup_guide.png" style="width: 80%;">
                     <div>
-                    <button id="confirm" class="yellowBtn m-2" onclick="exit()">OK</button>
-                </div>
+                        <button id="confirm" class="yellowBtn m-2" onclick="exit()">OK</button>
+                    </div>
                 </div>
             </div>
 
@@ -286,17 +288,14 @@
                                     </option>
                                 </select>
                             </div>
-
-
-
                             <!-- <p>{{ selected_country }}</p> -->
                             <p>{{ state_url }}</p>
-                            <p>{{ city_url }}</p>
+                            <!-- <p>{{ city_url }}</p> -->
 
                         </div>
 
                         <p id="countryCoordinate" style="font-size: x-small; font-weight: bold; padding:0 40px">Please
-                            click or tap on the map for the coordinates you want to register (cannot be changed, but no
+                            click or tap on the map for the coordinates you want to update (no
                             need exact location if you would like your privacy)</p>
                         <div id="hiddenCoordinates" hidden></div>
 
@@ -305,7 +304,7 @@
                         <div id="registerStatus" class="text-danger"></div>
 
                     </form>
-                    <p id="status"></p>
+                    <p id="status_acc"></p>
 
 
                 </div>
@@ -443,7 +442,8 @@
     </script>
     <script>
         var tabcontent = document.getElementsByClassName("tabcontent");
-        var myModal5=document.getElementById("myModal5");
+        var myModal5 = document.getElementById("myModal5");
+
         function displayProfile() {
             tabcontent[0].style.display = "block";
             tabcontent[1].style.display = "none";
@@ -460,27 +460,23 @@
             tabcontent[2].style.display = "block";
             tabcontent[0].style.display = "none";
             tabcontent[1].style.display = "none";
-            
+
             var resizeEvent = new Event('resize');
 
             window.dispatchEvent(resizeEvent);
             console.log("resize event");
         }
-        function openInfo(){
-            myModal5.style.display="block";
-        }
-        function exit(){
-            myModal5.style.display="none";
+
+        function openInfo() {
+            myModal5.style.display = "block";
         }
 
-
+        function exit() {
+            myModal5.style.display = "none";
+        }
     </script>
 
     <script>
-        var PROFILEINFOS = ["instagram_username", "spotify_username", "youtube_username", "telegram_info",
-            "description"
-        ]
-
         function checkInputsProfile() {
             var intro = document.getElementById("description").value;
             var tele = document.getElementById("telegram_info").value;
@@ -605,48 +601,11 @@
                             console.log(error.message)
                         });
                 },
-                city_url() {
-                    // this creates the city list
-                    this.city_list = []
-                    var city_url = "https://api.countrystatecity.in/v1/countries/" + this
-                        .selected_country + "/states/" + this.selected_state + "/cities";
-                    axios.get(city_url, {
-                            headers: {
-                                'X-CSCAPI-KEY': "R0YzdjVUdXlXQnlVaTJNTThQRjh4ZFVBREN5Z3c1eldqZFJGTGdQMQ=="
-                            }
-                        }).then(response => {
-                            console.log(city_url)
-                            var cities = response.data;
-                            console.log(cities)
-                            if (cities.length != 0) {
-                                for (i of cities) {
-                                    var city_id = i['id']
-                                    var city_name = i['name']
-                                    this.city_list.push({
-                                        city_id: city_id,
-                                        city_name: city_name
-                                    });
-                                };
-                            } else {
-                                console.log("no city");
-                                citySelectDisabled()
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error.message)
-                        });
-                },
                 stateSelectDisabled() {
                     if (this.state_list.length == 0) {
                         return true;
                     }
                 },
-                citySelectDisabled() {
-                    if (this.city_list.length == 0) {
-                        return true;
-                    }
-
-                }
             }
         }).mount('#dropdown')
     </script>
@@ -668,13 +627,10 @@
                     updates['/users/' + username + "/" + 'gender'] = gender;
                     updates['/users/' + username + "/" + 'coordinates'] = JSON.parse(coordinates);
                     firebase.database().ref().update(updates);
-                    document.getElementById("status").innerText = "";
-                    document.getElementById("status").innerText = "User has been updated.";
-                    document.getElementById("status").setAttribute("class", "text-success");
+                    return true
                 } else {
-                    document.getElementById("status").innerText = "User does not exist.";
-                    document.getElementById("status").setAttribute("class", "text-danger");
-
+                    document.getElementById("status_acc").innerText = "User does not exist.";
+                    document.getElementById("status_acc").setAttribute("class", "text-danger");
                 }
             });
         }
@@ -777,9 +733,13 @@
 
         function checkallInputs() {
             if (checkInputPassword() && checkGender() && checkCoordinatesInput()) {
-                updateUser()
+                if (updateUser()) {
+                    document.getElementById("status_acc").innerText = "";
+                    document.getElementById("status_acc").innerText = "User has been updated.";
+                    document.getElementById("status_acc").setAttribute("class", "text-success");
+                }
             } else {
-                document.getElementById("status").innerHTML = "All fields must be filled correctly!";
+                document.getElementById("status_acc").innerHTML = "All fields must be filled correctly!";
             }
 
         }
@@ -798,7 +758,6 @@
             checkallInputs();
         });
     </script>
-
 
 
     <footer id="profile-footer" class="bg-dark text-center text-white">
