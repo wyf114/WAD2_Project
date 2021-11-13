@@ -121,6 +121,16 @@
             </div>
         </div>
 
+        <div id="myModal6" class="modal" :style="{ display : friendThisDisplay}">
+            <!-- Modal content -->
+            <div class="modal-content2">
+                <img src="img/success.png" style="width: 10%;">
+                <div id="notiMessage" style="margin: 20px;">Friend Added</br>you can check your friend list.
+                </div>
+                <button id="confirmm" class="yellowBtn" @click="exit2()">OK</button>
+            </div>
+        </div>
+
 
 
     </div>
@@ -141,6 +151,7 @@
                     img_list: [],
                     id: '',
                     sendDisplay: '',
+                    friendThisDisplay:'',
                 }
             },
             created() {
@@ -185,6 +196,9 @@
             methods: {
                 exit: function () {
                     this.sendDisplay = "none";
+                },
+                exit2: function () {
+                    this.friendThisDisplay = "none";
                 },
                 sendReply: function (msg) {
                     var textID = msg.msg_name
@@ -401,7 +415,8 @@
                             firebase.database().ref().update(updates);
                             //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
                             //document.getElementById("friendStatus").setAttribute("class", "text-info");
-                            alert("you made a new friend!");
+                           
+                            this.friendThisDisplay="block"
                         } else {
                             console.log("adding new the user:", user)
                             var updates = {};
@@ -505,14 +520,18 @@
             }
         }
 
-        myModa4 = document.getElementById("myModa4");
+        var myModa4 = document.getElementById("myModa4");
         window.onclick = function (event) {
             if (event.target == myModal4) {
                 myModal4.style.display = "none";
             }
         }
-        myModa4 = document.getElementById("myModa4");
-
+        var myModa6 = document.getElementById("myModa6");
+        window.onclick = function (event) {
+            if (event.target == myModal6) {
+                myModal6.style.display = "none";
+            }
+        }
     </script>
 
     <!-- Bundled Bootstrap JS -->
