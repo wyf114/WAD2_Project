@@ -46,7 +46,7 @@
     display: none;
   }
 
-  #sendReply{
+  .sendReply{
     display: none;
     float:right;
     margin-bottom: 10px;

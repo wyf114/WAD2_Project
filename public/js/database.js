@@ -71,7 +71,10 @@ function createFriendTable() {
             var yyyy = today.getFullYear();
             today = dd + '/' + mm + '/' + yyyy;
             firebase.database().ref('friends/' + username + '/ll').set({
-                    date: today
+                    date: today,
+                    request: 'false',
+                    notify: '',
+                    imgPath:'',
                 }).then(function () {
                     console.log("friends created")
                 })
