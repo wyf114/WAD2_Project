@@ -431,6 +431,44 @@
           this.friendDisplay = "block"
           this.sender()
           this.friendList()
+
+          // notify the befriended user on telegram ~
+
+            function sendFriendTeleNotifHelper(chatID, from) {
+                var BOTTOKEN =
+                  "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
+                var sendString = `${from} has befriended you :)`;
+
+                var sendURL =
+                  `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
+
+                axios.get(sendURL, {
+                    params: {}
+                  })
+                  .then(response => {
+                    console.log("telegram sent!")
+                  })
+                  .catch(error => {
+                    console.log("telegram error")
+                  })
+              }
+
+            receiverFriendUserInfo = firebase.database().ref(`users/${this.displayName}`);
+            console.log(`sent friend request to ${this.displayName} i think`);
+            receiverFriendUserInfo.once('value').then((snapshot) => {
+              if (snapshot.exists()) {
+                //console.log(snapshot.val().interacted_users);
+                telegram_info = snapshot.val()
+                  .telegram_info; //key: user, value: number of times
+                sendFriendTeleNotifHelper(telegram_info, username);
+              } else {
+                console.log("replied user no telegram id!")
+              }
+            })
+
+          // end of notification of befriended user
+
+
         },
         messageFriend: function () {
           this.friendDisplay = "none"
@@ -644,20 +682,13 @@
             if (snapshot.exists()) {
               var fri = snapshot.val();
               console.log(fri)
-              for (i in fri) {
-                console.log("hihi",i)
-                console.log("yoyo",this.displayName)
-                if (i == this.displayName) {
-                  // this.friendDisplay = "none"
-                  this.displayName = "hello!"
-                  console.log(this.displayName)
+              var friList=Object.keys(fri)
+              if(friList.includes(this.displayName)){
+                console.log(this.displayName)
                   this.connectDisplay="none"
-                  
-                }
-                else{
+              }else{
                   this.connectDisplay="block"
                 }
-              }
             }
           })
         }

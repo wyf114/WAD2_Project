@@ -7,7 +7,7 @@ console.log(username);
 
 
 var mymap = L.map('map', {
-    worldCopyJump: true,
+    worldCopyJump: false,
     minZoom: 1.5,
     maxBounds: [
     //south west

@@ -462,6 +462,11 @@
             tabcontent[2].style.display = "block";
             tabcontent[0].style.display = "none";
             tabcontent[1].style.display = "none";
+            
+            var resizeEvent = new Event('resize');
+
+            window.dispatchEvent(resizeEvent);
+            console.log("resize event");
         }
     </script>
 
