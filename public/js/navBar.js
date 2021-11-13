@@ -50,7 +50,7 @@ var myComponent = Vue.extend({
                     </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
-                        <span class="badge" id="notiNum">{{ messages }}</span>
+                        <span class="badge" id="notiNum" v-if="messages>0">{{ messages }}</span>
                     </li>
                     <li class="nav-item">
                         <a id="navbar" class="nav-link nav-logout" onclick="logout()">Logout</a>
