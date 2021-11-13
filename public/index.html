@@ -34,7 +34,7 @@
             <p>Haven't owned an account? <br>
                 <a class="link" href="register.html">click here to register</a></p>
 
-            <input class="yellowBtn" type="button" value="Login"
+            <input class="yellowBtn" type="button" value="Login" id="loginBtn"
                 onclick="checkIfUserExists(document.getElementById('username').value)">
             <!-- <input class="btn btn-primary" type="submit" value="Login" onclick="checkPassword()"> -->
 
@@ -53,7 +53,18 @@
     </footer>
 
     <script>
-        // dbInitialize()
+        // keyboard enter
+        var username = document.getElementById('username');
+        var form = document.getElementById('form');
+        form.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("loginBtn").click();
+                checkIfUserExists(username)
+            }
+        });
+        
+
         // check user status 
         function checkIfUserExists(username) {
             var user = firebase.database().ref('users/' + username);
@@ -98,4 +109,5 @@
     </script>
 
 </body>
+
 </html>
