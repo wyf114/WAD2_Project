@@ -13,7 +13,7 @@ var myComponent = Vue.extend({
     },
 
     template: `
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="position: sticky;">
+    <nav class="navbar navbar-expand-xl navbar-light bg-dark" style="position: sticky;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
