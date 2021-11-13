@@ -68,7 +68,7 @@
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
                         </div>
-                        <p id="sendStatus"></p>
+
 
                     </div>
                 </div>
@@ -90,6 +90,19 @@
             </div>
         </div>
 
+        <!-- :style="{ display : sendStatus}" -->
+        <div id="myModal4" class="modal" :style="{ display : sendStatus}">
+            <!-- Modal content -->
+            <div class="modal-content2">
+                <img src="img/success.png" style="width: 10%;">
+                <div id="notiMessage" style="margin: 20px;">Reply Sent</br>This message will disappear from your inbox.
+                </div>
+                <button id="confirm" class="yellowBtn" @click="exit()">OK</button>
+            </div>
+        </div>
+
+
+
     </div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
@@ -108,6 +121,7 @@
                     img_list: [],
                     id: '',
                     text: '',
+                    sendStatus: '',
                 }
             },
             created() {
@@ -150,6 +164,9 @@
                 }
             },
             methods: {
+                exit: function(){
+                    this.sendStatus = "none"
+                },
                 sendReply: function (msg) {
                     var checkText = document.getElementById("replyMessage").value;
                     if (checkText.replace(/\s/g, "") != "") {
@@ -184,11 +201,7 @@
                                     updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                         'true'
                                     firebase.database().ref().update(updates);
-                                    document.getElementById("sendStatus").innerHTML =
-                                        "Your reply sent successfully!";
-                                    document.getElementById("sendStatus").setAttribute("class",
-                                        "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign = "center";
+                                    this.sendStatus = "block";
 
                                 } else {
                                     console.log("adding new the receiver:", receiver)
@@ -200,11 +213,7 @@
                                     updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                         'true'
                                     firebase.database().ref().update(updates);
-                                    document.getElementById("sendStatus").innerHTML =
-                                        "Your reply sent successfully!";
-                                    document.getElementById("sendStatus").setAttribute("class",
-                                        "text-dark");
-                                    document.getElementById("sendStatus").style.textAlign = "center";
+                                    this.sendStatus = "block";
                                 }
                                 this.text = '';
                                 this.popReadMessage(bottleID)
@@ -224,8 +233,8 @@
                                 `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
 
                             axios.get(sendURL, {
-                                    params: {}
-                                })
+                                params: {}
+                            })
                                 .then(response => {
                                     console.log("telegram sent!")
                                 })
@@ -305,13 +314,11 @@
                             console.log(this.msg_list[i])
                             this.msg_list.splice(i, 1);
                             console.log(this.msg_list)
-                            alert("Message sent!")
                             navvm.$refs.nvmref.updateInbox();
                         }
                     }
 
-                }
-
+                },
             },
         }).mount('#message')
 
@@ -333,12 +340,21 @@
                 sendReply.style.display = "block";
             }
         }
+
+        myModa4 = document.getElementById("myModa4");
+        window.onclick = function (event) {
+            if (event.target == myModal4) {
+                myModal4.style.display = "none";
+            }
+        }
+        myModa4 = document.getElementById("myModa4");
+
     </script>
 
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
