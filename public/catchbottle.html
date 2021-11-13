@@ -489,7 +489,7 @@
                     document.getElementById("replyStatus").innerHTML =
                       "Your reply sent successfully!";
                     document.getElementById("replyStatus").setAttribute("class",
-                      "text-info");
+                      "text-success");
                   } else {
                     console.log("adding new the receiver:", receiver)
                     var updates = {};
@@ -501,7 +501,7 @@
                     document.getElementById("replyStatus").innerHTML =
                       "Your reply sent successfully!";
                     document.getElementById("replyStatus").setAttribute("class",
-                      "text-info");
+                      "text-success");
                   }
                   this.text = 'Hi';
                   this.popReadBottle(bottleID)
@@ -626,7 +626,7 @@
               updates['/friends/' + fri + "/" + user + "/request"] = 'true';
               firebase.database().ref().update(updates);
               document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
-              document.getElementById("friendStatus").setAttribute("class", "text-info");
+              document.getElementById("friendStatus").setAttribute("class", "text-success");
             } else {
               console.log("adding new the user:", user)
               var updates = {};
@@ -643,7 +643,7 @@
               firebase.database().ref().update(updates);
               navvm.$refs.nvmref.updateFriend(); //update number of friends
               document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
-              document.getElementById("friendStatus").setAttribute("class", "text-info");
+              document.getElementById("friendStatus").setAttribute("class", "text-success");
 
 
               // notify the befriended user on telegram ~
