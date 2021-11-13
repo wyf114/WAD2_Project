@@ -80,7 +80,7 @@
 
                             <div class="text-center" id="inboxReply">
                                 <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
-                                    style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                                    style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                             </div>
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
@@ -140,7 +140,6 @@
                     msg_list: [],
                     img_list: [],
                     id: '',
-                    text: '',
                     sendStatus: '',
                 }
             },
@@ -194,7 +193,7 @@
                         var username = sessionStorage.getItem("login_status");
                         var receiver = msg['sender'];
                         var bottleID = msg['msg_name'];
-                        var text = this.text;
+                        var text = checkText;
                         console.log("sending from:" + username);
                         console.log("updating" + receiver);
                         var messages = firebase.database().ref('messages/');
@@ -235,7 +234,7 @@
                                     firebase.database().ref().update(updates);
                                     this.sendStatus = "block";
                                 }
-                                this.text = '';
+                                document.getElementById("replyMessage").value = "";
                                 this.popReadMessage(bottleID)
 
 
@@ -411,7 +410,8 @@
 
                             // set to pending ------
 
-                            updates['/friends/' + user + "/" + fri + "/request"] = "pending";
+                        updates['/friends/' + user + "/" + fri + "/notify"] = "false";
+                        
 
 
                             // end ----------
