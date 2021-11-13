@@ -99,11 +99,7 @@ navapp.component("nav-bar", {
                     var friends = snapshot.val()
                     var count = []
                     for (friend in friends) {
-<<<<<<< HEAD
-                        if (friends[friend]['notify'] !== 'seen') {
-=======
                         if (friends[friend]['notify'] !== 'true') {
->>>>>>> 9f8747ff4d05be06809c49dde9e56ef13e38dd61
                             count.push(friend)
                         }
                     }

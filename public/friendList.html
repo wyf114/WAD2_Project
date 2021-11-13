@@ -44,9 +44,9 @@
     <!-- remove if it looks messy-->
     <div class="bg-image"></div>
     <div class="friendContainer">
-        
+
         <div id="friend">
-            <div class="inbox" v-for="fri in friend_list" v-if="friend_list.length>0">
+            <div class="inbox" v-for="(fri,index) in friend_list" v-if="friend_list.length>0">
                 <div class="message-container">
 
                     <div>
@@ -54,25 +54,26 @@
                         <img :src="fri.img_head" alt="" class="profile-img">
                     </div>
                     <div class="expand">
-                        <h4 v-model="name">
+                        <h4>
                             {{ fri.name }}
                         </h4>
-                        <div class="description text-center" v-model="date">
-                            {{ anniversary }}
+                        <div class="description text-center">
+                            <p v-if="addDate">You have met {{ fri.name }} for {{ fri.date_diff }} days.</p>
+                            <p v-else>This is the first day you met each other. </p>
                         </div>
 
                         <div class="text-center" id="inboxReply">
-                            <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
+                            <textarea class="form-control" name="replyMessage" :id="fri.name" rows="3"
                                 style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                         </div>
-                        <button :id="fri.name" class="yellowBtn" onclick="expandReply(this)">Message</button>
-                        <span><button id="sendReply" class="yellowBtn" @click="sendReply(fri)">Send</button></span>
+                        <button :id="index" class="yellowBtn" onclick="expandReply(this)">Message</button>
+                        <span><button :id="fri.name" class="yellowBtn sendReply" @click="sendMsg(fri)">Send</button></span>
                     </div>
                     <p id="sendStatus"></p>
                 </div>
             </div>
-            
+
             <div v-else>
                 <div class="row">
                     <div class="col-2">
@@ -105,8 +106,9 @@
                 return {
                     friend_list: [],
                     id: '',
-                    date: '',
-                    name:''
+                    sendId:'',
+                    // date: '',
+                    // name: ''
                 }
             },
             created() {
@@ -118,19 +120,20 @@
                     var updates = {};
 
                     for (f in friend) {
-                        var name = f;
-                        var date = friend[f]['date']
-                        this.friend_list.push({
-                            name: name,
-                            date: date
-                        })
-
+                        if (friend[f]['date']) {
+                            var name = f;
+                            var date = friend[f]['date']
+                            this.friend_list.push({
+                                name: name,
+                                date: date
+                            })
+                        }
                         updates['/friends/' + user + "/" + f + "/notify"] = "true";
 
                     }
                     console.log(this.friend_list)
-                    this.date = date;
-                    this.name = name;
+                    // this.date = date;
+                    // this.name = name;
                     firebase.database().ref().update(updates);
 
                     navvm.$refs.nvmref.updateFriend();
@@ -152,29 +155,31 @@
                         }
                     })
                 },
-                anniversary() {
-                    var name = this.name;
-                    var date = this.date;
+                addDate() {
                     var today = new Date();
                     var current_year = today.getFullYear()
                     var current_mth = (today.getMonth() + 1)
                     var current_day = today.getDate();
                     var current = new Date(current_year, current_mth, current_day);
-                    var anni = date.split('/')
-                    var the_date = new Date(anni[2], anni[1], anni[0]);
-                    var diff = (current.getTime() - the_date.getTime()) / (1000 * 60 * 60 * 24);   
-                    console.log(diff)
-                    if (diff == 0) {
-                        return "This is the first day you met each other"
+                    for (i in this.friend_list) {
+                        var date = this.friend_list[i]['date'];
+                        var anni = date.split('/')
+                        var the_date = new Date(anni[2], anni[1], anni[0]);
+                        var diff = (current.getTime() - the_date.getTime()) / (1000 * 60 * 60 * 24);
+                        this.friend_list[i]['date_diff'] = diff;
                     }
-                    else {
-                        return "You have met " + name + " for " + diff + " days"
+                    console.log(this.friend_list)
+                    if (diff == 0) {
+                        return false
+                    } else {
+                        return true
                     }
                 }
             },
             methods: {
-                sendReply: function (fri) {
-                    var checkText = document.getElementById("replyMessage").value;
+                sendMsg: function (fri) {
+                    var textID = fri.name;
+                    var checkText = document.getElementById(textID).value;
                     if (checkText.replace(/\s/g, "") != "") {
                         console.log(fri);
                         var username = sessionStorage.getItem("login_status");
@@ -231,7 +236,7 @@
                                     document.getElementById("sendStatus").style.textAlign =
                                         "center";
                                 }
-                                document.getElementById("replyMessage").value = "";
+                                document.getElementById(textID).value = "";
                             }
 
                         })
