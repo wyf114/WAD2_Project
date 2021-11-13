@@ -54,6 +54,7 @@
                         {{ addImg }}
                         <div>
                             <img :src="msg.img_head" alt="" class="profile-img">
+                            <button class="yellowBtn" @click="connect(msg.sender, getPath(msg.sender))" v-if="checkFriend(msg.sender)" style="margin-top:50px;">Follow</button>
                         </div>
                         <div class="expand">
                             <h4>
@@ -71,7 +72,7 @@
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
                             
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
-                            <button class="yellowBtn" @click="connect(msg.sender, getPath(msg.sender))" v-if="checkFriend(msg.sender)" style="position: relative; left: 50%;">Follow</button>
+                            
                         </div>
 
 
