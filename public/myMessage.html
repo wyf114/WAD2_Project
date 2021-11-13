@@ -85,10 +85,10 @@
                             </div>
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
 
-                            <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
+                            <span><button :id="msg.msg_reply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
 
                         </div>
-
+                       <div id="sendStatus"></div>
 
                     </div>
                 </div>
@@ -156,6 +156,7 @@
                                 msg: msg,
                                 sender: sender,
                                 msg_name: i,
+                                msg_reply: 'reply'+i,
                             })
                         }
                     }
@@ -363,13 +364,13 @@
                         if (snapshot.exists()) {
                             console.log("user is already a friend");
                             is_friend = true;
-                            return true;
+                            return is_friend;
 
 
                         } else {
                             console.log("sender is not a friend yet :x")
                             is_friend = false;
-                            return false;
+                            return is_friend;
 
                         }
                     })

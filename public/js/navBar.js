@@ -46,8 +46,8 @@ var myComponent = Vue.extend({
                     </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="friendList.html">Friend List</a>
-                        <span class="badge" id="notiFriend" style='position: relative; left: 120px;' v-if="unseenfriends !== '...' & unseenfriends !== 0"></span>{{ unseenfriends }}</span>
-                    </li>
+                        <span class="badge" id="notiFriend" style='position: relative; left: 120px;' v-if="unseenfriends !== '...' & unseenfriends !== 0">{{ unseenfriends }}</span>
+                        </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
                         <span class="badge" id="notiNum" v-if="messages>0">{{ messages }}</span>
