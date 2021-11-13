@@ -65,7 +65,7 @@
 
                         <div class="text-center" id="inboxReply">
                             <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
-                                style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                                style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                         </div>
                         <button :id="fri.name" class="yellowBtn" onclick="expandReply(this)">Message</button>
@@ -108,7 +108,6 @@
                 return {
                     friend_list: [],
                     id: '',
-                    text: '',
                     date: '',
                     name:''
                 }
@@ -184,7 +183,7 @@
                         var username = sessionStorage.getItem("login_status");
                         var receiver = fri['name'];
                         // var bottleID = msg['msg_name'];
-                        var text = this.text;
+                        var text = checkText;
                         console.log("sending from:" + username);
                         console.log("updating" + receiver);
                         var messages = firebase.database().ref('messages/');
@@ -228,14 +227,14 @@
                                     // updates['/messages/' + username + "/" + bottleID + "/reply"] =
                                     //     'true'
                                     firebase.database().ref().update(updates);
-                                    document.getElementById("sendStatus").innerHTML =
+                                    document.getElementById("sendStatus").textContent =
                                         "Your reply sent successfully!";
                                     document.getElementById("sendStatus").setAttribute("class",
                                         "text-dark");
                                     document.getElementById("sendStatus").style.textAlign =
                                         "center";
                                 }
-                                this.text = '';
+                                document.getElementById("replyMessage").value = "";
                             }
 
                         })

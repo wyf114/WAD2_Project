@@ -359,6 +359,7 @@ p{
 @media screen and (min-width: 200px) {
 #moon, #sun{
     transform: translateX(-420px);
+    transform: translateY(40px);
 }
 #sunset{
     transform: translateY(120px) scale(0.7);
@@ -367,12 +368,14 @@ p{
 @media screen and (min-width: 1025px) {
     #moon, #sun{
         transform: translateX(-120px);
+        transform: translateY(40px);
     }
 
     }
 @media screen and (min-width: 1400px) {
     #moon, #sun{
         transform: translateX(0);
+        transform: translateY(40px);
     }
 
     }

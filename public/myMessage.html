@@ -54,6 +54,7 @@
                         {{ addImg }}
                         <div>
                             <img :src="msg.img_head" alt="" class="profile-img">
+                            <button class="yellowBtn" @click="connect(msg.sender, getPath(msg.sender))" v-if="checkFriend(msg.sender)" style="margin-top:50px;">Follow</button>
                         </div>
                         <div class="expand">
                             <h4>
@@ -65,12 +66,13 @@
 
                             <div class="text-center" id="inboxReply">
                                 <textarea class="form-control" name="replyMessage" id="replyMessage" rows="3"
-                                    style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
+                                    style="margin: 10px 10%; width:80%" placeholder="Hi"></textarea>
 
                             </div>
                             <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
-                            <button class="yellowBtn" @click="connect(msg.sender, getPath(msg.sender))" v-if="checkFriend(msg.sender) === false" style="position: absolute; right: 50px;">Follow</button>
+                            
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
+                            
                         </div>
 
 
@@ -124,7 +126,6 @@
                     msg_list: [],
                     img_list: [],
                     id: '',
-                    text: '',
                     sendStatus: '',
                 }
             },
@@ -178,7 +179,7 @@
                         var username = sessionStorage.getItem("login_status");
                         var receiver = msg['sender'];
                         var bottleID = msg['msg_name'];
-                        var text = this.text;
+                        var text = checkText;
                         console.log("sending from:" + username);
                         console.log("updating" + receiver);
                         var messages = firebase.database().ref('messages/');
@@ -219,7 +220,7 @@
                                     firebase.database().ref().update(updates);
                                     this.sendStatus = "block";
                                 }
-                                this.text = '';
+                                document.getElementById("replyMessage").value = "";
                                 this.popReadMessage(bottleID)
 
 
