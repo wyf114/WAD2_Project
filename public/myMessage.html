@@ -55,8 +55,10 @@
                     <div class="message-container">
                         {{ addImg }}
                         <div>
-                            <img :src="msg.img_head" alt="" class="profile-img">
-
+                            <!-- if sender has profile pic -->
+                            <img v-if="msg.img_head != ''" :src="msg.img_head" alt="" class="profile-img">
+                            <!-- if sender does not have profile pic -->
+                            <img v-else src="img/unknown_user.png" alt="" class="profile-img">
                         </div>
                         <div class="expand">
                             <div class="row">
@@ -182,7 +184,17 @@
                             var sender = this.msg_list[i]['sender']
                             var user = snapshot.val();
                             console.log(user[sender])
-                            var img_head = user[sender]['img_head']
+
+                            var img_head = ""
+                            
+                            if (user[sender] === undefined || user[sender]['img_head'] === undefined) {
+                                console.log("sender doesn't have profile pic")
+                            } else if (user[sender]['img_head'] !== undefined) {
+                                console.log("sender has profile pic")
+                                var img_head = user[sender]['img_head']
+                            }
+
+                            // var img_head = user[sender]['img_head']
                             console.log(img_head)
                             this.msg_list[i]['img_head'] = img_head
                             console.log(this.msg_list)

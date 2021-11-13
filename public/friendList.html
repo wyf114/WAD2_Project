@@ -51,7 +51,10 @@
 
                     <div>
                         {{ addImg }}
-                        <img :src="fri.img_head" alt="" class="profile-img">
+                        <!-- if sender has profile pic -->
+                        <img v-if="fri.img_head != ''" :src="fri.img_head" alt="" class="profile-img">
+                        <!-- if sender does not have profile pic -->
+                        <img v-else src="img/unknown_user.png" alt="" class="profile-img">
                     </div>
                     <div class="expand">
                         <h4>
@@ -149,7 +152,17 @@
                             var sender = this.friend_list[i]['name']
                             var user = snapshot.val();
                             console.log(user[sender])
-                            var img_head = user[sender]['img_head']
+
+                            var img_head = ""
+                            
+                            if (user[sender] === undefined || user[sender]['img_head'] === undefined) {
+                                console.log("sender doesn't have profile pic")
+                            } else if (user[sender]['img_head'] !== undefined) {
+                                console.log("sender has profile pic")
+                                var img_head = user[sender]['img_head']
+                            }
+
+                            // var img_head = user[sender]['img_head']
                             console.log(img_head)
                             this.friend_list[i]['img_head'] = img_head
                             console.log(this.friend_list)
