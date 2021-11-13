@@ -17,7 +17,7 @@ navapp = Vue.createApp({
 navapp.component("nav-bar", {
     props: ['data'],
     data: function () {
-        return { messages: "..." }
+        return { messages: "..." , unseenfriends: "..."}
     },
 
     template: `
@@ -52,8 +52,9 @@ navapp.component("nav-bar", {
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="profile.html">Profile</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="friendList.html">Friend List</a>
+                        <span class="badge" id="notiFriend" style='position: relative; left: 120px;'>{{ unseenfriends }}</span>
                     </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
@@ -89,11 +90,34 @@ navapp.component("nav-bar", {
                 this.messages = 0;
             }
         })
-        }
-    },
-    beforeMount(){
-        this.updateInbox();
-     },
+        },
+        updateFriend() {
+            loggedUserMessagesInfo = firebase.database().ref(`friends/${username}`);
+            loggedUserMessagesInfo.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    // console.log(Object.keys(snapshot.val()).length);
+                    var friends = snapshot.val()
+                    var count = []
+                    for (friend in friends) {
+                        if (friends[friend]['request'] !== 'seen') {
+                            count.push(friend)
+                        }
+                    }
+                    const number_of_unseen = count.length;
+                    this.unseenfriends = number_of_unseen;
+                    console.log("Owo");        
+                    console.log(number_of_unseen);        
+                }
+                else {
+                    this.unseenfriends = 0;
+                }
+            })}
+        },
+        beforeMount(){
+            console.log("before mount");
+            this.updateInbox();
+            this.updateFriend();
+        },
 })
 
 const navvm = navapp.mount("#navapp")

@@ -27,6 +27,9 @@
     <script src="js/users.js"></script>
     <script src="js/database.js"></script>
 
+    <!-- AXIOS FOR TELEGRAM HTTP GET REQUEST-->
+    <script src="js/axios/axios.min.js"></script>
+
     <title>Document</title>
 </head>
 
@@ -115,6 +118,9 @@
                 var friends = firebase.database().ref('friends/' + user);
                 friends.once('value').then((snapshot) => {
                     var friend = snapshot.val();
+
+                    var updates = {};
+
                     for (f in friend) {
                         var name = f;
                         var date = friend[f]['date']
@@ -122,10 +128,16 @@
                             name: name,
                             date: date
                         })
+
+                        updates['/friends/' + user + "/" + f + "/request"] = "seen";
+
                     }
                     console.log(this.friend_list)
                     this.date = date;
                     this.name = name;
+                    firebase.database().ref().update(updates);
+
+                    navvm.$refs.nvmref.updateFriend();
                 })
             },
             computed: {

@@ -9,7 +9,7 @@ if (username === null){
 
 var myComponent = Vue.extend({
     data: function () {
-        return { messages: "..." }
+        return { messages: "..." , unseenfriends: "..."}
     },
 
     template: `
@@ -44,8 +44,9 @@ var myComponent = Vue.extend({
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="profile.html">Profile</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="friendList.html">Friend List</a>
+                        <span class="badge" id="notiFriend" style='position: relative; left: 120px;'>{{ unseenfriends }}</span>
                     </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
@@ -59,34 +60,57 @@ var myComponent = Vue.extend({
         </div>
     </nav>
             `,
-    methods: {
-        updateInbox() {
-        loggedUserMessagesInfo = firebase.database().ref(`messages/${username}`);
-        loggedUserMessagesInfo.once('value').then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(Object.keys(snapshot.val()).length);
-                var messages = snapshot.val()
-                var count = []
-                for (sender in messages) {
-                    if (messages[sender]['reply'] != 'true') {
-                        count.push(sender)
+            methods: {
+                updateInbox() {
+                loggedUserMessagesInfo = firebase.database().ref(`messages/${username}`);
+                loggedUserMessagesInfo.once('value').then((snapshot) => {
+                    if (snapshot.exists()) {
+                        // console.log(Object.keys(snapshot.val()).length);
+                        var messages = snapshot.val()
+                        var count = []
+                        for (sender in messages) {
+                            if (messages[sender]['reply'] != 'true') {
+                                count.push(sender)
+                            }
+                        }
+                        const number_of_messages = count.length;
+                        this.messages = number_of_messages;
+                        console.log("!!!!!!!!!");        
+                        console.log(number_of_messages);        
                     }
-                }
-                const number_of_messages = count.length;
-                this.messages = number_of_messages;
-                console.log("!!!!!!!!!");        
-                console.log(number_of_messages);        
-            }
-            else {
-                this.messages = 0;
-            }
+                    else {
+                        this.messages = 0;
+                    }
+                })
+                },
+                updateFriend() {
+                    loggedUserMessagesInfo = firebase.database().ref(`friends/${username}`);
+                    loggedUserMessagesInfo.once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
+                            // console.log(Object.keys(snapshot.val()).length);
+                            var friends = snapshot.val()
+                            var count = []
+                            for (friend in friends) {
+                                if (friends[friend]['request'] !== 'seen') {
+                                    count.push(friend)
+                                }
+                            }
+                            const number_of_unseen = count.length;
+                            this.unseenfriends = number_of_unseen;
+                            console.log("Owo");        
+                            console.log(number_of_unseen);        
+                        }
+                        else {
+                            this.unseenfriends = 0;
+                        }
+                    })}
+                },
+                beforeMount(){
+                    console.log("before mount");
+                    this.updateInbox();
+                    this.updateFriend();
+                },
         })
-        }
-    },
-    beforeMount(){
-        this.updateInbox();
-     },
-})
 
 Vue.component("nav-bar", myComponent);
 
