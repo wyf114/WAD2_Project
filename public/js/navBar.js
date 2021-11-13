@@ -44,6 +44,9 @@ var myComponent = Vue.extend({
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="profile.html">Profile</a>
                     </li>
+                    <li class="nav-item">
+                        <a id="navbar" class="nav-link" href="friendList.html">Friend List</a>
+                    </li>
                     <li class="nav-item" style="height: 40px">
                         <a id="navbar" class="nav-link" href="myMessage.html">Inbox</a>
                         <span class="badge" id="notiNum">{{ messages }}</span>

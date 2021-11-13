@@ -320,10 +320,18 @@ p{
     cursor: pointer;
   }
   
+  #text{
+      padding:2%;
+  }
+  #intro{
+      margin-top: 2%;
+  }
 
-  #friend{
+
+  #friend, #friendThis{
     left: 5%;
   }
+
 #replyStatus{
     position: absolute;
     bottom: 6%;
