@@ -36,8 +36,8 @@ createMessageTable()
 
 // create a bottle table in db for sendBottle page
 function createBottleTable() {
-    var checkBottle = firebase.database().ref('bottles');
-    checkBottle.once('value').then((snapshot) => {
+    var checkFriend = firebase.database().ref('bottles');
+    checkFriend.once('value').then((snapshot) => {
         if (snapshot.exists()) {
             console.log("bottles table exists");
         } else {
@@ -56,3 +56,30 @@ function createBottleTable() {
     });
 }
 createBottleTable()
+
+// create a friends table in db for friendList page
+function createFriendTable() {
+    var checkBottle = firebase.database().ref('friends');
+    checkBottle.once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("friend table exists");
+        } else {
+            let username = sessionStorage.getItem('login_status');
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            firebase.database().ref('friends/' + username).set({
+                    friend0: 'll',
+                    time: today
+                }).then(function () {
+                    console.log("friends created")
+                })
+                .catch(function (error) {
+                    console.log("friends failed to be created")
+                });
+        }
+    });
+}
+createFriendTable()

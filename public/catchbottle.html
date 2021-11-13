@@ -268,6 +268,8 @@
                     <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%">
                     <div id="text" style="text-align: center;">
                         {{displayName}}
+                        <br>
+                        {{ gender }}
                         </br>
                         {{ description }}
                     </div>
@@ -337,7 +339,7 @@
                 toChange() {
                     var d = new Date();
 
-                    console.log(d.getHours());
+                    // console.log(d.getHours());
                     if (d.getHours() >= 17 && d.getHours() <= 19) {
                         this.fill = 'url(#sunsetGradient)';
                         this.skyFill = 'url(#skySunset)';
@@ -378,6 +380,7 @@
                     opacity: 0,
                     description: '',
                     imgPath: '',
+                    gender:'',
                     replyDisplay: '',
                     text: 'Hi',
                     // name: '',
@@ -403,7 +406,6 @@
                                 top: top,
                                 left: left
                             })
-
                         }
                     }
                     console.log(this.bottles)
@@ -597,10 +599,11 @@
                         var sender = snapshot.val();
                         // console.log(sender)
                         this.imgPath = sender['img_head']
+                        this.gender = sender['gender']
                         this.description = sender['description']
-                        console.log(this.imgPath, this.description)
+                        console.log(this.imgPath, this.description, this.gender)
                     })
-                    return this.imgPath, this.description
+                    return this.imgPath, this.description, this.gender
                 },
                 popReadBottle(bottleID) {
                     for (i in this.bottles) {
