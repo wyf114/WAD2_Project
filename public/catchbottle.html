@@ -268,10 +268,12 @@
                     <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%">
                     <div id="text" style="text-align: center;">
                         {{displayName}}
-                        </br>
-                        {{ description }}
+                        <div id="intro">
+                            {{ description }}
+                        </div>
+                        
                     </div>
-
+                    <button class="yellowBtn" id="friendThis" role="button" @click="connect()">Connect</button>
                     <button class="yellowBtn" id="messageFriend" role="button" @click="messageFriend()">Message</button>
 
                 </div>

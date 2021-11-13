@@ -40,24 +40,23 @@
 
     <!-- remove if it looks messy-->
     <div class="bg-image"></div>
-
-    <div id="message">
-        <div class="inbox" v-for="msg in msg_list" v-if="msg_list.length>0">
-            <div class="row">
-                <div class="col-2">
-                </div>
-                <div class="col-8">
+<div class="friendContainer">
+    <div id="message" class="wrapper">
+        
+            
+                <div class="inbox" v-for="msg in msg_list" v-if="msg_list.length>0">
+              
                     <div class="message-container">
-                        {{ addImg }}
+                        
                         <div>
-                            <img :src="msg.img_head" alt="" class="profile-img">
+                            <img :src="" alt="" class="profile-img">
                         </div>
                         <div class="expand">
                             <h4>
-                                {{ msg.sender }}
+                                wyf
                             </h4>
                             <div class="description text-center">
-                                {{ msg.msg }}
+                                Met 10 days ago
                             </div>
 
                             <div class="text-center" id="inboxReply">
@@ -65,16 +64,14 @@
                                     style="margin: 10px 10%; width:80%" placeholder="Hi" v-model="text"></textarea>
 
                             </div>
-                            <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Reply</button>
+                            <button :id="msg.msg_name" class="yellowBtn" onclick="expandReply(this)">Message</button>
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
                         </div>
                         <p id="sendStatus"></p>
 
                     </div>
-                </div>
-                <div class="col-2">
-                </div>
-            </div>
+                    </div>
+            
         </div>
         <div v-else>
             <div class="row">
@@ -82,7 +79,7 @@
                 </div>
                 <div class="col-8">
                     <div class="message-container" style="position: relative; margin-top: 40%; text-align: center;">
-                        <p>You have no new message received. Why don't you try to catch a bottle?</p>
+                        <p>You have no friends yet. Why don't you try to catch a bottle?</p>
                     </div>
                 </div>
                 <div class="col-2">
@@ -90,6 +87,7 @@
             </div>
         </div>
 
+    
     </div>
     <footer class="bg-dark text-center text-white">
         <!-- Copyright -->
@@ -325,7 +323,7 @@
             console.log(reply);
             if (reply.style.display === "block") {
                 reply.style.display = "none";
-                msg.innerHTML = "Reply";
+                msg.innerHTML = "Message";
                 sendReply.style.display = "none";
             } else {
                 reply.style.display = "block";
