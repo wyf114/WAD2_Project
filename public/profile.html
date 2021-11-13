@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/register.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="js/users.js"></script>
 
     <!-- Bootstrap CSS -->
@@ -201,7 +202,7 @@
                                                 <span class="input-group-text" id="inputGroupPrepend3">@</span>
                                                 <input type="text" class="form-control is-invalid" id="telegram_info"
                                                     aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
-                                                    required>
+                                                    required><span><i class="yellowBtn fas fa-info-circle py-1" style="margin-left: 30px; margin-top: 10px;" onclick="openInfo()"></i></span> 
                                             </div>
                                         </div>
 
@@ -225,6 +226,18 @@
                     </div>
                 </div>
             </div>
+<!-- --------------------------------------pop up info-------------------------------- -->
+            <div id="myModal5" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content2">
+                    <h3>How to get this chat id?</h3>
+                    <img src="img/telegram_setup_guide.png" style="width: 80%;">
+                    <div>
+                    <button id="confirm" class="yellowBtn m-2" onclick="exit()">OK</button>
+                </div>
+                </div>
+            </div>
+
             <!-- ---------------------------updateAccount-------------------------------------------------- -->
             <div id="updateAccount" class="tabcontent" style="display: none;">
                 <div class="container-fluid pt-3">
@@ -445,7 +458,7 @@
     </script>
     <script>
         var tabcontent = document.getElementsByClassName("tabcontent");
-
+        var myModal5=document.getElementById("myModal5");
         function displayProfile() {
             tabcontent[0].style.display = "block";
             tabcontent[1].style.display = "none";
@@ -468,6 +481,14 @@
             window.dispatchEvent(resizeEvent);
             console.log("resize event");
         }
+        function openInfo(){
+            myModal5.style.display="block";
+        }
+        function exit(){
+            myModal5.style.display="none";
+        }
+
+
     </script>
 
     <script>
