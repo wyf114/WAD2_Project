@@ -500,6 +500,7 @@
             } else {
                 document.getElementById("profileStatus").innerHTML = "All fields must be filled!";
                 document.getElementById("profileStatus").setAttribute("class", "text-danger");
+                document.getElementById("profileStatus").style.textAlign ="center";
             }
 
         }
@@ -524,15 +525,17 @@
                     updates['/users/' + username + "/" + 'img_body'] = img_body;
                     updates['/users/' + username + "/" + 'img_leg'] = img_leg;
                     firebase.database().ref().update(updates);
-                    document.getElementById("status").innerHTML = "";
-                    document.getElementById("status").innerHTML = "User has been updated.";
-                    document.getElementById("status").setAttribute("class", "text-success");
+                    document.getElementById("profileStatus").innerHTML = "";
+                    document.getElementById("profileStatus").innerHTML = "User has been updated.";
+                    document.getElementById("profileStatus").setAttribute("class", "text-success");
+                    document.getElementById("profileStatus").style.textAlign ="center";
                     // empty the text box after update
                     document.getElementById('description').value = '';
                     document.getElementById("telegram_info").value = '';
                 } else {
                     document.getElementById("profileStatus").innerHTML = "User does not exist.";
                     document.getElementById("profileStatus").setAttribute("class", "text-danger");
+                    document.getElementById("profileStatus").style.textAlign ="center";
                 }
             });
         }
