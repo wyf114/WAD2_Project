@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <link rel="stylesheet" href="./css/catchbottle.css">
   <link rel="stylesheet" href="./css/general.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -266,7 +266,15 @@
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close" @click="closeFriend"> &#8592;Back</span>
-          <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%">
+
+          <!-- if sender has profile pic -->
+          <img v-if="imgPath != ''" :src="imgPath" id="profile-pic" :alt="displayName"
+            style="width:20%; margin:0 40% 0 40%">
+          <!-- if sender does not have profile pic -->
+          <img v-else src="img/unknown_user.png" id="unknown-profile-pic" alt="displayName"
+            style="width:20%; margin:0 40% 0 40%; border-radius: 50%;">
+
+          <!-- <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%"> -->
           <div id="text" style="text-align: center;">
             {{displayName}}
             <br>
@@ -596,7 +604,16 @@
           user.once('value').then((snapshot) => {
             var sender = snapshot.val();
             // console.log(sender)
-            this.imgPath = sender['img_head']
+
+            var imgPath = ""
+            if (sender === undefined || sender['img_head'] === undefined) {
+              console.log("sender doesn't have profile pic")
+            } else if (sender['img_head'] !== undefined) {
+              console.log("sender has profile pic")
+              this.imgPath = sender['img_head']
+            }
+
+            // this.imgPath = sender['img_head']
             this.gender = sender['gender']
             this.description = sender['description']
             console.log(this.imgPath, this.description, this.gender)
@@ -619,6 +636,7 @@
           friend.once('value').then((snapshot) => {
             var fri = this.displayName;
             var imgPath = this.imgPath;
+            console.log(user, fri)
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -649,6 +667,7 @@
               // set to pending ------
 
               updates['/friends/' + user + "/" + fri + "/notify"] = "false";
+              updates['/friends/' + fri + "/" + user + "/send_request"] = 'true';
 
 
               // end ----------
@@ -657,6 +676,9 @@
               document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
               document.getElementById("friendStatus").setAttribute("class", "text-success");
 
+              setTimeout(function () {
+                document.getElementById("friendStatus").innerHTML = "";
+              }, 2500);
 
               // notify the befriended user on telegram ~
 

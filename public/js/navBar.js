@@ -26,7 +26,7 @@ var myComponent = Vue.extend({
                 <!-- right navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a id="navbar" class="nav-link active" aria-current="page" href="catchbottle.html">Catch Bottle</a>
+                        <a id="navbar" class="nav-link active" aria-current="page" href="catchBottle.html">Catch Bottle</a>
                     </li>
                     <li class="nav-item">
                         <a id="navbar" class="nav-link" href="sendBottle.html">Send Bottle</a>
