@@ -133,7 +133,15 @@
             </div>
         </div>
 
-
+        <div id="myModal7" class="modal" :style="{ display : friendedDisplay}">
+            <!-- Modal content -->
+            <div class="modal-content2">
+                <img src="img/fail.png" style="width: 10%;">
+                <div id="notiMessage" style="margin: 20px;">Existing Friend!
+                </div>
+                <button id="confirmmm" class="yellowBtn" @click="exit3()">OK</button>
+            </div>
+        </div>
 
     </div>
     <footer class="bg-dark text-center text-white">
@@ -154,6 +162,7 @@
                     id: '',
                     sendDisplay: '',
                     friendThisDisplay: '',
+                    friendedDisplay:'',
                 }
             },
             created() {
@@ -197,12 +206,10 @@
                             // var img_head = user[sender]['img_head']
                             console.log(img_head)
                             this.msg_list[i]['img_head'] = img_head
-                            console.log(this.msg_list)
+                            // console.log(this.msg_list)
 
                         }
                     })
-
-
                 }
             },
             methods: {
@@ -211,6 +218,9 @@
                 },
                 exit2: function () {
                     this.friendThisDisplay = "none";
+                },
+                exit3: function () {
+                    this.friendedDisplay = "none";
                 },
                 sendReply: function (msg) {
                     var textID = msg.msg_name
@@ -390,7 +400,7 @@
                     var username = sessionStorage.getItem("login_status");
 
                     senderUserInfo = firebase.database().ref(`friends/${username}/${sender_name}`);
-                    is_friend = senderUserInfo.once('value').then((snapshot) => {
+                    return senderUserInfo.once('value').then((snapshot) => {
                         var friend = snapshot.val();
                         if (friend['send_request']) {
                             console.log("user is already a friend");
@@ -412,7 +422,7 @@
                         }
                     })
                     console.log(is_friend);
-                    return is_friend;
+                    // return is_friend;
                 },
                 connect(fri, imgPath) {
                     let user = sessionStorage.getItem("login_status");
@@ -425,6 +435,11 @@
                         var yyyy = today.getFullYear();
                         today = dd + '/' + mm + '/' + yyyy;
                         if (snapshot.exists()) {
+                            var check = snapshot.val();
+                            if (check[fri]['send_request']) {
+                                this.friendedDisplay="block";
+                                return ""
+                            }
                             console.log("user exists in the friends table");
                             var updates = {};
                             updates['/friends/' + user + "/" + fri + "/date"] = today;
@@ -556,6 +571,12 @@
         window.onclick = function (event) {
             if (event.target == myModal6) {
                 myModal6.style.display = "none";
+            }
+        }
+        var myModa7 = document.getElementById("myModa7");
+        window.onclick = function (event) {
+            if (event.target == myModal7) {
+                myModal7.style.display = "none";
             }
         }
     </script>
