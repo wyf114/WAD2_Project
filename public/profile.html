@@ -501,6 +501,7 @@
             } else {
                 document.getElementById("profileStatus").innerHTML = "All fields must be filled!";
                 document.getElementById("profileStatus").setAttribute("class", "text-danger");
+                document.getElementById("profileStatus").style.textAlign ="center";
             }
 
             // status alert disappear
@@ -532,9 +533,11 @@
                     // document.getElementById("profileStatus").innerHTML = "";
                     document.getElementById("profileStatus").innerHTML = "User has been updated.";
                     document.getElementById("profileStatus").setAttribute("class", "text-success");
+                    document.getElementById("profileStatus").style.textAlign ="center";
                 } else {
                     document.getElementById("profileStatus").innerHTML = "User does not exist.";
                     document.getElementById("profileStatus").setAttribute("class", "text-danger");
+                    document.getElementById("profileStatus").style.textAlign ="center";
                 }
 
                 // empty the text box after update
@@ -655,9 +658,11 @@
                     firebase.database().ref().update(updates);
                     document.getElementById("status_acc").innerText = "Account updated.";
                     document.getElementById("status_acc").setAttribute("class", "text-success");
+                    document.getElementById("status_acc").style.textAlign ="center";
                 } else {
                     document.getElementById("status_acc").innerText = "User does not exist.";
                     document.getElementById("status_acc").setAttribute("class", "text-danger");
+                    document.getElementById("status_acc").style.textAlign ="center";
                 }
                 window.setTimeout(closeHelpDiv, 2500);
 
@@ -776,15 +781,15 @@
         }
 
         document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
-        document.getElementById("password").addEventListener("change", () => {
+        document.getElementById("password").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("verify").addEventListener("change", () => {
+        document.getElementById("verify").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("gender").addEventListener("change", () => {
+        document.getElementById("gender").addEventListener("click", () => {
             checkGender();
             checkallInputs();
         });
