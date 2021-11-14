@@ -407,7 +407,7 @@
                 },
                 connect(fri, imgPath) {
                     let user = sessionStorage.getItem("login_status");
-                    var friend = firebase.database().ref('friends/' + user);
+                    var friend = firebase.database().ref('friends/' + user +`/${fri}`);
                     friend.once('value').then((snapshot) => {
 
                         var today = new Date();
@@ -473,14 +473,13 @@
                                     })
                             }
 
-                            receiverFriendUserInfo = firebase.database().ref(
-                                `users/${this.displayName}`);
-                            console.log(`sent friend request to ${this.displayName} i think`);
+                            receiverFriendUserInfo = firebase.database().ref(`users/${fri}`);
+                            console.log(fri);
+                            console.log(`sent friend request to ${fri} i think`);
                             receiverFriendUserInfo.once('value').then((snapshot) => {
                                 if (snapshot.exists()) {
                                     //console.log(snapshot.val().interacted_users);
-                                    telegram_info = snapshot.val()
-                                        .telegram_info; //key: user, value: number of times
+                                    telegram_info = snapshot.val().telegram_info; //key: user, value: number of times
                                     sendFriendTeleNotifHelper(telegram_info, username);
                                 } else {
                                     console.log("replied user no telegram id!")
