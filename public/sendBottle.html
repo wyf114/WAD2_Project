@@ -116,9 +116,9 @@
                 }
             }
         })
-        var numChars = document.getElementById('num-chars');
-        var textInput = document.getElementById('exampleFormControlTextarea1');
-        textInput.addEventListener('keyup', doText);
+        // var numChars = document.getElementById('num-chars');
+        // var textInput = document.getElementById('exampleFormControlTextarea1');
+        // textInput.addEventListener('keyup', doText);
 
         // function doText(event) {
         //     var charLength = textInput.value.length;
@@ -137,44 +137,6 @@
     <script src="js/speechRecognition/speech.js"></script>
 
     <script>
-        function sendTeleNotifHelper(chatID, from) {
-            var BOTTOKEN = "2001239054:AAFHa2YyUb-8Y_T0NXt3J-_aRBDBrdgQrxI"
-            var sendString = `${from} has written a bottle!!`;
-
-
-            var sendURL = `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
-
-            axios.get(sendURL, {
-                    params: {}
-                })
-                .then(response => {
-                    console.log("telegram sent!")
-                })
-                .catch(error => {
-                    console.log("telegram error")
-                })
-        }
-
-        function sendUserTelegram(targetUsername, from) {
-
-            list_of_user = firebase.database().ref('users/');
-            list_of_user.once('value').then((snapshot) => {
-                if (snapshot.exists()) {
-                    console.log(snapshot.val());
-                    user_details = snapshot.val();
-                    for (user in user_details) {
-                        console.log(user);
-                        telegram_info = user_details[user].telegram_info;
-                        if (user === targetUsername) {
-                            console.log(telegram_info);
-                            sendTeleNotifHelper(telegram_info, from);
-
-                        }
-                    }
-                }
-            })
-        }
-
         // update the data in db
         if (sessionStorage.getItem("login_status") != null) {
             function generate() {
@@ -220,34 +182,6 @@
                             function closeHelpDiv() {
                                 document.getElementById("status").innerHTML = "";
                             }
-
-
-                            //send to telegram
-                            //sendUserTelegram("adam", username);
-
-                            //notify all users in database
-                            function notifyAllTelegram() {
-                                var allusers = firebase.database().ref('users/');
-                                allusers.once('value').then((snapshot) => {
-                                    console.log(snapshot.val());
-                                    for (user_info in snapshot.val()) {
-
-                                        if (user_info === username) {
-                                            console.log(
-                                                "do not send telegram to yourself! continuing for loop"
-                                            )
-                                            continue;
-                                        }
-
-                                        console.log(`sending to ${user_info}`);
-
-                                        sendUserTelegram(user_info, username);
-                                    }
-
-                                })
-                            }
-
-                            notifyAllTelegram();
 
                         } else {
                             document.getElementById("status").innerHTML =

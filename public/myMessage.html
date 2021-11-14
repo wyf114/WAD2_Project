@@ -72,7 +72,7 @@
                                 <div class="col-lg-4 col-12 text-center">
                                     <button class="yellowBtn fas fa-plus"
                                         @click="connect(msg.sender, getPath(msg.sender))"
-                                        v-if="checkFriend(msg.sender)">&nbsp;Follow</button>
+                                        >&nbsp;Follow</button>
                                 </div>
 
                             </div>
@@ -395,18 +395,18 @@
                     return img_head_path;
 
                 },
-                checkFriend(sender_name) {
-                    var is_friend = false;
-                    var username = sessionStorage.getItem("login_status");
+                // checkFriend(sender_name) {
+                //     var is_friend = false;
+                //     var username = sessionStorage.getItem("login_status");
 
-                    senderUserInfo = firebase.database().ref(`friends/${username}/${sender_name}`);
-                    return senderUserInfo.once('value').then((snapshot) => {
-                        var friend = snapshot.val();
-                        if (friend['send_request']) {
-                            console.log("user is already a friend");
-                            is_friend = true;
-                            return true;
-                        }
+                //     senderUserInfo = firebase.database().ref(`friends/${username}/${sender_name}`);
+                //     return senderUserInfo.once('value').then((snapshot) => {
+                //         var friend = snapshot.val();
+                //         if (friend['send_request']) {
+                //             console.log("user is already a friend");
+                //             is_friend = true;
+                //             return true;
+                //         }
 
                         // if (snapshot.exists()) {
 
@@ -414,16 +414,16 @@
                         //     is_friend = true;
                         //     return true;
                         // } 
-                        else {
-                            console.log("sender is not a friend yet :x")
-                            is_friend = false;
-                            return is_friend;
+                //         else {
+                //             console.log("sender is not a friend yet :x")
+                //             is_friend = false;
+                //             return is_friend;
 
-                        }
-                    })
-                    console.log(is_friend);
-                    // return is_friend;
-                },
+                //         }
+                //     })
+                //     console.log(is_friend);
+                //     // return is_friend;
+                // },
                 connect(fri, imgPath) {
                     let user = sessionStorage.getItem("login_status");
                     var friend = firebase.database().ref('friends/' + user);
