@@ -68,13 +68,13 @@
                                         {{ msg.sender }}
                                     </h4>
                                 </div>
-                              
+
                                 <div class="col-lg-4 col-12 text-center">
                                     <button class="yellowBtn fas fa-plus"
                                         @click="connect(msg.sender, getPath(msg.sender))"
                                         v-if="checkFriend(msg.sender)">&nbsp;Follow</button>
                                 </div>
-                                
+
                             </div>
                             <div class="description text-center">
                                 {{ msg.msg }}
@@ -88,9 +88,9 @@
                             <button :id="index" class="yellowBtn" onclick="expandReply(this)">Reply</button>
 
                             <span><button id="sendReply" class="yellowBtn" @click="sendReply(msg)">Send</button></span>
-                           <div id="sendStatus"></div>
+                            <div id="sendStatus"></div>
                         </div>
-                       
+
 
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                     img_list: [],
                     id: '',
                     sendDisplay: '',
-                    friendThisDisplay:'',
+                    friendThisDisplay: '',
                 }
             },
             created() {
@@ -186,7 +186,7 @@
                             console.log(user[sender])
 
                             var img_head = ""
-                            
+
                             if (user[sender] === undefined || user[sender]['img_head'] === undefined) {
                                 console.log("sender doesn't have profile pic")
                             } else if (user[sender]['img_head'] !== undefined) {
@@ -264,7 +264,6 @@
                                 document.getElementById(textID).value = "";
                                 this.popReadMessage(bottleID)
 
-
                             }
 
                         })
@@ -279,8 +278,8 @@
                                 `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
 
                             axios.get(sendURL, {
-                                params: {}
-                            })
+                                    params: {}
+                                })
                                 .then(response => {
                                     console.log("telegram sent!")
                                 })
@@ -349,10 +348,13 @@
 
                         //--------- end of adding user_interaction database count
                     } else {
-                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.innerHTML = "Cannot reply empty text!";
-                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.setAttribute("class", "text-danger");
-                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.style.textAlign =
-                                        "center";
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling
+                            .innerHTML = "Cannot reply empty text!";
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling
+                            .setAttribute("class", "text-danger");
+                        document.getElementById(textID).parentNode.nextSibling.nextSibling.nextSibling.style
+                            .textAlign =
+                            "center";
 
                     }
                 },
@@ -392,7 +394,7 @@
                         if (snapshot.exists()) {
                             console.log("user is already a friend");
                             is_friend = true;
-                            return true;                            
+                            return true;
                         } else {
                             console.log("sender is not a friend yet :x")
                             is_friend = false;
@@ -427,8 +429,8 @@
                             firebase.database().ref().update(updates);
                             //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
                             //document.getElementById("friendStatus").setAttribute("class", "text-info");
-                           
-                            this.friendThisDisplay="block"
+
+                            this.friendThisDisplay = "block"
                         } else {
                             console.log("adding new the user:", user)
                             var updates = {};
@@ -438,8 +440,8 @@
 
                             // set to pending ------
 
-                        updates['/friends/' + user + "/" + fri + "/notify"] = "false";
-                        
+                            updates['/friends/' + user + "/" + fri + "/notify"] = "false";
+
 
 
                             // end ----------
@@ -460,8 +462,8 @@
                                     `https://api.telegram.org/bot${BOTTOKEN}/sendMessage?chat_id=${chatID}&text=${sendString}`;
 
                                 axios.get(sendURL, {
-                                    params: {}
-                                })
+                                        params: {}
+                                    })
                                     .then(response => {
                                         console.log("telegram sent!")
                                     })
@@ -470,7 +472,8 @@
                                     })
                             }
 
-                            receiverFriendUserInfo = firebase.database().ref(`users/${this.displayName}`);
+                            receiverFriendUserInfo = firebase.database().ref(
+                                `users/${this.displayName}`);
                             console.log(`sent friend request to ${this.displayName} i think`);
                             receiverFriendUserInfo.once('value').then((snapshot) => {
                                 if (snapshot.exists()) {
@@ -549,7 +552,7 @@
     <!-- Bundled Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>
