@@ -505,6 +505,9 @@
                       "text-success");
                   }
                   this.text = '';
+                  setTimeout(function () {
+                    document.getElementById("replyStatus").innerHTML = "";
+                  }, 2500);
                   this.popReadBottle(bottleID)
 
                   // notify receiver on telegram ~ -------------------------------------

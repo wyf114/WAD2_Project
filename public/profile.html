@@ -306,7 +306,8 @@
                         <div id="hiddenCoordinates" hidden></div>
 
 
-                        <input class="yellowBtn" id="update" type="button" value="Update" onclick="updateUser()" disabled>
+                        <input class="yellowBtn" id="update" type="button" value="Update" onclick="updateUser()"
+                            disabled>
                         <div id="registerStatus" class="text-danger"></div>
 
                     </form>
@@ -503,20 +504,24 @@
                 document.getElementById("profileStatus").style.textAlign ="center";
             }
 
+            // status alert disappear
+            window.setTimeout(closeHelpDiv, 2500);
         }
 
         // update profile
         function updateProfileInfo(username) {
             console.log("updating" + username);
             var user = firebase.database().ref('users/' + username);
+            var telegram_info = document.getElementById("telegram_info").value;
+            var description = document.getElementById("description").value;
+            var img_head = document.getElementById("head_text").value;
+            var img_body = document.getElementById("body_text").value;
+            var img_leg = document.getElementById("leg_text").value;
+            console.log(img_body, img_head, img_leg)
+
             user.once('value').then((snapshot) => {
                 if (snapshot.exists()) {
-                    var telegram_info = document.getElementById("telegram_info").value;
-                    var description = document.getElementById("description").value;
-                    var img_head = document.getElementById("head_text").value;
-                    var img_body = document.getElementById("body_text").value;
-                    var img_leg = document.getElementById("leg_text").value;
-                    console.log(img_body, img_head, img_leg)
+                    console.log(telegram_info, description)
                     var updates = {};
 
                     updates['/users/' + username + "/" + 'telegram_info'] = telegram_info;
@@ -525,19 +530,24 @@
                     updates['/users/' + username + "/" + 'img_body'] = img_body;
                     updates['/users/' + username + "/" + 'img_leg'] = img_leg;
                     firebase.database().ref().update(updates);
-                    document.getElementById("profileStatus").innerHTML = "";
+                    // document.getElementById("profileStatus").innerHTML = "";
                     document.getElementById("profileStatus").innerHTML = "User has been updated.";
                     document.getElementById("profileStatus").setAttribute("class", "text-success");
                     document.getElementById("profileStatus").style.textAlign ="center";
-                    // empty the text box after update
-                    document.getElementById('description').value = '';
-                    document.getElementById("telegram_info").value = '';
                 } else {
                     document.getElementById("profileStatus").innerHTML = "User does not exist.";
                     document.getElementById("profileStatus").setAttribute("class", "text-danger");
                     document.getElementById("profileStatus").style.textAlign ="center";
                 }
+
+                // empty the text box after update
+                document.getElementById('description').value = '';
+                document.getElementById("telegram_info").value = '';
             });
+        }
+
+        function closeHelpDiv() {
+            document.getElementById("profileStatus").innerHTML = '';
         }
     </script>
 
@@ -560,7 +570,7 @@
                         }
                     }).then(response => {
                         var countries = response.data;
-                        console.log(countries)
+                        // console.log(countries)
                         for (i of countries) {
                             // console.log(i)
                             var country_iso2 = i['iso2']
@@ -646,13 +656,20 @@
                     updates['/users/' + username + "/" + 'gender'] = gender;
                     updates['/users/' + username + "/" + 'coordinates'] = JSON.parse(coordinates);
                     firebase.database().ref().update(updates);
-                    document.getElementById("status_acc").innerText = "Updated.";
+                    document.getElementById("status_acc").innerText = "Account updated.";
                     document.getElementById("status_acc").setAttribute("class", "text-success");
                     document.getElementById("status_acc").style.textAlign ="center";
                 } else {
                     document.getElementById("status_acc").innerText = "User does not exist.";
                     document.getElementById("status_acc").setAttribute("class", "text-danger");
                     document.getElementById("status_acc").style.textAlign ="center";
+                }
+                window.setTimeout(closeHelpDiv, 2500);
+
+                function closeHelpDiv() {
+                    document.getElementById("status_acc").innerHTML = "";
+                    document.getElementById("passwordStatus").innerHTML = "";
+                    document.getElementById("genderStatus").innerHTML = "";
                 }
             });
         }
