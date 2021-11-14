@@ -720,6 +720,10 @@
 
             }
             this.friendList();
+            setTimeout(function () {
+              document.getElementById("friendStatus").innerHTML = "";
+            }, 2500);
+
           });
         },
         friendList() {
