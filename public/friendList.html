@@ -124,9 +124,10 @@
                     var updates = {};
 
                     for (f in friend) {
-                        if (friend[f]['date']) {
+                        if (friend[f]['send_request']) {
                             var name = f;
                             var date = friend[f]['date']
+                            // var send_request = friend[f]['send_request']
                             this.friend_list.push({
                                 name: name,
                                 date: date
