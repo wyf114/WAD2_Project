@@ -69,18 +69,20 @@
                             <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
                                 maxlength="400" placeholder="Hi"></textarea>
                         </div>
-                        <span id="total-num-chars"><span id='num-chars'>6</span> / 400</span>
+                        <!-- <span id="total-num-chars"><span id='num-chars' ref='chars'>{{ num }}</span> / 400</span> -->
                     </form>
                 </div>
                 <div class="col-sm-12 col-lg-6">
 
                     </br>
                     Preview:
+                    <!-- {{ updateLetter }} -->
+                    <br>
                     <div class="row ">
-                        <p id="text">{{message}}</p>
+                        <p id="text" ref="text">{{ message }}</p>
                         <div class="text-center text-white" id="status"></div>
                         <div class="text-center">
-                            <button type="button" class="yellowBtn my-3" onclick="generate()">Confirm</button>
+                            <button type="button" class="yellowBtn my-3" @click="updateLetter()" onclick="generate()">Confirm</button>
                         </div>
                     </div>
 
@@ -104,24 +106,31 @@
         myObject = new Vue({
             el: '#app',
             data: {
-                message: ''
+                message: '',
+            },
+            methods: {
+                updateLetter() {
+                    this.$refs.text.value = "";
+                    this.message = "";
+                    // return this.message;
+                }
             }
         })
         var numChars = document.getElementById('num-chars');
         var textInput = document.getElementById('exampleFormControlTextarea1');
         textInput.addEventListener('keyup', doText);
 
-        function doText(event) {
-            var charLength = textInput.value.length;
-            if (charLength > 380) {
-                numChars.innerHTML = charLength;
-                numChars.style.color = 'red';
-            } else {
-                numChars.innerHTML = charLength;
-                numChars.style.color = 'whitesmoke';
-            }
+        // function doText(event) {
+        //     var charLength = textInput.value.length;
+        //     if (charLength > 380) {
+        //         numChars.innerHTML = charLength;
+        //         numChars.style.color = 'red';
+        //     } else {
+        //         numChars.innerHTML = charLength;
+        //         numChars.style.color = 'whitesmoke';
+        //     }
 
-        }
+        // }
     </script>
 
 
@@ -204,7 +213,14 @@
                             document.getElementById("status").style.textAlign = "center";
 
                             // empty the text box after update
-                            document.getElementById('exampleFormControlTextarea1').value='' ; 
+                            document.getElementById('exampleFormControlTextarea1').value = '';
+
+                            window.setTimeout(closeHelpDiv, 2500);
+
+                            function closeHelpDiv() {
+                                document.getElementById("status").innerHTML = "";
+                            }
+
 
                             //send to telegram
                             //sendUserTelegram("adam", username);
@@ -248,6 +264,13 @@
                     document.getElementById("status").setAttribute("class",
                         "text-danger");
                     document.getElementById("status").style.textAlign = "center";
+
+                    window.setTimeout(closeHelpDiv, 2500);
+
+                    function closeHelpDiv() {
+                        document.getElementById("status").innerHTML = "";
+                    }
+
                 }
             }
         } else {
