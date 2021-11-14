@@ -442,19 +442,19 @@
 
 
         document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
-        document.getElementById("username").addEventListener("change", () => {
+        document.getElementById("username").addEventListener("keyup", () => {
             checkIfUserInputExists();
             checkallInputs();
         });
-        document.getElementById("password").addEventListener("change", () => {
+        document.getElementById("password").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("verify").addEventListener("change", () => {
+        document.getElementById("verify").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("gender").addEventListener("change", () => {
+        document.getElementById("gender").addEventListener("click", () => {
             checkGender();
             checkallInputs();
         });

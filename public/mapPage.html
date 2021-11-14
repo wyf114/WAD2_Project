@@ -84,6 +84,7 @@
                     var messages = firebase.database().ref('messages/' + user);
                     var ppl = []
                     messages.once('value').then((snapshot) => {
+                        if (snapshot.exists()) {
                         var message = snapshot.val();
                         var msg = Object.keys(message);
                         count_msg = msg.length
@@ -93,11 +94,16 @@
                                 ppl.push(sender)
                             }
                         }
-                        console.log(ppl)
+                        
                         count_ppl = ppl.length
                         this.summary['count_msg']=count_msg
                         this.summary['count_ppl']=count_ppl
+                    }else{
+                        this.summary['count_msg']=0
+                        this.summary['count_ppl']=0
+                    }
                     })
+                    
                 },
             }).mount('#summary')
         </script>

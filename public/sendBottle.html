@@ -67,7 +67,7 @@
                             or use <div id="speechbutton" class="yellowBtn fa fa-microphone py-1 my-4"></div>
                             <div id="output"></div>
                             <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="20"
-                                maxlength="400" placeholder="Hi"></textarea>
+                                maxlength="400" placeholder="Hello!"></textarea>
                         </div>
                         <span id="total-num-chars"><span id='num-chars'>6</span> / 400</span>
                     </form>
@@ -204,7 +204,7 @@
                             document.getElementById("status").style.textAlign = "center";
 
                             // empty the text box after update
-                            document.getElementById('exampleFormControlTextarea1').value='' ; 
+                            // document.getElementById('exampleFormControlTextarea1').value='' ; 
 
                             //send to telegram
                             //sendUserTelegram("adam", username);
