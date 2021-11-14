@@ -133,6 +133,16 @@
             </div>
         </div>
 
+        <div id="myModal7" class="modal" :style="{ display : friendedDisplay}">
+            <!-- Modal content -->
+            <div class="modal-content2">
+                <img src="img/fail.png" style="width: 10%;">
+                <div id="notiMessage" style="margin: 20px;">Friend exist</br>this person is already your friend.
+                </div>
+                <button id="confirmmm" class="yellowBtn" @click="exit3()">OK</button>
+            </div>
+        </div>
+
 
 
     </div>
@@ -154,6 +164,7 @@
                     id: '',
                     sendDisplay: '',
                     friendThisDisplay: '',
+                    friendedDisplay:'',
                 }
             },
             created() {
@@ -211,6 +222,9 @@
                 },
                 exit2: function () {
                     this.friendThisDisplay = "none";
+                },
+                exit3: function () {
+                    this.friendedDisplay = "none";
                 },
                 sendReply: function (msg) {
                     var textID = msg.msg_name
@@ -429,9 +443,9 @@
                             //firebase.database().ref().update(updates);
                             //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
                             //document.getElementById("friendStatus").setAttribute("class", "text-info");
-                            alert("Already friends with the user, :)");
+                            // alert("Already friends with the user, :)");
 
-                            //this.friendThisDisplay = "block"
+                            this.friendedDisplay = "block"
                         } else {
                             console.log("adding new the user:", user)
                             var updates = {};
@@ -451,6 +465,7 @@
                             //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
                             //document.getElementById("friendStatus").setAttribute("class", "text-info");
                             alert("you made a new friend!");
+                            this.friendThisDisplay = "block"
 
                             // notify the befriended user on telegram ~
 
@@ -545,6 +560,12 @@
         var myModa6 = document.getElementById("myModa6");
         window.onclick = function (event) {
             if (event.target == myModal6) {
+                myModal6.style.display = "none";
+            }
+        }
+        var myModa7 = document.getElementById("myModa7");
+        window.onclick = function (event) {
+            if (event.target == myModal7) {
                 myModal6.style.display = "none";
             }
         }
