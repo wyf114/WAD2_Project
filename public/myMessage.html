@@ -417,20 +417,21 @@
                         today = dd + '/' + mm + '/' + yyyy;
                         if (snapshot.exists()) {
                             console.log("user exists in the friends table");
-                            var updates = {};
-                            updates['/friends/' + user + "/" + fri + "/date"] = today;
-                            updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
-                            updates['/friends/' + fri + "/" + user + "/request"] = 'true';
+                            //var updates = {};
+                            //updates['/friends/' + user + "/" + fri + "/date"] = today;
+                            //updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+                            //updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
                             // set to pending ------
 
                             //updates['/friends/' + user + "/" + fri + "/request"] = "pending";
 
-                            firebase.database().ref().update(updates);
+                            //firebase.database().ref().update(updates);
                             //document.getElementById("friendStatus").innerHTML = "Congrats! you have a new friend now";
                             //document.getElementById("friendStatus").setAttribute("class", "text-info");
+                            alert("Already friends with the user, :)");
 
-                            this.friendThisDisplay = "block"
+                            //this.friendThisDisplay = "block"
                         } else {
                             console.log("adding new the user:", user)
                             var updates = {};

@@ -21,7 +21,7 @@ function createMessageTable() {
             firebase.database().ref('messages/' + username + '/msg0').set({
                     sender: "",
                     message: "",
-                    reply: 'false'
+                    reply: 'false',
                 }).then(function () {
                     console.log("messages table created");
                 })

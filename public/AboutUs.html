@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +23,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
-    
+
     <!-- General JS Script -->
     <script src="js/users.js"></script>
 
@@ -30,9 +31,11 @@
 </head>
 
 
-<body  id="body">
-    <script>checkLoginStatus()</script>
-        <!-- Navigation Bar Vue Component (requires vue, firebase (for inbox number), navbar.js)-->
+<body id="body">
+    <script>
+        checkLoginStatus()
+    </script>
+    <!-- Navigation Bar Vue Component (requires vue, firebase (for inbox number), navbar.js)-->
     <!-- initialise firebase (required for nav bar inbox)-->
     <script src="js/firebaseconfig.js"></script>
 
@@ -43,9 +46,9 @@
     </div>
     <script src="js/navBarVue2.js"></script>
     <!-- end of nav bar-->
-    
-    
-    
+
+
+
 
 
     <!-- Parallax -->
@@ -62,12 +65,12 @@
     <div class="parallax" id="parallax_2" style="display:flex;justify-content:center;align-items:center;">
         <div class="parallax-caption-box" style="display:flex;justify-content:center;align-items:center;">
             <p class="parallax-caption">
-                Many people have reported they had experienced more loneliness during the pandemic. 
+                Many people have reported they had experienced more loneliness during the pandemic.
                 Young people especially have accounted that they felt as though no one “genuinely cared” about them.
             </p>
         </div>
     </div>
-    
+
     <!-- Parallax 3 -->
     <div class="parallax" id="parallax_3">
         <div class="parallax_caption">
@@ -79,7 +82,8 @@
 
     <!-- Parallax 4 -->
     <div class="parallax" id="parallax_4" style="display:flex;justify-content:center;align-items:center;">
-        <div class="parallax-caption-box" id="parallax-caption-box-4" style="display:flex;justify-content:center;align-items:center;">
+        <div class="parallax-caption-box" id="parallax-caption-box-4"
+            style="display:flex;justify-content:center;align-items:center;">
             <h1 class="parallax-caption" id="parallax-caption-4">
                 We can help you
             </h1>
@@ -94,24 +98,30 @@
             </span>
         </div>
     </div>
-    
+
 
     <!-- carousel -->
     <div class="mx-auto box container-fluid carousel-box mt-5">
         <div id="carouselSlides" class="carousel slide" data-bs-ride="carousel">
 
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="4"
+                    aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="5"
+                    aria-label="Slide 6"></button>
             </div>
 
             <!-- Carousel Cards -->
             <div class="carousel-inner">
-                    
+
                 <!-- First carousel Item-->
                 <div class="carousel-item active">
                     <div class="item">
@@ -124,15 +134,15 @@
                 </div>
 
 
-                 <!-- Sec carousel Item-->
+                <!-- Sec carousel Item-->
                 <div class="carousel-item">
                     <div class="item">
                         <div class="carousel-item-box">
-                            <h2 >Telegram Function</h2>
+                            <h2>Telegram Function</h2>
                             <!-- Trigger the Modal -->
-                            <img id="sec-carousel-modal" class="carousel-img img-responsive" src="img/carousel_2.jpg" 
+                            <img id="sec-carousel-modal" class="carousel-img img-responsive" src="img/carousel_2.jpg"
                                 alt="We have used Telegram API to automatically message you when you have received a reply!
-                                Share with us your telegram ID and let the magic happens!" style="width:100%"> 
+                                Share with us your telegram ID and let the magic happens!" style="width:100%">
                             <p class="caption">You will never be too far from making friends</p>
                         </div>
                     </div>
@@ -142,10 +152,10 @@
                 <div class="carousel-item">
                     <div class="item">
                         <div class="carousel-item-box">
-                            <h2 >Message in a Bottle</h2>
+                            <h2>Message in a Bottle</h2>
                             <!-- Trigger the Modal -->
-                            <img id="third-carousel-modal" class="carousel-img img-responsive" src="img/carousel_3.jpeg" 
-                                alt="Visit the Catch Bottle Page to catch one today!" style="width:100%"> 
+                            <img id="third-carousel-modal" class="carousel-img img-responsive" src="img/carousel_3.jpeg"
+                                alt="Visit the Catch Bottle Page to catch one today!" style="width:100%">
                             <p class="caption">Catch one to learn more about a future friend</p>
                         </div>
                     </div>
@@ -155,10 +165,10 @@
                 <div class="carousel-item">
                     <div class="item">
                         <div class="carousel-item-box">
-                            <h2 >Look at where you have encountered friends</h2>
+                            <h2>Look at where you have encountered friends</h2>
                             <!-- Trigger the Modal -->
-                            <img id="fourth-carousel-modal" class="carousel-img img-responsive" src="img/carousel_4.png" 
-                                alt="A world of 7 billion people to meet" style="width:100%"> 
+                            <img id="fourth-carousel-modal" class="carousel-img img-responsive" src="img/carousel_4.png"
+                                alt="A world of 7 billion people to meet" style="width:100%">
                             <p class="caption">Friends from everywhere!</p>
                         </div>
                     </div>
@@ -168,63 +178,64 @@
                 <div class="carousel-item">
                     <div class="item">
                         <div class="carousel-item-box">
-                            <h2 >Send your very own Bottle</h2>
+                            <h2>Send your very own Bottle</h2>
                             <!-- Trigger the Modal -->
-                            <img id="fifth-carousel-modal" class="carousel-img img-responsive" src="img/carousel_5.jpeg" 
+                            <img id="fifth-carousel-modal" class="carousel-img img-responsive" src="img/carousel_5.jpeg"
                                 alt="We have used Telegram API to automatically message you when you have received a reply!
-                                Share with us your telegram ID and let the magic happens!" style="width:100%"> 
+                                Share with us your telegram ID and let the magic happens!" style="width:100%">
                             <p class="caption">Send a bottle out today!</p>
                         </div>
                     </div>
                 </div>
 
 
-                 <!-- Sixth carousel Item-->
+                <!-- Sixth carousel Item-->
                 <div class="carousel-item">
                     <div class="item">
                         <div class="carousel-item-box">
-                            <h2 >Brought to you by</h2>
+                            <h2>Brought to you by</h2>
                             <!-- Trigger the Modal -->
-                            <img id="sixth-carousel-modal" class="carousel-img" src="img/carousel_6.png" 
-                                alt="From top to bottom, left to right: JavaScript, Vue.js, CSS, Bootstrap and HTML" style="width:100%">    
-                            <p class="caption">Us! And the wonderful people behind these frameworks!</p>  
-                        </div> 
+                            <img id="sixth-carousel-modal" class="carousel-img" src="img/carousel_6.png"
+                                alt="From top to bottom, left to right: JavaScript, Vue.js, CSS, Bootstrap and HTML"
+                                style="width:100%">
+                            <p class="caption">Us! And the wonderful people behind these frameworks!</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- press left to slide to previous pic-->
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlides" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <!-- press right to slide to next pic-->
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselSlides" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlides" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <!-- press right to slide to next pic-->
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselSlides" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
         </div>
     </div>
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
-    <!-- The Close Button -->
-    <span class="close">&times;</span>
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
 
-    <!-- Modal Content (The Image) -->
-    <img class="modal-content" id="img02">
-    <img class="modal-content" id="img03">
-    <img class="modal-content" id="img04">
-    <img class="modal-content" id="img05">
-    <img class="modal-content" id="img06">
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img02">
+        <img class="modal-content" id="img03">
+        <img class="modal-content" id="img04">
+        <img class="modal-content" id="img05">
+        <img class="modal-content" id="img06">
 
-    <!-- Modal Caption (Image Text) -->
-    <div id="caption"></div>
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
     </div>
-    
-    
+
+
 
     <h2 class="title">The Team</h2>
 
@@ -236,8 +247,8 @@
                     <img src="img/waitingToBeChange.gif" class="card-img-top d-block img-fluid" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Adam Ho</h5>
-                        <p class="card-text">Introduce yourself. Choose a picture. Insert your social media links if you want. The picture size and links can fix later</p>
-                        
+                        <p class="card-text">Life is like the ocean. It has its ups and downs.</p>
+
                         <!-- Social Media Links -->
                         <a class="links" href="https://github.com/">
                             <img class="social_media_icon" src="img/github_icon.png" alt="">
@@ -257,10 +268,10 @@
 
             <div class="card-container col-lg-3 col-sm-6 col-12 d-flex justify-content-center">
                 <div class="card">
-                    <img src="img/Ailys_Portrait.png" class="card-img-top" alt="...">
+                    <img src="img/waitingToBeChange.gif" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Ailys Tee</h5>
-                        <p class="card-text">Hi. Bye.</p>
+                        <p class="card-text">Life is like the ocean. It has its ups and downs.</p>
 
                         <!-- Social Media Links -->
                         <a class="links" href="https://github.com/">
@@ -284,7 +295,7 @@
                     <img src="img/waitingToBeChange.gif" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Sun Tianjing</h5>
-                        <p class="card-text">Introduce yourself. Choose a picture. Insert your social media links if you want. The picture size and links can fix later</p>
+                        <p class="card-text">Life is like the ocean. It has its ups and downs.</p>
 
                         <!-- Social Media Links -->
                         <a class="links" href="https://github.com/">
@@ -308,8 +319,8 @@
                     <img src="img/waitingToBeChange.gif" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Wei Yifan</h5>
-                        <p class="card-text">Introduce yourself. Choose a picture. Insert your social media links if you want. The picture size and links can fix later</p>
-                        
+                        <p class="card-text">Life is like the ocean. It has its ups and downs.</p>
+
                         <!-- Social Media Links -->
                         <a class="links" href="https://github.com/">
                             <img class="social_media_icon" src="img/github_icon.png" alt="">
@@ -346,7 +357,7 @@
         var img = document.getElementById("sec-carousel-modal");
         var modalImg = document.getElementById("img02");
         var captionText = document.getElementById("caption");
-        img.onclick = function(){
+        img.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
@@ -357,7 +368,7 @@
         var img = document.getElementById("third-carousel-modal");
         var modalImg = document.getElementById("img03");
         var captionText = document.getElementById("caption");
-        img.onclick = function(){
+        img.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
@@ -367,7 +378,7 @@
         var img = document.getElementById("fourth-carousel-modal");
         var modalImg = document.getElementById("img04");
         var captionText = document.getElementById("caption");
-        img.onclick = function(){
+        img.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
@@ -378,18 +389,18 @@
         var img = document.getElementById("fifth-carousel-modal");
         var modalImg = document.getElementById("img05");
         var captionText = document.getElementById("caption");
-        img.onclick = function(){
+        img.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
         }
 
-        
+
         // Sixth carousel Modal
         var img = document.getElementById("sixth-carousel-modal");
         var modalImg = document.getElementById("img06");
         var captionText = document.getElementById("caption");
-        img.onclick = function(){
+        img.onclick = function () {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
@@ -398,11 +409,9 @@
         var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
-
-
     </script>
 
     <!-- Bundled Bootstrap JS -->
@@ -410,8 +419,9 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
-    
-    
+
+
 
 </body>
+
 </html>
