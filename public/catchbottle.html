@@ -634,7 +634,7 @@
             } else {
               console.log("adding new the user:", user)
               var updates = {};
-              
+
               // date is added only at the time you connect with other
               updates['/friends/' + user + "/" + fri + "/date"] = today;
               updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
@@ -644,7 +644,7 @@
               // set to pending ------
 
               updates['/friends/' + user + "/" + fri + "/notify"] = "false";
-              
+
 
               // end ----------
               firebase.database().ref().update(updates);
