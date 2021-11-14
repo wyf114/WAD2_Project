@@ -648,9 +648,11 @@
                     firebase.database().ref().update(updates);
                     document.getElementById("status_acc").innerText = "Updated.";
                     document.getElementById("status_acc").setAttribute("class", "text-success");
+                    document.getElementById("status_acc").style.textAlign ="center";
                 } else {
                     document.getElementById("status_acc").innerText = "User does not exist.";
                     document.getElementById("status_acc").setAttribute("class", "text-danger");
+                    document.getElementById("status_acc").style.textAlign ="center";
                 }
             });
         }
@@ -762,15 +764,15 @@
         }
 
         document.getElementById("countryCoordinate").setAttribute("class", "text-danger");
-        document.getElementById("password").addEventListener("change", () => {
+        document.getElementById("password").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("verify").addEventListener("change", () => {
+        document.getElementById("verify").addEventListener("keyup", () => {
             checkInputPassword();
             checkallInputs();
         });
-        document.getElementById("gender").addEventListener("change", () => {
+        document.getElementById("gender").addEventListener("click", () => {
             checkGender();
             checkallInputs();
         });
