@@ -266,7 +266,13 @@
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close" @click="closeFriend"> &#8592;Back</span>
-          <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%">
+
+          <!-- if sender has profile pic -->
+          <img v-if="imgPath != ''" :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%">
+          <!-- if sender does not have profile pic -->
+          <img v-else src="img/unknown_user.png" alt="displayName" style="width:20%; margin:0 40% 0 40%; border-radius: 50%;">
+
+          <!-- <img :src="imgPath" :alt="displayName" style="width:20%; margin:0 40% 0 40%"> -->
           <div id="text" style="text-align: center;">
             {{displayName}}
             <br>
@@ -596,7 +602,16 @@
           user.once('value').then((snapshot) => {
             var sender = snapshot.val();
             // console.log(sender)
-            this.imgPath = sender['img_head']
+
+            var imgPath = ""
+            if (sender === undefined || sender['img_head'] === undefined) {
+                  console.log("sender doesn't have profile pic")
+              } else if (sender['img_head'] !== undefined) {
+                  console.log("sender has profile pic")
+                  this.imgPath = sender['img_head']
+              }
+
+            // this.imgPath = sender['img_head']
             this.gender = sender['gender']
             this.description = sender['description']
             console.log(this.imgPath, this.description, this.gender)
