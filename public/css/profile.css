@@ -186,14 +186,14 @@ textarea {
         position: absolute;
         height:auto;
         width: 100%;
-        bottom: 50%;
+        bottom: 40%;
         z-index: 99999;
     }
     
     #body {
         position: absolute;
         width: 100%;
-        bottom: 20%;
+        bottom: 5%;
         z-index: -1;
     }
 
@@ -201,7 +201,7 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 5%;
+        bottom: -10%;
         z-index: -2;
     }
 }
@@ -280,7 +280,7 @@ textarea {
 
     .parts {
         width: 200px;
-        height: 405px;
+        height: 415px;
         margin-left: 0 auto;
         margin-right: 0 auto;
         position: relative;
@@ -290,20 +290,20 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 50%;
+        bottom: 40%;
     }
     
     #body {
         position: absolute;
         width: 100%;
-        bottom: 18%;
+        bottom: 8%;
         z-index: -1;
     }
     
     #leg {
         position: absolute;
         width: 100%;
-        bottom: 5%;
+        bottom: -5%;
         z-index: -2;
     }
 }
@@ -458,20 +458,20 @@ textarea {
         position: absolute;
         height: auto;
         width: 100%;
-        bottom: 48%;
+        bottom: 43%;
     }
     
     #body {
         position: absolute;
         width: 100%;
-        bottom: 16%;
+        bottom: 11%;
         z-index: -1;
     }
     
     #leg {
         position: absolute;
         width: 100%;
-        bottom: -1%;
+        bottom: -6%;
         z-index: -2;
     }
 }
