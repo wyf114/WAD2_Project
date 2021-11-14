@@ -306,7 +306,7 @@
                         <div id="hiddenCoordinates" hidden></div>
 
 
-                        <input class="yellowBtn" id="update" type="button" value="Update" onclick="checkallInputs()">
+                        <input class="yellowBtn" id="update" type="button" value="Update" onclick="updateUser()" disabled>
                         <div id="registerStatus" class="text-danger"></div>
 
                     </form>
@@ -643,7 +643,8 @@
                     updates['/users/' + username + "/" + 'gender'] = gender;
                     updates['/users/' + username + "/" + 'coordinates'] = JSON.parse(coordinates);
                     firebase.database().ref().update(updates);
-                    return true
+                    document.getElementById("status_acc").innerText = "Updated.";
+                    document.getElementById("status_acc").setAttribute("class", "text-success");
                 } else {
                     document.getElementById("status_acc").innerText = "User does not exist.";
                     document.getElementById("status_acc").setAttribute("class", "text-danger");
@@ -749,17 +750,10 @@
 
         function checkallInputs() {
             if (checkInputPassword() && checkGender() && checkCoordinatesInput()) {
-                if (updateUser()) {
-                    document.getElementById("status_acc").innerText = "";
-                    document.getElementById("status_acc").innerText = "User has been updated.";
-                    document.getElementById("status_acc").setAttribute("class", "text-success");
-                    // empty the text box after update
-                    document.getElementById('password').value = '';
-                    document.getElementById("verify").value = '';
-
-                }
+                document.getElementById("update").disabled = false;
+                document.getElementById("registerStatus").innerHTML = "";
             } else {
-                document.getElementById("status_acc").innerHTML = "All fields must be filled correctly!";
+                document.getElementById("update").disabled = true;
             }
 
         }
