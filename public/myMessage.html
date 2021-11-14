@@ -391,11 +391,20 @@
 
                     senderUserInfo = firebase.database().ref(`friends/${username}/${sender_name}`);
                     is_friend = senderUserInfo.once('value').then((snapshot) => {
-                        if (snapshot.exists()) {
+                        var friend = snapshot.val();
+                        if (friend['send_request']) {
                             console.log("user is already a friend");
                             is_friend = true;
                             return true;
-                        } else {
+                        }
+
+                        // if (snapshot.exists()) {
+
+                        //     console.log("user is already a friend");
+                        //     is_friend = true;
+                        //     return true;
+                        // } 
+                        else {
                             console.log("sender is not a friend yet :x")
                             is_friend = false;
                             return is_friend;
@@ -420,6 +429,7 @@
                             var updates = {};
                             updates['/friends/' + user + "/" + fri + "/date"] = today;
                             updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+                            updates['/friends/' + user + "/" + fri + "/send_request"] = 'true';
                             updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
                             // set to pending ------
@@ -436,6 +446,7 @@
                             var updates = {};
                             updates['/friends/' + user + "/" + fri + "/date"] = today;
                             updates['/friends/' + user + "/" + fri + "/imgPath"] = imgPath;
+                            updates['/friends/' + user + "/" + fri + "/send_request"] = 'true';
                             updates['/friends/' + fri + "/" + user + "/request"] = 'true';
 
                             // set to pending ------
