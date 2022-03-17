@@ -16,3 +16,4 @@ Inside the chat, click START -> /getid -> copy and paste the chat id into the in
 
 ## Highlights
 this webpage is highly embeded on Firebase, there maybe some legging due to the network connection issue.
+##
